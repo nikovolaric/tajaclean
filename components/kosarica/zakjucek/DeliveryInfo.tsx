@@ -1,0 +1,211 @@
+"use client";
+
+import { useCartContext } from "@/components/ContextProvider";
+import { Input } from "@/components/Input";
+import { H2 } from "@/components/Text";
+import { useEffect, useState } from "react";
+
+function DeliveryInfo() {
+  const [isSame, setIsSame] = useState(true);
+  const { buyer, delivery, setDelivery } = useCartContext();
+
+  useEffect(
+    function () {
+      const {
+        firstName,
+        lastName,
+        company,
+        taxNo,
+        address,
+        city,
+        postal,
+        country,
+      } = buyer;
+
+      setDelivery({
+        firstName,
+        lastName,
+        company,
+        taxNo,
+        address,
+        city,
+        postal,
+        country,
+      });
+    },
+    [buyer],
+  );
+
+  function handleClick() {
+    if (isSame) {
+      setIsSame(false);
+      setDelivery({
+        firstName: "",
+        lastName: "",
+        company: "",
+        taxNo: "",
+        address: "",
+        city: "",
+        postal: "",
+        country: "",
+      });
+    } else {
+      setIsSame(true);
+      const {
+        firstName,
+        lastName,
+        company,
+        taxNo,
+        address,
+        city,
+        postal,
+        country,
+      } = buyer;
+
+      setDelivery({
+        firstName,
+        lastName,
+        company,
+        taxNo,
+        address,
+        city,
+        postal,
+        country,
+      });
+    }
+  }
+
+  return (
+    <>
+      <div className="flex flex-col gap-10 xl:order-3 xl:w-3/4">
+        <H2>
+          Podatki <span className="italic">za dostavo</span>
+        </H2>
+        <div className="flex items-center gap-6">
+          <div
+            className="border-primary flex h-3.5 w-3.5 flex-none cursor-pointer items-center justify-center rounded-full border bg-white select-none"
+            onClick={handleClick}
+          >
+            <span
+              className={`h-2 w-2 rounded-full ${isSame ? "bg-primary" : ""}`}
+            />
+          </div>
+          <label>Podatki za dostavo se ujemajo s podatki za račun.</label>
+        </div>
+        {!isSame && (
+          <form className="grid gap-6 lg:grid-cols-2 lg:gap-x-5 lg:gap-y-10">
+            <div>
+              <label>Ime</label>
+              <Input
+                required
+                placeholder="Vnesite svoje ime"
+                name="firstName"
+                onChange={(e) =>
+                  setDelivery({ ...delivery, firstName: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label>Priimek</label>
+              <Input
+                required
+                placeholder="Vnesite svoj priimek"
+                name="lastName"
+                onChange={(e) =>
+                  setDelivery({ ...delivery, lastName: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label>Ime podjetja (opcijsko)</label>
+              <Input
+                placeholder="Vnesite ime podjetja"
+                name="company"
+                onChange={(e) =>
+                  setDelivery({ ...delivery, company: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label>ID za DDV (opcijsko)</label>
+              <Input
+                placeholder="Vnesite ID za DDV"
+                name="taxNo"
+                onChange={(e) =>
+                  setDelivery({ ...delivery, taxNo: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label>Ulica in hišna številka</label>
+              <Input
+                required
+                placeholder="Vnesite ulico s hišno številko"
+                name="address"
+                onChange={(e) =>
+                  setDelivery({ ...delivery, address: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label>Kraj</label>
+              <Input
+                required
+                placeholder="Vnesite kraj"
+                name="city"
+                onChange={(e) =>
+                  setDelivery({ ...delivery, city: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label>Poštna številka</label>
+              <Input
+                required
+                placeholder="Vnesite ulico s hišno številko"
+                name="postal"
+                onChange={(e) =>
+                  setDelivery({ ...delivery, firstName: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <label>Država</label>
+              <Input
+                required
+                placeholder="Slovenija"
+                name="country"
+                onChange={(e) =>
+                  setDelivery({ ...delivery, firstName: e.target.value })
+                }
+              />
+            </div>
+          </form>
+        )}
+      </div>
+      <div className="hidden xl:order-4 xl:block" />
+      <div className="flex flex-col gap-10 xl:order-5 xl:w-3/4">
+        <H2>
+          Način <span className="italic">dostave</span>
+        </H2>
+        <div className="bg-primary/5 flex items-center justify-between p-4">
+          <div className="flex items-center gap-6">
+            <div className="border-primary flex h-3.5 w-3.5 cursor-not-allowed items-center justify-center rounded-full border bg-white select-none">
+              <span className={`bg-primary h-2 w-2 rounded-full`} />
+            </div>
+            <label>Pošta Slovenije.</label>
+          </div>
+          <p className="font-semibold">
+            {new Intl.NumberFormat("sl-SI", {
+              style: "currency",
+              currency: "EUR",
+            }).format(3.2)}
+          </p>
+        </div>
+      </div>
+      <div className="hidden xl:order-6 xl:block" />
+    </>
+  );
+}
+
+export default DeliveryInfo;

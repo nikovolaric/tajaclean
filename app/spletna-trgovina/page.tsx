@@ -1,0 +1,32 @@
+import { type Metadata } from "next";
+import FAQ from "@/components/FAQ";
+import PageHeader from "@/components/PageHeader";
+import Reviews from "@/components/Reviews";
+import WhyUs from "@/components/spletna-trgovina/WhyUs";
+import Articles from "@/components/spletna-trgovina/Articles";
+import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Spletna trgovina",
+};
+
+function Page() {
+  return (
+    <>
+      <PageHeader page="SPLETNA TRGOVINA">
+        <span className="italic">Ena krpica - trije paketi. </span>Izberite
+        svojega!
+      </PageHeader>
+      <main>
+        <Suspense>
+          <Articles />
+        </Suspense>
+        <WhyUs />
+        <Reviews />
+        <FAQ />
+      </main>
+    </>
+  );
+}
+
+export default Page;
