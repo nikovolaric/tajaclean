@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import { ButtonHTMLAttributes } from "react";
-import {  useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 
 type Variant = "primary" | "secondary";
 
@@ -10,7 +10,7 @@ interface CustomButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 function Button({ children, variant, ...rest }: CustomButtonProps) {
-const {pending} = useFormStatus()
+  const { pending } = useFormStatus();
 
   const style: Record<string, string> = {
     primary:
@@ -23,9 +23,9 @@ const {pending} = useFormStatus()
     <button
       {...rest}
       className={`${style[variant as string]} ${rest.className}`}
-      disabled={pending}
+      disabled={rest.disabled ?? pending}
     >
-      {pending?"...":children}
+      {pending ? "..." : children}
     </button>
   );
 }

@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 type BuyerType = {
   firstName: string;
@@ -31,6 +38,10 @@ type CartContextType = {
   setBuyer: (buyer: BuyerType) => void;
   delivery: DeliveryType;
   setDelivery: (delivery: DeliveryType) => void;
+  paymentMethod: string;
+  setPaymentMethod: (paymentMethod: string) => void;
+  subscribe: boolean;
+  setSubscribe: (subscribe: boolean) => void;
 };
 
 const defaultBuyer: BuyerType = {
@@ -69,11 +80,39 @@ export function useCartContext() {
 }
 
 function ContextProvider({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const router = useRouter();
+
   const [buyer, setBuyer] = useState<BuyerType>(defaultBuyer);
   const [delivery, setDelivery] = useState<DeliveryType>(defaultDelivery);
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [subscribe, setSubscribe] = useState(true);
+
+  useEffect(
+    function () {
+      if (
+        pathname === "/kosarica/zakljucek-nakupa/placilo" &&
+        (!buyer.firstName || !delivery.firstName)
+      ) {
+        router.push("/kosarica/zakljucek-nakupa");
+      }
+    },
+    [pathname, buyer, delivery, router],
+  );
 
   return (
-    <CartContext.Provider value={{ buyer, setBuyer, delivery, setDelivery }}>
+    <CartContext.Provider
+      value={{
+        buyer,
+        setBuyer,
+        delivery,
+        setDelivery,
+        paymentMethod,
+        setPaymentMethod,
+        subscribe,
+        setSubscribe,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
