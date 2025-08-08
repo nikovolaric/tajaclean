@@ -241,15 +241,9 @@ function PaymentMethod() {
                       cart,
                       subscribe,
                     });
-
-                    // navigate(`${pathname}/success`);
-                  }}
-                  onCancel={() => {
-                    console.log("error");
-                    // navigate(pathname);
                   }}
                   onError={(err) => {
-                    console.error("Napaka pri plačilu:", err);
+                    console.log(err);
                   }}
                 />
               </PayPalScriptProvider>
@@ -279,7 +273,7 @@ function PaymentMethod() {
                 <br />
                 <br />
                 Da krpice čim prej krenejo na pot, vas prosimo, da na mail
-                anja@tajaclean.com pošljete informacijo o izvedenem plačilu.
+                anja@tajaclean.si pošljete informacijo o izvedenem plačilu.
                 Dovolj je le vaša številka naročila in beseda plačano.
                 <br />
                 <br />

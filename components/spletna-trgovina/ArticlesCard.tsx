@@ -24,6 +24,8 @@ function ArticlesCard({
   const [quantity, setQuantity] = useState(0);
 
   function handleClick() {
+    if (quantity === 0) return;
+
     const curCart = localStorage.getItem("cart");
 
     const cartData = {

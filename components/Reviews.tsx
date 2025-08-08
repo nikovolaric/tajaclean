@@ -20,7 +20,7 @@ const options = [
     review:
       "Sprva sem bila skeptična, ampak te krpice dejansko delujejo. Površine so res čiste, brez lis, pa še brez kemikalij. Zdaj jih uporabljam vsak dan.",
     author: "Marija N.",
-    stars: 4,
+    stars: 5,
   },
 ];
 
@@ -29,14 +29,14 @@ function Reviews() {
 
   function handleLeftClick() {
     if (slide === 0) {
-      setSlide(2);
+      setSlide(options.length - 1);
     } else {
       setSlide((slide) => slide - 1);
     }
   }
 
   function handleRightClick() {
-    if (slide === 2) {
+    if (slide === options.length - 1) {
       setSlide(0);
     } else {
       setSlide((slide) => slide + 1);
@@ -62,13 +62,13 @@ function Reviews() {
           </p>
           <div className="flex items-center gap-4 justify-self-end">
             <button
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-white"
+              className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-white"
               onClick={handleLeftClick}
             >
               <ArrowLeft height={24} className="text-secondary1" />
             </button>
             <button
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-white"
+              className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-white"
               onClick={handleRightClick}
             >
               <ArrowRight height={24} className="text-secondary1" />

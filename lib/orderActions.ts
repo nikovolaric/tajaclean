@@ -1,5 +1,6 @@
 "use server";
 
+import { sendConfirmOrder } from "@/config/mail";
 import { createClient } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 
@@ -15,7 +16,7 @@ export async function createOrder({
   paymentMethod,
   subscribe,
 }: {
-  buyer: unknown;
+  buyer: Record<string, string>;
   delivery: unknown;
   cart: {
     id: string;
@@ -24,13 +25,19 @@ export async function createOrder({
     packQ: number;
     price: number;
     quantity: number;
+    discountPrice?: number;
   }[];
   paymentMethod: string;
   subscribe: boolean;
 }) {
   try {
     const updatedCart = cart.map((i) => {
-      return { name: i.name, price: i.price, qunatity: i.quantity };
+      return {
+        name: i.name,
+        price: i.price,
+        quantity: i.quantity,
+        discountPrice: i.discountPrice,
+      };
     });
     const total_price = parseFloat(
       cart.reduce((c, a) => c + a.price, 3.2).toFixed(2),
@@ -44,6 +51,13 @@ export async function createOrder({
       total_price,
       subscribe,
       status: "Nepregledano",
+      id: parseFloat(
+        `${new Date().toLocaleDateString("sl-SI", { year: "2-digit" })}${Math.floor(
+          Math.random() * 10000,
+        )
+          .toString()
+          .padStart(4, "0")}`,
+      ),
     };
 
     const { error } = await supabase.from("orders").insert(body);
@@ -52,7 +66,16 @@ export async function createOrder({
       throw error;
     }
 
-    // redirect("/");
+    await sendConfirmOrder({
+      orderId: String(body.id),
+      buyer: { name: buyer.firstName, mail: buyer.email },
+      date: new Date().toString(),
+      totalPrice: total_price,
+      cart: updatedCart,
+      paymentMethod,
+    });
+
+    redirect("/");
   } catch (error) {
     if ((error as Error).message === "NEXT_REDIRECT") {
       redirect("/nakup-uspesen");
