@@ -2,8 +2,8 @@
 
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useFormStatus } from "react-dom";
 import Button from "../Button";
+import { getOneDiscountByName } from "@/lib/discountActions";
 
 function Discount() {
   const [discount, setDiscount] = useState("");
@@ -18,48 +18,49 @@ function Discount() {
   }, []);
 
   async function handleAction(formData: FormData) {
+    setError("");
     try {
       const discount = formData.get("discount") as string;
 
-      const res = await fetch(
-        `/api/discounts/getCode?name=${discount.toUpperCase()}`,
-      );
+      const data = await getOneDiscountByName(discount);
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw Error(data.message);
+      if (data.message) {
+        if (data.details === "The result contains 0 rows") {
+          throw new Error("Koda ne obstaja oz. je neveljavna!");
+        } else {
+          throw data;
+        }
       }
 
-      const articlesString = localStorage.getItem("articles");
+      const cartString = localStorage.getItem("cart");
 
-      if (articlesString) {
-        const articles = JSON.parse(articlesString);
+      if (cartString) {
+        const cart = JSON.parse(cartString);
 
-        const articlesDiscount = articles.map(
+        const cartDiscount = cart.map(
           (article: { discountPrice?: number; price: number }) => {
             if (article.discountPrice) return article;
             if (!article.discountPrice)
               return {
                 ...article,
                 discountPrice: parseFloat(
-                  (article.price * (1 - data.discount.value)).toFixed(2),
+                  (article.price * (1 - data.value)).toFixed(2),
                 ),
                 code: true,
               };
           },
         );
 
-        localStorage.setItem("articles", JSON.stringify(articlesDiscount));
+        localStorage.setItem("cart", JSON.stringify(cartDiscount));
         localStorage.setItem(
           "discount",
-          JSON.stringify({ name: data.discount.name, _id: data.discount._id }),
+          JSON.stringify({ name: data.name, _id: data._id }),
         );
 
         window.dispatchEvent(new Event("cart-updated"));
       }
 
-      setDiscount(data.discount.name);
+      setDiscount(data.name);
       setError("");
     } catch (err) {
       console.log(err);
@@ -68,12 +69,12 @@ function Discount() {
   }
 
   function handleRemoveDiscount() {
-    const articlesString = localStorage.getItem("articles");
+    const cartString = localStorage.getItem("cart");
 
-    if (articlesString) {
-      const articles = JSON.parse(articlesString);
+    if (cartString) {
+      const cart = JSON.parse(cartString);
 
-      const updatedArticles = articles.map(
+      const updatedCart = cart.map(
         (article: { code?: number; discountPrice?: number; price: number }) => {
           if (article.code) {
             const newArticle = { ...article };
@@ -86,7 +87,7 @@ function Discount() {
         },
       );
 
-      localStorage.setItem("articles", JSON.stringify(updatedArticles));
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
       localStorage.removeItem("discount");
 
       window.dispatchEvent(new Event("cart-updated"));
@@ -111,9 +112,11 @@ function Discount() {
           POTRDI
         </Button>
       </form>
-      {error && <p className="text-alert text-sm font-medium">{error}</p>}
+      {error && (
+        <p className="text-alert order-3 text-sm font-medium">{error}</p>
+      )}
       {discount && (
-        <div className="flex items-center justify-between">
+        <div className="order-3 flex items-center justify-between">
           <p className="font-semibold">{discount}</p>
           <X
             height={24}

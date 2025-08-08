@@ -27,6 +27,7 @@ function PaymentMethod() {
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState("");
   const [cart, setCart] = useState([]);
+  const [code, setCode] = useState("");
   const [id, setId] = useState("");
   const [card, setCard] = useState({
     name: "",
@@ -37,10 +38,15 @@ function PaymentMethod() {
 
   function updateCart() {
     const cartString = localStorage.getItem("cart");
+    const codeString = localStorage.getItem("discount");
     if (cartString) {
       setCart(JSON.parse(cartString));
     } else {
       setCart([]);
+    }
+
+    if (codeString) {
+      setCode(JSON.parse(codeString).name);
     }
   }
 
@@ -64,7 +70,11 @@ function PaymentMethod() {
     handleClick("card");
 
     if (!id) {
-      const amount = cart.reduce((c, a: { price: number }) => c + a.price, 3.2);
+      const amount = cart.reduce(
+        (c, a: { price: number; discountPrice?: number }) =>
+          c + (a.discountPrice ? a.discountPrice : a.price),
+        3.2,
+      );
 
       const data = await createSession({
         amount: parseFloat(amount.toFixed(2)),
@@ -89,7 +99,14 @@ function PaymentMethod() {
         }
       }
 
-      await createOrder({ buyer, delivery, paymentMethod, cart, subscribe });
+      await createOrder({
+        buyer,
+        delivery,
+        paymentMethod,
+        cart,
+        subscribe,
+        code,
+      });
     } catch (error) {
       setErr((error as Error).message);
     } finally {
@@ -222,7 +239,12 @@ function PaymentMethod() {
                             currency_code: "EUR",
                             value: cart
                               .reduce(
-                                (c, a: { price: number }) => c + a.price,
+                                (
+                                  c,
+                                  a: { price: number; discountPrice?: number },
+                                ) =>
+                                  c +
+                                  (a.discountPrice ? a.discountPrice : a.price),
                                 3.2,
                               )
                               .toFixed(2),
@@ -240,6 +262,7 @@ function PaymentMethod() {
                       paymentMethod,
                       cart,
                       subscribe,
+                      code,
                     });
                   }}
                   onError={(err) => {

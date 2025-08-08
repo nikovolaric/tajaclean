@@ -66,6 +66,7 @@ function Summary() {
             packQ: number;
             quantity: number;
             price: number;
+            discountPrice?: number;
           }) => (
             <div key={item.id} className="flex items-center justify-between">
               <p className="flex flex-col gap-2 font-semibold">
@@ -87,7 +88,11 @@ function Summary() {
                   {new Intl.NumberFormat("sl-SI", {
                     style: "currency",
                     currency: "EUR",
-                  }).format(item.price * item.quantity)}
+                  }).format(
+                    item.discountPrice
+                      ? item.discountPrice
+                      : item.price * item.quantity,
+                  )}
                 </span>
               </p>
             </div>

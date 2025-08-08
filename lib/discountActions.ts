@@ -20,13 +20,13 @@ export async function createDiscount(formData: FormData) {
     const { error } = await supabase.from("discounts").insert(data);
 
     if (error) {
-      return error;
+      throw error;
     }
 
     revalidatePath("/admin/popusti");
   } catch (error) {
     console.log(error);
-    return error;
+    return error as Error;
   }
 }
 
@@ -35,13 +35,13 @@ export async function deleteDiscount(id: string) {
     const { error } = await supabase.from("discounts").delete().eq("id", id);
 
     if (error) {
-      return error;
+      throw error;
     }
 
     revalidatePath("/admin/popusti");
   } catch (error) {
     console.log(error);
-    return error;
+    return error as Error;
   }
 }
 
@@ -54,13 +54,32 @@ export async function getOneDiscount(id: string) {
       .single();
 
     if (error) {
-      return error;
+      throw error;
     }
 
     return data;
   } catch (error) {
     console.log(error);
-    return error;
+    return error as Error;
+  }
+}
+
+export async function getOneDiscountByName(name: string) {
+  try {
+    const { data, error } = await supabase
+      .from("discounts")
+      .select()
+      .eq("name", name.toUpperCase())
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error as Error;
   }
 }
 
@@ -78,7 +97,7 @@ export async function updateDiscount(formData: FormData, id: string) {
       .eq("id", id);
 
     if (error) {
-      return error;
+      throw error;
     }
 
     revalidatePath("/admin/popusti");
@@ -87,6 +106,6 @@ export async function updateDiscount(formData: FormData, id: string) {
     if ((error as Error).message === "NEXT_REDIRECT")
       redirect("/admin/popusti");
     console.log(error);
-    return error;
+    return error as Error;
   }
 }

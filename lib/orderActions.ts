@@ -16,6 +16,7 @@ export async function createOrder({
   cart,
   paymentMethod,
   subscribe,
+  code,
 }: {
   buyer: Record<string, string>;
   delivery: unknown;
@@ -30,6 +31,7 @@ export async function createOrder({
   }[];
   paymentMethod: string;
   subscribe: boolean;
+  code?: string;
 }) {
   try {
     const updatedCart = cart.map((i) => {
@@ -41,7 +43,12 @@ export async function createOrder({
       };
     });
     const total_price = parseFloat(
-      cart.reduce((c, a) => c + a.price, 3.2).toFixed(2),
+      cart
+        .reduce(
+          (c, a) => c + (a.discountPrice ? a.discountPrice : a.price),
+          3.2,
+        )
+        .toFixed(2),
     );
 
     const body = {
@@ -59,6 +66,7 @@ export async function createOrder({
           .toString()
           .padStart(4, "0")}`,
       ),
+      code,
     };
 
     const { error } = await supabase.from("orders").insert(body);
@@ -66,6 +74,9 @@ export async function createOrder({
     if (error) {
       throw error;
     }
+
+    if (code)
+      await supabase.rpc("increment", { x: 1, name: code.toUpperCase() });
 
     await sendConfirmOrder({
       orderId: String(body.id),
