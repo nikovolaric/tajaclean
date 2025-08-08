@@ -1,9 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import IGIcon from "./icons/IGIcon";
 import FBIcon from "./icons/FBIcon";
+import { usePathname } from "next/navigation";
 
 function Footer() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/admin") || pathname.startsWith("/login")) {
+    return <></>;
+  }
+
   return (
     <footer
       className="mt-35 mb-20 grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-3"

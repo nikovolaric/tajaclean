@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import Bag from "./icons/Bag";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { X } from "lucide-react";
 
 function NavMenu() {
+  const pathname = usePathname();
   const router = useRouter();
   const [cart, setCart] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -32,6 +33,10 @@ function NavMenu() {
       window.removeEventListener("cart-updated", handleCartUpdate);
     };
   }, []);
+
+  if (pathname.startsWith("/admin") || pathname.startsWith("/login")) {
+    return <></>;
+  }
 
   return (
     <>

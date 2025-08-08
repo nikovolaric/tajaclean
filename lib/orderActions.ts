@@ -2,6 +2,7 @@
 
 import { sendConfirmOrder } from "@/config/mail";
 import { createClient } from "@supabase/supabase-js";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 const supabase = createClient(
@@ -80,5 +81,32 @@ export async function createOrder({
     if ((error as Error).message === "NEXT_REDIRECT") {
       redirect("/nakup-uspesen");
     }
+    return error;
+  }
+}
+
+export async function updateOrderStatus({
+  id,
+  status,
+}: {
+  id: number;
+  status: string;
+}) {
+  try {
+    const { error } = await supabase
+      .from("orders")
+      .update({ status: status })
+      .eq("id", id);
+
+    if (error) {
+      throw error;
+    }
+
+    revalidatePath("/admin");
+  } catch (error) {
+    if ((error as Error).message === "NEXT_REDIRECT") {
+      redirect("/nakup-uspesen");
+    }
+    return error;
   }
 }
