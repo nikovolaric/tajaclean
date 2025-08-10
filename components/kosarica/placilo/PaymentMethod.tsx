@@ -116,9 +116,7 @@ function PaymentMethod() {
 
   return (
     <div className="flex flex-col gap-10 xl:w-3/4">
-      <H2>
-        Način <span className="italic">plačila</span>
-      </H2>
+      <H2>Način plačila</H2>
       <form className="bg-primary/5 grid gap-10 px-4 py-6 lg:px-6 lg:py-10">
         <div className="grid gap-6">
           <div className="flex items-center gap-6">

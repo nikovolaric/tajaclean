@@ -7,10 +7,7 @@ import { H2 } from "../Text";
 function WhyUs() {
   return (
     <div className="grid gap-12 py-10 lg:py-16">
-      <H2 className="text-center">
-        Zakaj je TajaClean vaša{" "}
-        <span className="italic">najboljša izbira?</span>
-      </H2>
+      <H2 className="text-center">Zakaj je TajaClean vaša najboljša izbira?</H2>
       <div className="grid grid-cols-2 justify-items-center gap-x-5 gap-y-8 lg:grid-cols-4">
         <div className="grid justify-items-center gap-6 lg:gap-12">
           <Hand />

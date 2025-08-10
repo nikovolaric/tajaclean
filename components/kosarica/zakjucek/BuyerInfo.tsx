@@ -9,9 +9,7 @@ function BuyerInfo() {
 
   return (
     <div className="flex flex-col gap-10 xl:w-3/4">
-      <H2>
-        Podatki <span className="italic">za račun</span>
-      </H2>
+      <H2>Podatki za račun</H2>
       <form className="grid gap-6 lg:grid-cols-2 lg:gap-x-5 lg:gap-y-10">
         <div>
           <label>Ime</label>

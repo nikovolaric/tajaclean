@@ -6,7 +6,7 @@ import LinkBtn from "./LinkBtn";
 const qAndAs = [
   {
     q: "Ali res lahko čistim samo z vodo?",
-    a: "Da. Zaradi napredne strukture mikrovlaken krpica učinkovito odstrani umazanijo, prah in maščobo – brez uporabe čistil. Voda je dovolj za večino površin, kar pomeni manj kemikalij v vašem domu.",
+    a: "Da. Zaradi napredne strukture mikrovlaken krpica učinkovito odstrani umazanijo, prah in maščobo in do 99,8 % bakterij – brez uporabe čistil. Voda zadostuje za večino površin, kar pomeni manj kemikalij v vašem domu.",
   },
   {
     q: "Kako dolgo krpica zdrži?",

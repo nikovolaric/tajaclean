@@ -78,9 +78,7 @@ function DeliveryInfo() {
   return (
     <>
       <div className="flex flex-col gap-10 xl:order-3 xl:w-3/4">
-        <H2>
-          Podatki <span className="italic">za dostavo</span>
-        </H2>
+        <H2>Podatki za dostavo</H2>
         <div className="flex items-center gap-6">
           <div
             className="border-primary flex h-3.5 w-3.5 flex-none cursor-pointer items-center justify-center rounded-full border bg-white select-none"
@@ -185,9 +183,7 @@ function DeliveryInfo() {
       </div>
       <div className="hidden xl:order-4 xl:block" />
       <div className="flex flex-col gap-10 xl:order-5 xl:w-3/4">
-        <H2>
-          Način <span className="italic">dostave</span>
-        </H2>
+        <H2>Način dostave</H2>
         <div className="bg-primary/5 flex items-center justify-between p-4">
           <div className="flex items-center gap-6">
             <div className="border-primary flex h-3.5 w-3.5 cursor-not-allowed items-center justify-center rounded-full border bg-white select-none">

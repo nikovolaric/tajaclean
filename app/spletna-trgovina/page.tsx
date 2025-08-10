@@ -14,8 +14,7 @@ function Page() {
   return (
     <>
       <PageHeader page="SPLETNA TRGOVINA">
-        <span className="italic">Ena krpica - trije paketi. </span>Izberite
-        svojega!
+        Ena krpica - trije paketi. Izberite svojega!
       </PageHeader>
       <main>
         <Suspense>

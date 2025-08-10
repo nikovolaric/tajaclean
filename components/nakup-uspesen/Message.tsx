@@ -12,9 +12,7 @@ function Message() {
 
   return (
     <div className="grid gap-10">
-      <H2>
-        Vaše naročilo je bilo <span className="italic">uspešno oddano!</span>
-      </H2>
+      <H2>Vaše naročilo je bilo uspešno oddano!</H2>
       <p>
         Zahvaljujemo se vam za vaše zaupanje in vam želimo prijetno uporabo naše
         čudežne krpice!

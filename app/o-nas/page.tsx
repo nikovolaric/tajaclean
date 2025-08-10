@@ -12,8 +12,7 @@ function Page() {
   return (
     <>
       <PageHeader page="O NAS">
-        <span className="italic">Večletna tradicija</span> - brez kompromisov
-        pri kakovosti.
+        Večletna tradicija - brez kompromisov pri kakovosti.
       </PageHeader>
       <main>
         <WhoAreWe />

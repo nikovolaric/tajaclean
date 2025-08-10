@@ -13,22 +13,22 @@ function WhatAreMicroFibers() {
         className="h-auto max-h-70 w-full object-cover md:max-h-90 lg:max-h-100 xl:order-2 xl:max-h-120"
       />
       <div className="grid gap-10 xl:gap-14">
-        <H2>Kaj so in zakaj mikrovlakna?</H2>
+        <H2>Kaj je TajaClean?</H2>
         <p>
-          Revolucionarni tekstilni material, iz ekstremno dolgih
-          mikrofilamentov. Ponaša se z izjemno učinkovitostjo pri čiščenju,
-          brisanju, poliranju in sušenju (suši se 3x hitreje od bombaža). Ima
-          izredne vpojne lastnosti (vpije do 400% svoje teže). Z lahkoto
-          odstrani umazanijo, prah, tekočine, maščobe in obarvanost. Odlična je
-          za uporabo tako v gospodinjstvu, kot tudi v industriji.
+          Revolucionarna čistilna krpa je stisnjena iz mikrovlaken in ne tkana
+          kot ostale krpe. Zasnovana tako, da ne pušča muck ali sledi. Njena
+          trda in trpežna sestava omogoča, da lažje drgnemo trdovratne
+          umazanije, brez poškodb na površini. Milijarde prepletenih
+          mikrofilamentov delujejo kot grabilčki, ki ujamejo in zadržijo tudi
+          najmanjše delce umazanije. Pobriše celo bakterije, ter za sabo pusti
+          samo čisto površino.
           <br />
           <br />
-          Krpica Taja CLEAN je stisnjena iz mikrovlaken in ne tkana kot ostale
-          krpe. Njena trda in trpežna sestava omogoča, da lažje drgnemo
-          trdovratne umazanije, brez poškodb na površini. Miljarde prepletenih
-          mikrofilamentov delujejo kot grabilčki, ki lovijo drobne delce
-          umazanije in bakterije kot magnet, ter za sabo puščajo samo čisto
-          površino.
+          Ponaša se z izjemno učinkovitostjo pri čiščenju, poliranju in sušenju
+          (sušu se 3x hitreje od bombaža). Ima izredne vpojne lastnosti (vpije
+          do 400% svoje teže). Z lahkoto odstrani umazanijo, prah, tekočine,
+          maščobo in obarvanost. Odlična je za uporabo tako v gospodinjstvu, kot
+          tudi v industriji.
         </p>
         <LinkBtn
           href="/o-nas"

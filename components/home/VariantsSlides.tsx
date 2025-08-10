@@ -10,7 +10,6 @@ const options = [
     description:
       "Pametni paket vsebuje 3 čudežne krpice, v velikosti 40x40 cm.\n\nZa tiste, ki se prvič srečujete s čudežno krpico. Dovolj za osnovna gospodinjska opravila in popoln uvod v čistočo brez čistil.",
     price: 12.5,
-    saving: 5,
     img: "/starter.jpg",
   },
   {
@@ -18,7 +17,7 @@ const options = [
     description:
       "Pametni paket vsebuje 5 čudežnih krpic, v velikosti 40x40 cm.\n\nZa tiste, ki že veste, kako učinkovite so krpice TajaClean. Dovolj za več prostorov in vsakodnevno uporabo – praktična izbira za urejen dom.",
     price: 19.7,
-    saving: 5,
+    saving: 0.05,
     img: "/smart.jpg",
   },
   {
@@ -26,7 +25,7 @@ const options = [
     description:
       "Pametni paket vsebuje 10 čudežnih krpic, v velikosti 40x40 cm.\n\nZa tiste, ki brez TAJA CLEAN ne morejo več. Dovolj krpic za celoten dom, avto, službo – in še ostane kakšna za deliti z drugimi.",
     price: 36.2,
-    saving: 5,
+    saving: 0.22,
     img: "/modri.jpg",
   },
 ];
@@ -70,7 +69,7 @@ function VariantsCard({
     name: string;
     description: string;
     price: number;
-    saving: number;
+    saving?: number;
     img: string;
   };
   onLeftClick: () => void;
@@ -102,13 +101,16 @@ function VariantsCard({
             currency: "EUR",
           }).format(price)}
         </p>
-        <p className="text-secondary1">
-          Vaš prihranek:{" "}
-          {new Intl.NumberFormat("sl-SI", {
-            style: "currency",
-            currency: "EUR",
-          }).format(saving)}
-        </p>
+        {saving ? (
+          <p className="text-secondary1">
+            Vaš prihranek:{" "}
+            {new Intl.NumberFormat("sl-SI", {
+              style: "percent",
+            }).format(saving)}
+          </p>
+        ) : (
+          <span />
+        )}
       </div>
     </div>
   );

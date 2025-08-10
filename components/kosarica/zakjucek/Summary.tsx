@@ -55,9 +55,7 @@ function Summary() {
 
   return (
     <div className="flex flex-col gap-10 xl:order-2">
-      <H2>
-        Povzetek <span className="italic">naročila</span>
-      </H2>
+      <H2>Povzetek naročila</H2>
       <div className="bg-primary/5 flex flex-col gap-6 px-4 py-6 lg:px-6 lg:py-10">
         {cart.map(
           (item: {
