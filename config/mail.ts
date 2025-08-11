@@ -3,7 +3,7 @@ import { createTransport, SendMailOptions, TransportOptions } from "nodemailer";
 const transporterOptions = {
   host: process.env.EMAIL_HOST,
   port: process.env.EMAIL_PORT,
-  // secure: true,
+  secure: process.env.NODE_ENV === "production",
   auth: {
     user: process.env.EMAIL_USERNAME,
     pass: process.env.EMAIL_PASSWORD,
