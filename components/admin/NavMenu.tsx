@@ -31,7 +31,7 @@ function NavMenu({ newOrders }: { newOrders?: number }) {
             Oglasna deska
           </Link>
         </li>{" "}
-        <li
+        {/* <li
           className={`bg-bg rounded-md ${pathname.startsWith("/admin/artikli") ? "inset-shadow-[0.5px_0.5px_4px_rgba(0,0,0,0.25)]" : ""}`}
         >
           <Link
@@ -47,7 +47,7 @@ function NavMenu({ newOrders }: { newOrders?: number }) {
             />
             Artikli
           </Link>
-        </li>{" "}
+        </li>{" "} */}
         <li
           className={`bg-bg rounded-md ${pathname.startsWith("/admin/narocila") ? "inset-shadow-[0.5px_0.5px_4px_rgba(0,0,0,0.25)]" : ""}`}
         >
@@ -106,7 +106,7 @@ function NavMenu({ newOrders }: { newOrders?: number }) {
             Kode za popust
           </Link>
         </li>{" "}
-        <li
+        {/* <li
           className={`bg-bg rounded-md ${pathname.startsWith("/admin/urejevalnik") ? "inset-shadow-[0.5px_0.5px_4px_rgba(0,0,0,0.25)]" : ""}`}
         >
           <Link
@@ -122,7 +122,7 @@ function NavMenu({ newOrders }: { newOrders?: number }) {
             />
             Urejevalnik
           </Link>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );
