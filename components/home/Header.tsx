@@ -13,7 +13,7 @@ function Header() {
         className="object-cover opacity-55"
         sizes="100vw"
       />
-      <div className="relative mx-4 grid max-w-[1440px] justify-items-start gap-10 pt-70 md:mx-8 md:justify-items-center md:gap-12 md:pt-80 lg:mx-20 lg:pt-93 xl:mx-auto xl:px-20">
+      <div className="animate-start relative mx-4 grid max-w-[1440px] justify-items-start gap-10 pt-70 md:mx-8 md:justify-items-center md:gap-12 md:pt-80 lg:mx-20 lg:pt-93 xl:mx-auto xl:px-20">
         <H1>Ena krpica - vse površine.</H1>
         <p className="max-w-[662px] md:text-center lg:text-xl">
           Čudežna krpica TajaClean vsaki površini zagotovi naraven sijaj, brez

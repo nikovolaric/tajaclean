@@ -5,6 +5,7 @@ import Reviews from "@/components/Reviews";
 import WhyUs from "@/components/spletna-trgovina/WhyUs";
 import Articles from "@/components/spletna-trgovina/Articles";
 import { Suspense } from "react";
+import Spinner from "@/components/Spinner";
 
 export const metadata: Metadata = {
   title: "Spletna trgovina",
@@ -17,7 +18,7 @@ function Page() {
         Ena krpica - trije paketi. Izberite svojega!
       </PageHeader>
       <main>
-        <Suspense>
+        <Suspense fallback={<Spinner />}>
           <Articles />
         </Suspense>
         <WhyUs />
