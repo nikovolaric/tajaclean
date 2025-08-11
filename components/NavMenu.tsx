@@ -61,7 +61,7 @@ function NavMenu() {
               className={`relative h-6 w-auto ${cart.length > 0 ? "fill-white" : ""}`}
             />
             {cart.length > 0 && (
-              <p className="text-alert absolute top-0.5 left-1.5 text-[10px] font-medium md:top-1.5 md:left-2 md:text-xs">
+              <p className="text-alert absolute top-0.5 left-1.5 text-[10px] font-medium md:top-1.5 md:left-[9px] md:text-xs">
                 {cart.length}
               </p>
             )}
@@ -161,7 +161,7 @@ function PhoneLinks({
           stroke="#EDEAE5"
         />
         {cart.length > 0 && (
-          <p className="text-alert absolute top-1.5 left-2 text-xs font-medium">
+          <p className="text-alert absolute top-1.5 left-[9px] text-xs font-medium">
             {cart.length}
           </p>
         )}

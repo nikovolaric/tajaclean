@@ -1,11 +1,11 @@
-import Image from "next/image";
 import { H2 } from "../Text";
 import LinkBtn from "../LinkBtn";
+import AniImage from "./AniImage";
 
 function WhatAreMicroFibers() {
   return (
     <div className="grid gap-10 md:mx-auto md:w-2/3 xl:w-full xl:grid-cols-2 xl:gap-x-5">
-      <Image
+      <AniImage
         src="/packs.jpg"
         alt="Paketi"
         width={610}

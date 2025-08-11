@@ -5,6 +5,7 @@ import Link from "next/link";
 import IGIcon from "./icons/IGIcon";
 import FBIcon from "./icons/FBIcon";
 import { usePathname } from "next/navigation";
+import LinkBtn from "./LinkBtn";
 
 function Footer() {
   const pathname = usePathname();
@@ -59,7 +60,7 @@ function Footer() {
           </Link>
         </div>
       </div>
-      <div className="grid gap-10">
+      <div className="col-span-2 grid gap-10 lg:col-span-1">
         <div>
           <h4 className="font-lora mb-8 font-medium">Kontakt</h4>
           <p className="leading-6">
@@ -76,6 +77,26 @@ function Footer() {
             <IGIcon className="cursor-pointer" />
           </Link>
         </div>
+      </div>
+      <div className="col-span-2 flex flex-col gap-8 lg:col-span-3 lg:grid lg:grid-cols-3">
+        <LinkBtn variant="secondary" href="/">
+          NASTAVITVE PIŠKOTKOV
+        </LinkBtn>
+        <LinkBtn variant="secondary" href="/">
+          POGOJI POSLOVANJA
+        </LinkBtn>
+      </div>
+      <div className="col-span-2 flex flex-col gap-6 lg:col-span-3 lg:mt-6 lg:flex-row lg:justify-between">
+        <p>
+          &copy;{new Date().getFullYear()}, ANINEO, d.o.o. Vse pravice
+          pridržane.
+        </p>
+        <p>
+          Spletni razvoj in oblikovanje:{" "}
+          <Link href="https://www.lamastrategies.com" target="_blank">
+            LAMA Strategies
+          </Link>{" "}
+        </p>
       </div>
     </footer>
   );

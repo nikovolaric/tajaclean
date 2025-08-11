@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { H2, H3 } from "../Text";
+import AniImage from "./AniImage";
 
 const options = [
   {
@@ -29,7 +29,7 @@ function Steps() {
             key={i}
             className={`flex flex-col gap-6 ${i === 1 ? "md:mt-[33%]" : i === 2 ? "md:mt-[66%]" : ""}`}
           >
-            <Image
+            <AniImage
               src={el.img}
               alt={el.name}
               width={420}

@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { H3 } from "../Text";
 import { LeafIcon } from "lucide-react";
+import AniImage from "../home/AniImage";
 
 const techs = [
   {
@@ -20,7 +20,7 @@ const techs = [
 function Technology() {
   return (
     <div className="grid gap-10 md:mx-auto md:w-2/3 xl:w-full xl:grid-cols-2 xl:gap-x-5">
-      <Image
+      <AniImage
         src="/homeBg.jpg"
         alt="Paketi"
         width={610}

@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { H2 } from "./Text";
 import FAQCard from "./FAQCard";
 import LinkBtn from "./LinkBtn";
+import AniImage from "./home/AniImage";
 
 const qAndAs = [
   {
@@ -25,7 +25,7 @@ const qAndAs = [
 function FAQ() {
   return (
     <div className="grid gap-10 md:mx-auto md:w-2/3 lg:w-full lg:grid-cols-2">
-      <Image
+      <AniImage
         src="/brush.jpg"
         alt="slika sekcije"
         width={610}

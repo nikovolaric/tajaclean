@@ -29,7 +29,7 @@ function Cart() {
 
   return (
     <div className="grid gap-12 lg:gap-18">
-      <h4 className="font-lora text-primary text-2xl font-semibold lg:text-[28px]">
+      <h4 className="font-lora text-primary text-2xl font-medium lg:text-[28px]">
         Vaša košarica
       </h4>
       <div className="flex flex-col gap-4 lg:gap-6">

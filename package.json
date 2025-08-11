@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.27.15",
     "@paypal/react-paypal-js": "^8.8.3",
+    "@radix-ui/themes": "^3.2.1",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.53.1",
     "@tiptap/extension-image": "^3.0.7",
