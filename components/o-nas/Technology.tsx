@@ -12,7 +12,7 @@ const techs = [
     text: "Krpice so bile zasnovane kot trajnostna alternativa papirnatim brisačkam in kemičnim čistilom, ki onesnažujejo okolje.",
   },
   {
-    title: "DOLGOROČNA UČInKOVITOST",
+    title: "DOLGOROČNA UČINKOVITOST",
     text: "Po številnih letih testiranja, se je izkazalo, da krpica zdrži stotine pranj z majhno izgubo učinkovitosti, kar je odlično razmerje med ceno in trajnostjo.",
   },
 ];

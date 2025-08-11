@@ -1,3 +1,4 @@
+import Link from "next/link";
 import FBIcon from "../icons/FBIcon";
 import IGIcon from "../icons/IGIcon";
 import { H2 } from "../Text";
@@ -10,8 +11,12 @@ function Comunity() {
           Postanite del naše skupnosti in nam sledite na družbenih omrežjih.
         </H2>
         <div className="flex items-center justify-center gap-10">
-          <FBIcon className="cursor-pointer" />
-          <IGIcon className="cursor-pointer" />
+          <Link href="https://www.facebook.com/tajaclean" target="_blank">
+            <FBIcon className="cursor-pointer" />
+          </Link>
+          <Link href="https://www.instagram.com/tajaclean/" target="_blank">
+            <IGIcon className="cursor-pointer" />
+          </Link>
         </div>
       </div>
     </div>

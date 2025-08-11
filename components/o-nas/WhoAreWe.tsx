@@ -17,15 +17,11 @@ function WhoAreWe() {
             Kdo smo in kaj je naša misija?
           </H2>
           <p>
-            Za začetek predlagam nekaj besed o sami zgodovini razvoja - kdo,
-            kje, kako je začel, zakaj, kaj je bilo njegovo vodilo, želja.
-            <br />
-            <br />
-            Taja Clean se je razvila iz želje po učinkovitem, okolju prijaznem
-            čiščenju – brez kemičnih čistil in odvečne embalaže. Že v prvih
+            TajaClean se je razvila iz želje po učinkovitem, okolju prijaznem
+            čiščenju - brez kemičnih čistil in odvečne embalaže. Že v prvih
             izdelkih njihov razvoj temelji na revolucionarni tehnologiji
-            mikrovlaken, ki omogoča dvojno funkcijo: globoko očistijo površine
-            in jih naravno razkužijo z vodo – brez kemikalij
+            mikrovlaken, ki omogočajo dvojno funkcijo: globoko čistijo površine
+            in jih naravno razkužijo le z vodo - brez kemikalij.
           </p>
         </div>
       </div>

@@ -25,7 +25,7 @@ function WhatAreMicroFibers() {
           <br />
           <br />
           Ponaša se z izjemno učinkovitostjo pri čiščenju, poliranju in sušenju
-          (sušu se 3x hitreje od bombaža). Ima izredne vpojne lastnosti (vpije
+          (suši se 3x hitreje od bombaža). Ima izredne vpojne lastnosti (vpije
           do 400% svoje teže). Z lahkoto odstrani umazanijo, prah, tekočine,
           maščobo in obarvanost. Odlična je za uporabo tako v gospodinjstvu, kot
           tudi v industriji.

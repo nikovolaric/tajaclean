@@ -69,8 +69,12 @@ function Footer() {
           </p>
         </div>
         <div className="flex items-center gap-6">
-          <FBIcon className="cursor-pointer" />
-          <IGIcon className="cursor-pointer" />
+          <Link href="https://www.facebook.com/tajaclean" target="_blank">
+            <FBIcon className="cursor-pointer" />
+          </Link>
+          <Link href="https://www.instagram.com/tajaclean/" target="_blank">
+            <IGIcon className="cursor-pointer" />
+          </Link>
         </div>
       </div>
     </footer>
