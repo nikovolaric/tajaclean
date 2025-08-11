@@ -53,7 +53,7 @@ function OrdersPage() {
           let query = supabase
             .from("orders")
             .select()
-            .order("created_at", { ascending: true });
+            .order("created_at", { ascending: false });
 
           if (name) {
             query = query.or(
