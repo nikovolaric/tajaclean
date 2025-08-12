@@ -1,5 +1,6 @@
 import Contact from "@/components/Contact";
 import FAQ from "@/components/FAQ";
+import FreeDeliveryTag from "@/components/FreeDeliveryTag";
 import Comunity from "@/components/home/Comunity";
 import Header from "@/components/home/Header";
 import Steps from "@/components/home/Steps";
@@ -22,6 +23,7 @@ export default function Home() {
         <Contact />
         <Comunity />
       </main>
+      <FreeDeliveryTag />
     </>
   );
 }

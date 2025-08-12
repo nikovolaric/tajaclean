@@ -22,6 +22,7 @@ function PaymentMethod() {
     setSubscribe,
     buyer,
     delivery,
+    notes,
   } = useCartContext();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -106,6 +107,7 @@ function PaymentMethod() {
         cart,
         subscribe,
         code,
+        notes,
       });
     } catch (error) {
       setErr((error as Error).message);
@@ -190,6 +192,7 @@ function PaymentMethod() {
                 <div>
                   <label>CVV/CVC</label>
                   <Input
+                    type="password"
                     required
                     placeholder="CVV/CVC"
                     autoComplete="off"
@@ -303,6 +306,32 @@ function PaymentMethod() {
             </div>
           )}
         </div>
+        <div className="grid gap-6">
+          <div className="flex items-center gap-6">
+            <div
+              className="border-primary flex h-3.5 w-3.5 flex-none cursor-pointer items-center justify-center rounded-full border bg-white select-none"
+              onClick={() => handleClick("povzetje")}
+            >
+              <span
+                className={`h-2 w-2 rounded-full ${paymentMethod === "povzetje" ? "bg-primary" : ""}`}
+              />
+            </div>
+            <label className="font-semibold">Po povzetju.</label>
+          </div>
+          {paymentMethod === "povzetje" && (
+            <div className="ml-6 flex gap-4">
+              <div className="flex h-5 w-5 flex-none items-center justify-center rounded-full border bg-white text-sm font-bold">
+                !
+              </div>
+              <p>
+                Po oddaji naročila, boste prejeli potrditveni e-mail.
+                <br />
+                <br />
+                Hvala za zaupanje.
+              </p>
+            </div>
+          )}
+        </div>
       </form>
       {err && <p className="text-alert font-medium">{err}</p>}
       <div className="flex gap-6">
@@ -316,7 +345,7 @@ function PaymentMethod() {
         </div>
         <label>
           Strinjam se, da prejemam tržna sporočila po e-pošti ali SMS
-          sporočilih, a prej navedene osebne podatke.
+          sporočilih, na prej navedene osebne podatke.
         </label>
       </div>
       <Button

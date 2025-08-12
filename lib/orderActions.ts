@@ -17,6 +17,7 @@ export async function createOrder({
   paymentMethod,
   subscribe,
   code,
+  notes,
 }: {
   buyer: Record<string, string>;
   delivery: unknown;
@@ -32,6 +33,7 @@ export async function createOrder({
   paymentMethod: string;
   subscribe: boolean;
   code?: string;
+  notes?: string;
 }) {
   try {
     const updatedCart = cart.map((i) => {
@@ -42,21 +44,45 @@ export async function createOrder({
         discountPrice: i.discountPrice,
       };
     });
-    const total_price = parseFloat(
+    const total = parseFloat(
       cart
         .reduce(
-          (c, a) => c + (a.discountPrice ? a.discountPrice : a.price),
-          3.2,
+          (c, a) =>
+            c +
+            (a.discountPrice
+              ? a.discountPrice * a.quantity
+              : a.price * a.quantity),
+          0,
         )
         .toFixed(2),
     );
+
+    function generateTotalPrice() {
+      if (paymentMethod === "povzetje" && total < 40) {
+        return total + 5.5;
+      }
+      if (paymentMethod !== "povzetje" && total < 40) {
+        return total + 3.2;
+      }
+      return total;
+    }
+
+    function generateDelivery() {
+      if (paymentMethod === "povzetje" && total < 40) {
+        return 5.5;
+      }
+      if (paymentMethod !== "povzetje" && total < 40) {
+        return 3.2;
+      }
+      return 0;
+    }
 
     const body = {
       buyer,
       delivery,
       cart: updatedCart,
       payment_method: paymentMethod,
-      total_price,
+      total_price: generateTotalPrice(),
       subscribe,
       status: "Nepregledano",
       id: parseFloat(
@@ -67,6 +93,7 @@ export async function createOrder({
           .padStart(4, "0")}`,
       ),
       code,
+      notes,
     };
 
     const { error } = await supabase.from("orders").insert(body);
@@ -82,9 +109,10 @@ export async function createOrder({
       orderId: String(body.id),
       buyer: { name: buyer.firstName, mail: buyer.email },
       date: new Date().toString(),
-      totalPrice: total_price,
+      totalPrice: generateTotalPrice(),
       cart: updatedCart,
       paymentMethod,
+      deliveryCost: generateDelivery(),
     });
 
     redirect("/");

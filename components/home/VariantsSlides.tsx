@@ -2,28 +2,55 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 const options = [
   {
     name: "ZAČETNI PAKET",
-    description:
-      "Pametni paket vsebuje 3 čudežne krpice, v velikosti 40x40 cm.\n\nZa tiste, ki se prvič srečujete s čudežno krpico. Dovolj za osnovna gospodinjska opravila in popoln uvod v čistočo brez čistil.",
+    description: (
+      <>
+        Pametni paket vsebuje{" "}
+        <span className="font-semibold">3 čudežne krpice</span>, v velikosti
+        40x40 cm.
+        <br />
+        <br />
+        Za tiste, ki se prvič srečujete s čudežno krpico. Dovolj za osnovna
+        gospodinjska opravila in popoln uvod v čistočo brez čistil.
+      </>
+    ),
     price: 12.5,
     img: "/starter.jpg",
   },
   {
     name: "PAMETNI PAKET",
-    description:
-      "Pametni paket vsebuje 5 čudežnih krpic, v velikosti 40x40 cm.\n\nZa tiste, ki že veste, kako učinkovite so krpice TajaClean. Dovolj za več prostorov in vsakodnevno uporabo – praktična izbira za urejen dom.",
+    description: (
+      <>
+        Pametni paket vsebuje{" "}
+        <span className="font-semibold">5 čudežnih krpic</span>, v velikosti
+        40x40 cm.
+        <br />
+        <br />
+        Za tiste, ki že veste, kako učinkovite so krpice TajaClean. Dovolj za
+        več prostorov in vsakodnevno uporabo – praktična izbira za urejen dom.
+      </>
+    ),
     price: 19.7,
     saving: 0.05,
     img: "/smart.jpg",
   },
   {
     name: "MODRI PAKET",
-    description:
-      "Pametni paket vsebuje 10 čudežnih krpic, v velikosti 40x40 cm.\n\nZa tiste, ki brez TAJA CLEAN ne morejo več. Dovolj krpic za celoten dom, avto, službo – in še ostane kakšna za deliti z drugimi.",
+    description: (
+      <>
+        Pametni paket vsebuje{" "}
+        <span className="font-semibold">10 čudežnih krpic</span>, v velikosti
+        40x40 cm.
+        <br />
+        <br />
+        Za tiste, ki brez TAJA CLEAN ne morejo več. Dovolj krpic za celoten dom,
+        avto, službo – in še ostane kakšna za deliti z drugimi.
+      </>
+    ),
     price: 36.2,
     saving: 0.22,
     img: "/modri.jpg",
@@ -67,7 +94,7 @@ function VariantsCard({
 }: {
   variant: {
     name: string;
-    description: string;
+    description: ReactNode;
     price: number;
     saving?: number;
     img: string;

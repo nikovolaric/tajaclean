@@ -4,17 +4,28 @@ import AniImage from "./AniImage";
 const options = [
   {
     name: "ZMOČI",
-    text: "Čudežno krpico aktiviramo v vodi, brez dodatnih čistil in kemikalij.",
+    text: (
+      <>Čudežno krpico aktiviramo v vodi, brez dodatnih čistil in kemikalij.</>
+    ),
     img: "/wet.jpg",
   },
   {
     name: "OŽEMI",
-    text: "Krpico pred uporabo dobro ožamemo in odstranimo odvečno vodo.",
+    text: (
+      <>
+        Krpico pred uporabo <span className="font-semibold">dobro</span>{" "}
+        ožamemo, da odstranimo odvečno vodo.
+      </>
+    ),
     img: "/squeeze.jpg",
   },
   {
     name: "BRIŠI",
-    text: "Že smo pripravljeni na brisanje. Ena krpica - vse površine, brez napora.",
+    text: (
+      <>
+        Že smo pripravljeni na brisanje. Ena krpica - vse površine, brez napora.
+      </>
+    ),
     img: "/clean.jpg",
   },
 ];

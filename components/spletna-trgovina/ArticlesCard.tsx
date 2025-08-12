@@ -21,7 +21,7 @@ function ArticlesCard({
 }) {
   const { name, description, price, favourite, id, packQ } = article;
 
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   function handleClick() {
     if (quantity === 0) return;

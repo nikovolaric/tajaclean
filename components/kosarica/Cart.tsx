@@ -5,11 +5,28 @@ import CartCard from "./CartCard";
 
 function Cart() {
   const [cart, setCart] = useState([]);
+  const [total, setTotal] = useState(0);
 
   function updateCart() {
     const cartString = localStorage.getItem("cart");
     if (cartString) {
       setCart(JSON.parse(cartString));
+
+      const cartTotal = JSON.parse(cartString).reduce(
+        (
+          a: number,
+          c: { discountPrice?: number; price: number; quantity: number },
+        ) => {
+          if (c.discountPrice) {
+            return a + c.discountPrice * c.quantity;
+          } else {
+            return a + c.price * c.quantity;
+          }
+        },
+        0,
+      );
+
+      setTotal(cartTotal);
     } else {
       setCart([]);
     }
@@ -55,7 +72,7 @@ function Cart() {
               {new Intl.NumberFormat("sl-SI", {
                 style: "currency",
                 currency: "EUR",
-              }).format(3.2)}
+              }).format(total < 40 ? 3.2 : 0)}
             </p>
           </div>
         )}

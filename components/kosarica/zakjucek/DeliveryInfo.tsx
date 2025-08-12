@@ -1,13 +1,49 @@
 "use client";
 
 import { useCartContext } from "@/components/ContextProvider";
-import { Input } from "@/components/Input";
+import { Input, Textarea } from "@/components/Input";
 import { H2 } from "@/components/Text";
 import { useEffect, useState } from "react";
 
 function DeliveryInfo() {
   const [isSame, setIsSame] = useState(true);
-  const { buyer, delivery, setDelivery } = useCartContext();
+  const { buyer, delivery, setDelivery, setNotes, notes } = useCartContext();
+  const [total, setTotal] = useState(0);
+
+  function updateCart() {
+    const cartString = localStorage.getItem("cart");
+    if (cartString) {
+      const cartTotal = JSON.parse(cartString).reduce(
+        (
+          a: number,
+          c: { discountPrice?: number; price: number; quantity: number },
+        ) => {
+          if (c.discountPrice) {
+            return a + c.discountPrice * c.quantity;
+          } else {
+            return a + c.price * c.quantity;
+          }
+        },
+        0,
+      );
+
+      setTotal(cartTotal);
+    } else {
+      setTotal(0);
+    }
+  }
+
+  useEffect(function () {
+    updateCart();
+
+    const handleCartUpdate = () => updateCart();
+
+    window.addEventListener("cart-updated", handleCartUpdate);
+
+    return () => {
+      window.removeEventListener("cart-updated", handleCartUpdate);
+    };
+  }, []);
 
   useEffect(
     function () {
@@ -101,6 +137,7 @@ function DeliveryInfo() {
                 onChange={(e) =>
                   setDelivery({ ...delivery, firstName: e.target.value })
                 }
+                defaultValue={delivery.firstName}
               />
             </div>
             <div>
@@ -112,6 +149,7 @@ function DeliveryInfo() {
                 onChange={(e) =>
                   setDelivery({ ...delivery, lastName: e.target.value })
                 }
+                defaultValue={delivery.lastName}
               />
             </div>
             <div>
@@ -122,6 +160,7 @@ function DeliveryInfo() {
                 onChange={(e) =>
                   setDelivery({ ...delivery, company: e.target.value })
                 }
+                defaultValue={delivery.company}
               />
             </div>
             <div>
@@ -132,6 +171,7 @@ function DeliveryInfo() {
                 onChange={(e) =>
                   setDelivery({ ...delivery, taxNo: e.target.value })
                 }
+                defaultValue={delivery.taxNo}
               />
             </div>
             <div>
@@ -143,6 +183,7 @@ function DeliveryInfo() {
                 onChange={(e) =>
                   setDelivery({ ...delivery, address: e.target.value })
                 }
+                defaultValue={delivery.address}
               />
             </div>
             <div>
@@ -154,6 +195,7 @@ function DeliveryInfo() {
                 onChange={(e) =>
                   setDelivery({ ...delivery, city: e.target.value })
                 }
+                defaultValue={delivery.city}
               />
             </div>
             <div>
@@ -163,8 +205,9 @@ function DeliveryInfo() {
                 placeholder="Vnesite ulico s hišno številko"
                 name="postal"
                 onChange={(e) =>
-                  setDelivery({ ...delivery, firstName: e.target.value })
+                  setDelivery({ ...delivery, postal: e.target.value })
                 }
+                defaultValue={delivery.postal}
               />
             </div>
             <div>
@@ -174,8 +217,9 @@ function DeliveryInfo() {
                 placeholder="Slovenija"
                 name="country"
                 onChange={(e) =>
-                  setDelivery({ ...delivery, firstName: e.target.value })
+                  setDelivery({ ...delivery, country: e.target.value })
                 }
+                defaultValue={delivery.country}
               />
             </div>
           </form>
@@ -183,6 +227,15 @@ function DeliveryInfo() {
       </div>
       <div className="hidden xl:order-4 xl:block" />
       <div className="flex flex-col gap-10 xl:order-5 xl:w-3/4">
+        <H2>Opombe</H2>
+        <Textarea
+          placeholder="Vnesite opombe"
+          onChange={(e) => setNotes(e.target.value)}
+          defaultValue={notes}
+        />
+      </div>
+      <div className="hidden xl:order-6 xl:block" />
+      <div className="flex flex-col gap-10 xl:order-7 xl:w-3/4">
         <H2>Način dostave</H2>
         <div className="bg-primary/5 flex items-center justify-between p-4">
           <div className="flex items-center gap-6">
@@ -195,11 +248,11 @@ function DeliveryInfo() {
             {new Intl.NumberFormat("sl-SI", {
               style: "currency",
               currency: "EUR",
-            }).format(3.2)}
+            }).format(total < 50 ? 3.2 : 0)}
           </p>
         </div>
       </div>
-      <div className="hidden xl:order-6 xl:block" />
+      <div className="hidden xl:order-8 xl:block" />
     </>
   );
 }

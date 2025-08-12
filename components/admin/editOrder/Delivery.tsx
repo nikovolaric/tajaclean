@@ -1,4 +1,4 @@
-function Delivery() {
+function Delivery({deliveryPrice}: {deliveryPrice:number}) {
   return (
     <div className="flex flex-col gap-4">
       <p className="text-xl font-semibold">Način dostave</p>
@@ -8,7 +8,7 @@ function Delivery() {
           {new Intl.NumberFormat("sl-SI", {
             style: "currency",
             currency: "EUR",
-          }).format(3.2)}
+          }).format(deliveryPrice)}
         </p>
       </div>
     </div>

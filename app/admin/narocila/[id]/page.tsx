@@ -8,6 +8,7 @@ import PaymentType from "@/components/admin/editOrder/PaymentType";
 import BuyerInfo from "@/components/admin/editOrder/BuyerInfo";
 import OrderStatus from "@/components/admin/editOrder/OrderStatus";
 import DeliveryInfo from "@/components/admin/editOrder/DeliveryInfo";
+import Subscribe from "@/components/admin/editOrder/Subscribe";
 
 export const metadata: Metadata = {
   title: "Uredi naročilo",
@@ -25,6 +26,25 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
 
   if (error) {
     <></>;
+  }
+
+  function generateDeliveryPrice() {
+    const cartTotal = data.cart.reduce(
+      (
+        c: number,
+        a: { price: number; discountPrice: number; quantity: number },
+      ) =>
+        c + a.discountPrice
+          ? a.discountPrice * a.quantity
+          : a.price * a.quantity,
+      0,
+    );
+
+    if (cartTotal === data.total_price) {
+      return 0;
+    } else {
+      return data.total_price - cartTotal;
+    }
   }
 
   return (
@@ -46,17 +66,18 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
         </p>
       </div>
       <BasicInfo order={data} />
-      <Delivery />
+      <Delivery deliveryPrice={generateDeliveryPrice()} />
       <OrderInfo
         cart={data.cart}
         discount={data.discount}
         totalPrice={data.total_price}
       />
-      <PaymentType paymentMethod={data.payment_method} />
+      <PaymentType paymentMethod={data.payment_method} notes={data.notes} />
       <BuyerInfo buyer={data.buyer} />
       {data.buyer.address === data.delivery.address && (
         <DeliveryInfo recepient={data.delivery} />
       )}
+      <Subscribe subscribe={data.subscribe} />
       <OrderStatus status={data.status} id={data.id} />
     </div>
   );

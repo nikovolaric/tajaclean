@@ -6,6 +6,7 @@ import WhyUs from "@/components/spletna-trgovina/WhyUs";
 import Articles from "@/components/spletna-trgovina/Articles";
 import { Suspense } from "react";
 import Spinner from "@/components/Spinner";
+import FreeDeliveryTag from "@/components/FreeDeliveryTag";
 
 export const metadata: Metadata = {
   title: "Spletna trgovina",
@@ -25,6 +26,7 @@ function Page() {
         <Reviews />
         <FAQ />
       </main>
+      <FreeDeliveryTag />
     </>
   );
 }

@@ -6,19 +6,56 @@ import AniImage from "./home/AniImage";
 const qAndAs = [
   {
     q: "Ali res lahko čistim samo z vodo?",
-    a: "Da. Zaradi napredne strukture mikrovlaken krpica učinkovito odstrani umazanijo, prah in maščobo in do 99,8 % bakterij – brez uporabe čistil. Voda zadostuje za večino površin, kar pomeni manj kemikalij v vašem domu.",
+    a: (
+      <>
+        Da. Zaradi napredne strukture mikrovlaken krpica učinkovito odstrani
+        umazanijo, prah in maščobo in do 99,8 % bakterij – brez uporabe čistil.
+        Voda zadostuje za večino površin, kar pomeni manj kemikalij v vašem
+        domu.
+      </>
+    ),
   },
   {
     q: "Kako dolgo krpica zdrži?",
-    a: "Da. Zaradi napredne strukture mikrovlaken krpica učinkovito odstrani umazanijo, prah in maščobo – brez uporabe čistil. Voda je dovolj za večino površin, kar pomeni manj kemikalij v vašem domu.",
+    a: (
+      <>
+        Ob pravilni negi lahko krpica zdrži več let. Z vsakim pranjem postane še
+        mehkejša in zato še prijetnejša ter učinkovitejša za uporabo.
+      </>
+    ),
   },
   {
     q: "Kako jo perem?",
-    a: "Da. Zaradi napredne strukture mikrovlaken krpica učinkovito odstrani umazanijo, prah in maščobo – brez uporabe čistil. Voda je dovolj za večino površin, kar pomeni manj kemikalij v vašem domu.",
+    a: (
+      <>
+        Lahko se spere samo pod tekočo vodo. Kadar pa je že bolj umazana, se
+        lahko pere v pralnem stroju do 90°C brez uporabe mehčalca. Pomembno je
+        tudi, da se pere s perilom, ki ne pušča muck. Suši se na prostem, brez
+        uporabe sušilnega stroja.
+      </>
+    ),
   },
   {
     q: "Za katere površine je primerna?",
-    a: "Da. Zaradi napredne strukture mikrovlaken krpica učinkovito odstrani umazanijo, prah in maščobo – brez uporabe čistil. Voda je dovolj za večino površin, kar pomeni manj kemikalij v vašem domu.",
+    a: (
+      <>
+        Za hitro in učinkovito čiščenje brez odvečnega truda se izvrstno izkaže
+        pri:{" "}
+        <ul className="mt-1 flex list-inside list-disc flex-col gap-1">
+          <li>čiščenju oken in ogledal;</li>{" "}
+          <li>čiščenju kopalniških in drugih keramičnih površin;</li>{" "}
+          <li>odstranjevanju vodnega kamna v začetni fazi;</li>
+          <li>
+            odstranjevanju različnih madežev iz tekstila, usnja, preprog...;
+          </li>{" "}
+          <li>
+            odstranjevanju maščob, nastalih zaradi stikov s kožo, na pametnih
+            telefonih, očalih, računalniških tipkovnicah...;
+          </li>{" "}
+          <li>čiščenju steklokeramičnih plošč</li>
+        </ul>
+      </>
+    ),
   },
 ];
 

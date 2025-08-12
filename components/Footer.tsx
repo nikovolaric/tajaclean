@@ -19,13 +19,6 @@ function Footer() {
       className="mt-35 mb-20 grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-3"
       id="contact"
     >
-      <Image
-        src="/footerLogo.svg"
-        alt="Logotip"
-        height={110}
-        width={110}
-        className="col-span-2 h-27.5 w-auto lg:col-span-3"
-      />
       <div>
         <h4 className="font-lora mb-8 font-medium">Podatki podjetja</h4>
         <p className="leading-6">
@@ -79,10 +72,10 @@ function Footer() {
         </div>
       </div>
       <div className="col-span-2 flex flex-col gap-8 lg:col-span-3 lg:grid lg:grid-cols-3">
-        <LinkBtn variant="secondary" href="/">
+        <LinkBtn variant="secondary" href="/pogoji-poslovanja">
           NASTAVITVE PIŠKOTKOV
         </LinkBtn>
-        <LinkBtn variant="secondary" href="/">
+        <LinkBtn variant="secondary" href="/pogoji-poslovanja">
           POGOJI POSLOVANJA
         </LinkBtn>
       </div>

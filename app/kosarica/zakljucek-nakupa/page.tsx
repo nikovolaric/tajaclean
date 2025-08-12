@@ -24,7 +24,7 @@ function Page() {
           <LinkBtn
             variant="primary"
             href="/kosarica/zakljucek-nakupa/placilo"
-            className="flex justify-center xl:order-7 xl:w-3/4"
+            className="flex justify-center xl:order-9 xl:w-3/4"
           >
             Nadaljuj na plačilo
           </LinkBtn>

@@ -1,12 +1,13 @@
 "use client";
 
+import { useCartContext } from "@/components/ContextProvider";
 import { H2 } from "@/components/Text";
 import { useState, useEffect } from "react";
 
 function Summary() {
+  const { paymentMethod } = useCartContext();
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
-  //   const [noDiscount, setNoDiscount] = useState(0);
 
   function updateCart() {
     const cartString = localStorage.getItem("cart");
@@ -27,14 +28,6 @@ function Summary() {
         0,
       );
 
-      // const cartNoDiscount = JSON.parse(cartString).reduce(
-      //   (a: number, c: { price: number; quantity: number }) => {
-      //     return a + c.price * c.quantity;
-      //   },
-      //   0,
-      // );
-
-      // setNoDiscount(cartNoDiscount);
       setTotal(cartTotal);
     } else {
       setCart([]);
@@ -52,6 +45,28 @@ function Summary() {
       window.removeEventListener("cart-updated", handleCartUpdate);
     };
   }, []);
+
+  function generateTotalDelivery() {
+    if (paymentMethod === "povzetje" && total < 40) {
+      return 5.5;
+    }
+    if (paymentMethod !== "povzetje" && total < 40) {
+      return 3.2;
+    }
+
+    return 0;
+  }
+
+  function generateTotal() {
+    if (paymentMethod === "povzetje" && total < 40) {
+      return total + 5.5;
+    }
+    if (paymentMethod !== "povzetje" && total < 40) {
+      return total + 3.2;
+    }
+
+    return total;
+  }
 
   return (
     <div className="flex flex-col gap-10 xl:order-2">
@@ -112,7 +127,7 @@ function Summary() {
               {new Intl.NumberFormat("sl-SI", {
                 style: "currency",
                 currency: "EUR",
-              }).format(3.2)}
+              }).format(generateTotalDelivery())}
             </p>
           </div>
           <div className="flex items-center justify-between">
@@ -131,7 +146,7 @@ function Summary() {
             {new Intl.NumberFormat("sl-SI", {
               style: "currency",
               currency: "EUR",
-            }).format(total + 3.2)}
+            }).format(generateTotal())}
           </p>
         </div>
       </div>

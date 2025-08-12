@@ -22,6 +22,7 @@ export async function sendConfirmOrder(options: {
     price: number;
     discountPrice?: number;
   }[];
+  deliveryCost: number;
 }) {
   //1. Create transporter
   const transporter = createTransport(transporterOptions);
@@ -118,7 +119,7 @@ export async function sendConfirmOrder(options: {
         <strong>${new Date(options.date).toLocaleDateString("sl-SI", { day: "2-digit", month: "2-digit", year: "numeric" })}</strong>.
       </p>
 
-      ${options.paymentMethod === "proforma" ? `<p>Ker ste se odločili za plačilo po predračunu, prosimo, da znesek nakažete na podatkee za plačilo spodaj. Za sklic uporabite št. naročilo <strong>${options.orderId}</strong>.</p>` : ""}
+      ${options.paymentMethod === "proforma" ? `<p>Ker ste se odločili za plačilo po predračunu, prosimo, da znesek nakažete na podatkee za plačilo spodaj. Za sklic uporabite št. naročila <strong>${options.orderId}</strong>.</p>` : ""}
     
       <table>
         <thead>
@@ -155,7 +156,7 @@ export async function sendConfirmOrder(options: {
               currency: "EUR",
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
-            }).format(3.2)}</td>
+            }).format(options.deliveryCost)}</td>
           </tr>     
         </tbody>
         <tfoot>
@@ -181,7 +182,7 @@ export async function sendConfirmOrder(options: {
       </table>
 
       <p class="info">
-        Način plačila: ${options.paymentMethod === "proforma" ? "Predračun" : options.paymentMethod === "paypal" ? "PayPal" : "Spletno plačilo"}<br />
+        Način plačila: ${options.paymentMethod === "proforma" ? "Predračun" : options.paymentMethod === "paypal" ? "PayPal" : options.paymentMethod === "paypal" ? "Po povzetju" : "Spletno plačilo"}<br />
         Način dostave: Pošta Slovenije
       </p>
 

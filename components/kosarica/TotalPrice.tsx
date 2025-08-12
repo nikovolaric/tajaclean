@@ -22,14 +22,14 @@ function TotalPrice() {
             return a + c.price * c.quantity;
           }
         },
-        3.2,
+        0,
       );
 
       const cartNoDiscount = cart.reduce(
         (a: number, c: { price: number; quantity: number }) => {
           return a + c.price * c.quantity;
         },
-        3.2,
+        0,
       );
 
       setNoDiscount(cartNoDiscount);
@@ -67,7 +67,7 @@ function TotalPrice() {
           {new Intl.NumberFormat("sl-SI", {
             style: "currency",
             currency: "EUR",
-          }).format(total > 3.2 ? total : 0)}
+          }).format(total > 3.2 ? (total < 40 ? total + 3.2 : total) : 0)}
         </p>
       </div>
     </div>

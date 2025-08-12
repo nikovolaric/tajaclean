@@ -1,9 +1,9 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
-function FAQCard({ qa, i }: { qa: { q: string; a: string }; i: string }) {
+function FAQCard({ qa, i }: { qa: { q: string; a: ReactNode }; i: string }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div
@@ -18,11 +18,11 @@ function FAQCard({ qa, i }: { qa: { q: string; a: string }; i: string }) {
           className={`text-neutral1/75 ml-auto ${isOpen ? "rotate-180" : ""}`}
         />
       </p>
-      {isOpen && (
-        <p className="mt-4 ml-8 text-sm font-light lg:mt-5 lg:text-base">
-          {qa.a}
-        </p>
-      )}
+      <div
+        className={`mt-4 ml-8 overflow-hidden text-sm font-light lg:mt-5 lg:text-base ${isOpen ? "open-faq" : "close-faq"}`}
+      >
+        {qa.a}
+      </div>
     </div>
   );
 }

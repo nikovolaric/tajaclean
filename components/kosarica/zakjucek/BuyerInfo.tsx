@@ -18,6 +18,7 @@ function BuyerInfo() {
             placeholder="Vnesite svoje ime"
             name="firstName"
             onChange={(e) => setBuyer({ ...buyer, firstName: e.target.value })}
+            defaultValue={buyer.firstName}
           />
         </div>
         <div>
@@ -27,6 +28,7 @@ function BuyerInfo() {
             placeholder="Vnesite svoj priimek"
             name="lastName"
             onChange={(e) => setBuyer({ ...buyer, lastName: e.target.value })}
+            defaultValue={buyer.lastName}
           />
         </div>
         <div>
@@ -36,6 +38,7 @@ function BuyerInfo() {
             placeholder="Vnesite elektronski naslov"
             name="email"
             onChange={(e) => setBuyer({ ...buyer, email: e.target.value })}
+            defaultValue={buyer.email}
           />
         </div>
         <div>
@@ -45,6 +48,7 @@ function BuyerInfo() {
             placeholder="Vnesite telefonsko številko"
             name="phone"
             onChange={(e) => setBuyer({ ...buyer, phone: e.target.value })}
+            defaultValue={buyer.phone}
           />
         </div>
         <div>
@@ -53,6 +57,7 @@ function BuyerInfo() {
             placeholder="Vnesite ime podjetja"
             name="company"
             onChange={(e) => setBuyer({ ...buyer, company: e.target.value })}
+            defaultValue={buyer.company}
           />
         </div>
         <div>
@@ -61,6 +66,7 @@ function BuyerInfo() {
             placeholder="Vnesite ID za DDV"
             name="taxNo"
             onChange={(e) => setBuyer({ ...buyer, taxNo: e.target.value })}
+            defaultValue={buyer.taxNo}
           />
         </div>
         <div>
@@ -70,6 +76,7 @@ function BuyerInfo() {
             placeholder="Vnesite ulico s hišno številko"
             name="address"
             onChange={(e) => setBuyer({ ...buyer, address: e.target.value })}
+            defaultValue={buyer.address}
           />
         </div>
         <div>
@@ -79,6 +86,7 @@ function BuyerInfo() {
             placeholder="Vnesite kraj"
             name="city"
             onChange={(e) => setBuyer({ ...buyer, city: e.target.value })}
+            defaultValue={buyer.city}
           />
         </div>
         <div>
@@ -88,6 +96,7 @@ function BuyerInfo() {
             placeholder="Vnesite ulico s hišno številko"
             name="postal"
             onChange={(e) => setBuyer({ ...buyer, postal: e.target.value })}
+            defaultValue={buyer.postal}
           />
         </div>
         <div>
@@ -97,6 +106,7 @@ function BuyerInfo() {
             placeholder="Slovenija"
             name="country"
             onChange={(e) => setBuyer({ ...buyer, country: e.target.value })}
+            defaultValue={buyer.country}
           />
         </div>
       </form>

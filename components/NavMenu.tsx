@@ -40,7 +40,7 @@ function NavMenu() {
 
   return (
     <>
-      <nav className="absolute left-1/2 z-[99] mt-6 flex w-full max-w-[1440px] -translate-x-1/2 items-center justify-between px-4 md:px-8 lg:px-20">
+      <nav className="absolute left-1/2 z-[99] mt-10 flex w-full max-w-[1440px] -translate-x-1/2 items-center justify-between px-4 md:px-8 lg:px-20">
         <Image
           src="/logo.avif"
           alt="logo"
