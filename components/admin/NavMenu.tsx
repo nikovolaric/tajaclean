@@ -106,7 +106,7 @@ function NavMenu({ newOrders }: { newOrders?: number }) {
             Kode za popust
           </Link>
         </li>{" "}
-        {/* <li
+        <li
           className={`bg-bg rounded-md ${pathname.startsWith("/admin/urejevalnik") ? "inset-shadow-[0.5px_0.5px_4px_rgba(0,0,0,0.25)]" : ""}`}
         >
           <Link
@@ -115,14 +115,14 @@ function NavMenu({ newOrders }: { newOrders?: number }) {
           >
             <Image
               src="/icons/editor.svg"
-              alt="Artikli"
+              alt="Urejevalnik"
               height={20}
               width={20}
               className="object-contain"
             />
             Urejevalnik
           </Link>
-        </li> */}
+        </li>
       </ul>
     </nav>
   );

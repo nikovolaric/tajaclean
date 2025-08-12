@@ -1,13 +1,19 @@
 import Link from "next/link";
-import { LinkHTMLAttributes } from "react";
+import { AnchorHTMLAttributes } from "react";
 
 type Variant = "primary" | "secondary";
 
-interface CustomLinkProps extends LinkHTMLAttributes<HTMLLinkElement> {
+interface CustomLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   variant?: Variant;
 }
 
-function LinkBtn({ variant, ...rest }: CustomLinkProps) {
+function LinkBtn({
+  variant,
+  children,
+  href,
+  className,
+  ...rest
+}: CustomLinkProps) {
   const style: Record<string, string> = {
     primary:
       "font-medium text-neutral3 uppercase bg-primary min-h-11 px-9.5 flex items-center cursor-pointer hover:bg-secondary1 transition-colors duration-200",
@@ -17,10 +23,11 @@ function LinkBtn({ variant, ...rest }: CustomLinkProps) {
 
   return (
     <Link
-      href={rest.href ?? "/"}
-      className={`${style[variant as string]} ${rest.className ?? ""}`}
+      href={href ?? "/"}
+      className={`${style[variant as string]} ${className ?? ""}`}
+      {...rest}
     >
-      {rest.children}
+      {children}
     </Link>
   );
 }

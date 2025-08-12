@@ -109,3 +109,38 @@ export async function updateDiscount(formData: FormData, id: string) {
     return error as Error;
   }
 }
+
+export async function getAllDiscounts() {
+  try {
+    const { data, error } = await supabase.from("discounts").select();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error as Error;
+  }
+}
+
+export async function getDiscountIncome(name: string) {
+  try {
+    const { data, error } = await supabase
+      .from("orders")
+      .select("total_price")
+      .eq("code", name.toUpperCase());
+
+    if (error) {
+      throw error;
+    }
+
+    const income = data.reduce((c, a) => c + a.total_price, 0);
+
+    return income;
+  } catch (error) {
+    console.log(error);
+    return error as Error;
+  }
+}

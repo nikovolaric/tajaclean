@@ -149,3 +149,40 @@ export async function updateOrderStatus({
     return error;
   }
 }
+
+export async function getTopProductsByMonth(date = new Date()) {
+  try {
+    const { data, error } = await supabase.rpc("get_top_products_by_month", {
+      target_month: date,
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getTotalOrdersByMonth(date = new Date()) {
+  try {
+    const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+    const startOfNextMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+
+    const { data, error } = await supabase
+      .from("orders")
+      .select("*")
+      .gte("created_at", startOfMonth.toISOString())
+      .lt("created_at", startOfNextMonth.toISOString());
+
+    if (error) {
+      throw error;
+    }
+
+    return data.length;
+  } catch (error) {
+    return error;
+  }
+}
