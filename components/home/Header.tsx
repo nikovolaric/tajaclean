@@ -20,7 +20,7 @@ function Header() {
           uporabe čistil in drugih agresivnih kemikalij.
         </p>
         <LinkBtn href="/spletna-trgovina" variant="primary">
-          Izberi svoj paket
+          Kupi svojo krpico
         </LinkBtn>
       </div>
     </header>

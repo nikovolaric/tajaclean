@@ -11,7 +11,6 @@ function ArticlesCard({
 }: {
   article: {
     name: string;
-    description: string;
     price: number;
     favourite: boolean;
     id: string;
@@ -19,7 +18,7 @@ function ArticlesCard({
   };
   img: string;
 }) {
-  const { name, description, price, favourite, id, packQ } = article;
+  const { name, price, favourite, id, packQ } = article;
 
   const [quantity, setQuantity] = useState(1);
 
@@ -78,7 +77,13 @@ function ArticlesCard({
       <p className="text-primary text-lg font-semibold md:text-center">
         {name}
       </p>
-      <p className="md:text-center">{description}</p>
+      <p className="md:text-center">
+        Paket vsebuje{" "}
+        <span className="font-semibold">
+          {packQ} {packQ === 3 ? "čudežne krpice" : "čudežnih krpic"}
+        </span>{" "}
+        v velikosti 40x40 cm.
+      </p>
       <div className="flex items-center justify-between md:mx-auto md:w-3/4">
         <p className="text-xl font-semibold">
           {new Intl.NumberFormat("sl-SI", {

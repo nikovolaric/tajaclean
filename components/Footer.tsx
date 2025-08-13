@@ -20,19 +20,25 @@ function Footer() {
       id="contact"
     >
       <div>
-        <h4 className="font-lora mb-8 font-medium">Podatki podjetja</h4>
-        <p className="leading-6">
-          ANINEO, d.o.o.
-          <br />
-          Trške gorce 1<br />
-          3252 Rogatec
-          <br />
-          Slovenija
-        </p>
+        <h4 className="font-lora mb-8 font-medium">Politika zasebnosti</h4>
+        <div className="grid gap-2">
+          <LinkBtn variant="secondary" href="/pogoji-poslovanja">
+            NASTAVITVE PIŠKOTKOV
+          </LinkBtn>
+          <LinkBtn variant="secondary" href="/pogoji-poslovanja">
+            POGOJI POSLOVANJA
+          </LinkBtn>
+        </div>
       </div>
       <div>
         <h4 className="font-lora mb-8 font-medium">Spletna stran</h4>
         <div className="flex flex-col">
+          <Link
+            className="hover:text-secondary1 leading-6 uppercase transition-colors duration-200"
+            href="/"
+          >
+            Domača stran
+          </Link>
           <Link
             className="hover:text-secondary1 leading-6 uppercase transition-colors duration-200"
             href="/spletna-trgovina"
@@ -59,7 +65,7 @@ function Footer() {
           <p className="leading-6">
             anja@tajaclean.si
             <br />
-            +386 40 306 996
+            <a href="tel:+38640306996">+386 40 306 996</a>
           </p>
         </div>
         <div className="flex items-center gap-6">
@@ -70,14 +76,6 @@ function Footer() {
             <IGIcon className="cursor-pointer" />
           </Link>
         </div>
-      </div>
-      <div className="col-span-2 flex flex-col gap-8 lg:col-span-3 lg:grid lg:grid-cols-3">
-        <LinkBtn variant="secondary" href="/pogoji-poslovanja">
-          NASTAVITVE PIŠKOTKOV
-        </LinkBtn>
-        <LinkBtn variant="secondary" href="/pogoji-poslovanja">
-          POGOJI POSLOVANJA
-        </LinkBtn>
       </div>
       <div className="col-span-2 flex flex-col gap-6 lg:col-span-3 lg:mt-6 lg:flex-row lg:justify-between">
         <p>

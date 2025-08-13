@@ -122,6 +122,9 @@ function PhoneLinks({
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }) {
   const router = useRouter();
+  function handleClick() {
+    setIsOpen(false);
+  }
 
   return (
     <div
@@ -131,30 +134,37 @@ function PhoneLinks({
       <Link
         href="/spletna-trgovina"
         className="hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200"
+        onClick={handleClick}
       >
         Spletna trgovina
       </Link>
       <Link
         href="/o-nas"
         className="hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200"
+        onClick={handleClick}
       >
         O nas
       </Link>
       <Link
         href="/blog"
         className="hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200"
+        onClick={handleClick}
       >
         Blog
       </Link>
       <Link
         href="#contact"
         className="hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200"
+        onClick={handleClick}
       >
         Kontakt
       </Link>
       <div
         className="relative cursor-pointer"
-        onClick={() => router.push("/kosarica")}
+        onClick={() => {
+          router.push("/kosarica");
+          setIsOpen(false);
+        }}
       >
         <Bag
           className={`relative h-6 w-auto ${cart.length > 0 ? "fill-white" : ""}`}

@@ -1,8 +1,7 @@
 import { type Metadata } from "next";
 import FAQ from "@/components/FAQ";
 import PageHeader from "@/components/PageHeader";
-import Reviews from "@/components/Reviews";
-import WhyUs from "@/components/spletna-trgovina/WhyUs";
+import { StoreReviews } from "@/components/Reviews";
 import Articles from "@/components/spletna-trgovina/Articles";
 import { Suspense } from "react";
 import Spinner from "@/components/Spinner";
@@ -22,8 +21,7 @@ function Page() {
         <Suspense fallback={<Spinner />}>
           <Articles />
         </Suspense>
-        <WhyUs />
-        <Reviews />
+        <StoreReviews />
         <FAQ />
       </main>
       <FreeDeliveryTag />

@@ -24,7 +24,8 @@ html::-webkit-scrollbar-x {
 
 main {
   margin-top: 100px;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 120px;
   animation: fade-in 1s;
 }
