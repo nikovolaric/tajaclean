@@ -14,7 +14,7 @@ function Page() {
     <>
       <PageHeader />
       <div className="mt-25 flex flex-col gap-14 lg:gap-20">
-        <LinkBtn href="/spletna-trgovina" variant="secondary">
+        <LinkBtn href="/kosarica" variant="secondary">
           NAZAJ NA UREJANJE KOŠARICE
         </LinkBtn>
         <div className="flex flex-col gap-14 md:mx-auto md:w-2/3 xl:grid xl:w-full xl:grid-cols-[2fr_1fr] xl:gap-x-5">

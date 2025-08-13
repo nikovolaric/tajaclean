@@ -3,8 +3,15 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import NewOrderCard from "./NewOrderCard";
 import Link from "next/link";
-import { Pencil, Search } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Pencil,
+  Search,
+} from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import Spinner from "@/components/Spinner";
 
 function OrdersPage() {
   type Order = {
@@ -19,6 +26,8 @@ function OrdersPage() {
   const [newOrders, setNewOrders] = useState<Order[]>([]);
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState("");
+  const [page, setPage] = useState(1);
 
   useEffect(function () {
     async function getNewOrders() {
@@ -47,18 +56,32 @@ function OrdersPage() {
       async function getOrders() {
         const supabase = createClient();
 
+        const pageRange = (page - 1) * 30;
+
         try {
           setIsLoading(true);
 
           let query = supabase
             .from("orders")
             .select()
-            .order("created_at", { ascending: false });
+            .order("created_at", { ascending: false })
+            .range(pageRange, pageRange + 29);
 
           if (name) {
-            query = query.or(
-              `buyer->>lastName.ilike.%${name}%,buyer->>firstName.ilike.%${name}%`,
-            );
+            const conditions = [
+              `buyer->>lastName.ilike.%${name}%`,
+              `buyer->>firstName.ilike.%${name}%`,
+            ];
+
+            if (!isNaN(Number(name))) {
+              conditions.push(`id.eq.${Number(name)}`);
+            }
+
+            query = query.or(conditions.join(","));
+          }
+
+          if (status) {
+            query.eq("status", status);
           }
 
           const { data, error } = await query;
@@ -77,7 +100,7 @@ function OrdersPage() {
 
       getOrders();
     },
-    [name],
+    [name, status, page],
   );
 
   return (
@@ -102,10 +125,9 @@ function OrdersPage() {
           )}
         </div>
         <div className="flex flex-col gap-4">
-          <NameBar />
+          <NameBar setStatus={setStatus} />
           {isLoading ? (
-            // <Spinner />
-            <p>...</p>
+            <Spinner />
           ) : (
             <>
               {orders.map(
@@ -124,6 +146,25 @@ function OrdersPage() {
               )}
             </>
           )}
+
+          <div className="items-cente flex justify-between text-sm">
+            {page > 1 && (
+              <button
+                className="cursor-pointer"
+                onClick={() => setPage((p) => p - 1)}
+              >
+                <ChevronLeft height={16} />
+              </button>
+            )}
+            {orders.length === 30 && (
+              <button
+                className="cursor-pointer"
+                onClick={() => setPage((p) => p + 1)}
+              >
+                <ChevronRight height={16} />
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -143,27 +184,78 @@ function SearchBar({ setName }: { setName: Dispatch<SetStateAction<string>> }) {
   );
 }
 
-function NameBar() {
+function NameBar({
+  setStatus,
+}: {
+  setStatus: Dispatch<SetStateAction<string>>;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function handleClick(status: string) {
+    setStatus(status);
+    setIsOpen(false);
+  }
+
   return (
     <>
       <p className="text-xl font-semibold">Vsa naročila</p>
-      <div className="grid grid-cols-[3fr_3fr_4fr_3fr_4fr_2fr] text-sm">
-        <p className="w-full rounded-s-lg border border-[rgba(0,0,0,0.25)] bg-white py-2 text-center font-semibold shadow-sm">
+      <div className="grid grid-cols-[3fr_3fr_4fr_3fr_4fr_2fr] text-sm select-none">
+        <p className="w-full rounded-s-lg border border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
           ID naročila
         </p>
-        <p className="w-full border-y border-e border-[rgba(0,0,0,0.25)] bg-white py-2 text-center font-semibold shadow-sm">
+        <p className="w-full border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
           Datum in ura
         </p>
-        <p className="w-full border-y border-e border-[rgba(0,0,0,0.25)] bg-white py-2 text-center font-semibold shadow-sm">
+        <p className="w-full border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
           Kupec
         </p>
-        <p className="w-full border-y border-e border-[rgba(0,0,0,0.25)] bg-white py-2 text-center font-semibold shadow-sm">
+        <p className="w-full border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
           Znesek
         </p>
-        <p className="w-full border-y border-e border-[rgba(0,0,0,0.25)] bg-white py-2 text-center font-semibold shadow-sm">
-          Status
-        </p>
-        <p className="w-full rounded-e-lg border-y border-e border-[rgba(0,0,0,0.25)] bg-white py-2 text-center font-semibold shadow-sm">
+        <div className="relative">
+          <p className="flex w-full items-center justify-center gap-4 border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
+            Status{" "}
+            <ChevronDown
+              className={`cursor-pointer ${isOpen ? "rotate-180" : ""}`}
+              onClick={() => setIsOpen((isOpen) => !isOpen)}
+            />
+          </p>
+          {isOpen && (
+            <div className="absolute flex w-full flex-col gap-2 rounded-lg border border-black/25 bg-white p-4 shadow-xs">
+              <button
+                className="cursor-pointer rounded-md border border-red-600 px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handleClick("Preklicano")}
+              >
+                Preklicano
+              </button>
+              <button
+                className="cursor-pointer rounded-md border border-yellow-200 px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handleClick("V obdelavi")}
+              >
+                V obdelavi
+              </button>
+              <button
+                className="cursor-pointer rounded-md border border-green-600 px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handleClick("Zaključeno")}
+              >
+                Zaključeno
+              </button>
+              <button
+                className="cursor-pointer rounded-md border border-black/25 px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handleClick("Nepregledano")}
+              >
+                Nepregledano
+              </button>
+              <button
+                className="cursor-pointer rounded-md px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handleClick("")}
+              >
+                Vsi
+              </button>
+            </div>
+          )}
+        </div>
+        <p className="w-full rounded-e-lg border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
           Uredi
         </p>
       </div>
@@ -203,7 +295,9 @@ function OrderCard({
           currency: "EUR",
         }).format(order.total_price)}
       </p>
-      <p className="rounded-md border border-[rgba(0,0,0,0.25)] px-1.5 text-center text-xs font-medium shadow-sm">
+      <p
+        className={`rounded-md border px-1.5 text-center text-xs font-medium shadow-sm ${order.status === "Preklicano" ? "border-red-600" : order.status === "V obdelavi" ? "border-yellow-200" : order.status === "Zaključeno" ? "border-green-600" : "border-black/25"}`}
+      >
         {order.status}
       </p>
       <Link href={`/admin/narocila/${order.id}`}>

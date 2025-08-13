@@ -8,6 +8,7 @@ function Summary() {
   const { paymentMethod } = useCartContext();
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
+  const [discountTotal, setDiscountTotal] = useState(0);
 
   function updateCart() {
     const cartString = localStorage.getItem("cart");
@@ -28,6 +29,21 @@ function Summary() {
         0,
       );
 
+      const discountTotal = JSON.parse(cartString).reduce(
+        (
+          a: number,
+          c: { discountPrice?: number; price: number; quantity: number },
+        ) => {
+          if (c.discountPrice) {
+            return a + (c.price * c.quantity - c.discountPrice * c.quantity);
+          } else {
+            return 0;
+          }
+        },
+        0,
+      );
+
+      setDiscountTotal(discountTotal);
       setTotal(cartTotal);
     } else {
       setCart([]);
@@ -103,7 +119,7 @@ function Summary() {
                     currency: "EUR",
                   }).format(
                     item.discountPrice
-                      ? item.discountPrice
+                      ? item.discountPrice * item.quantity
                       : item.price * item.quantity,
                   )}
                 </span>
@@ -139,6 +155,18 @@ function Summary() {
               }).format(0)}
             </p>
           </div>
+          {discountTotal !== 0 && (
+            <div className="flex items-center justify-between">
+              <p>Popust</p>
+              <p className="font-semibold">
+                -
+                {new Intl.NumberFormat("sl-SI", {
+                  style: "currency",
+                  currency: "EUR",
+                }).format(discountTotal)}
+              </p>
+            </div>
+          )}
         </div>
         <div className="flex items-center justify-between">
           <p>Skupaj za plačilo</p>

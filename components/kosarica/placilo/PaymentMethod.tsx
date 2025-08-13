@@ -29,6 +29,8 @@ function PaymentMethod() {
   const [err, setErr] = useState("");
   const [cart, setCart] = useState([]);
   const [code, setCode] = useState("");
+  const [codeValue, setCodeValue] = useState(0);
+  const [amount, setAmount] = useState(0);
   const [id, setId] = useState("");
   const [card, setCard] = useState({
     name: "",
@@ -42,12 +44,22 @@ function PaymentMethod() {
     const codeString = localStorage.getItem("discount");
     if (cartString) {
       setCart(JSON.parse(cartString));
+
+      const cartAmount = JSON.parse(cartString).reduce(
+        (c: number, a: { price: number; discountPrice?: number }) =>
+          c + (a.discountPrice ? a.discountPrice : a.price),
+        0,
+      );
+
+      setAmount(cartAmount);
     } else {
       setCart([]);
     }
 
     if (codeString) {
-      setCode(JSON.parse(codeString).name);
+      const discount = JSON.parse(codeString);
+      setCode(discount.name);
+      setCodeValue(discount.value);
     }
   }
 
@@ -67,18 +79,20 @@ function PaymentMethod() {
     setPaymentMethod(pm);
   }
 
+  function generateTotal() {
+    if (amount < 40) {
+      return amount + 3.2;
+    } else {
+      return amount;
+    }
+  }
+
   async function handleClickCard() {
     handleClick("card");
 
     if (!id) {
-      const amount = cart.reduce(
-        (c, a: { price: number; discountPrice?: number }) =>
-          c + (a.discountPrice ? a.discountPrice : a.price),
-        3.2,
-      );
-
       const data = await createSession({
-        amount: parseFloat(amount.toFixed(2)),
+        amount: parseFloat(generateTotal().toFixed(2)),
       });
 
       setId(data.id);
@@ -108,6 +122,7 @@ function PaymentMethod() {
         subscribe,
         code,
         notes,
+        code_value: codeValue,
       });
     } catch (error) {
       setErr((error as Error).message);
@@ -238,17 +253,7 @@ function PaymentMethod() {
                         {
                           amount: {
                             currency_code: "EUR",
-                            value: cart
-                              .reduce(
-                                (
-                                  c,
-                                  a: { price: number; discountPrice?: number },
-                                ) =>
-                                  c +
-                                  (a.discountPrice ? a.discountPrice : a.price),
-                                3.2,
-                              )
-                              .toFixed(2),
+                            value: generateTotal().toFixed(2),
                           },
                         },
                       ],
@@ -264,6 +269,7 @@ function PaymentMethod() {
                       cart,
                       subscribe,
                       code,
+                      code_value: codeValue,
                     });
                   }}
                   onError={(err) => {

@@ -22,7 +22,7 @@ function PaymentType({
       <div className="flex flex-col gap-4">
         <p className="text-xl font-semibold">Opombe</p>
         <div className="rounded-xl bg-white p-5 shadow-[0px_1px_2px_rgba(0,0,0,0.25)]">
-          <p className="text-sm font-medium">{notes ?? "Ni opombe."}</p>
+          <p className="text-sm font-medium">{notes ? notes : "Ni opombe."}</p>
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
 function OrderInfo({
   cart,
   totalPrice,
-  discount,
+  code,
+  code_value,
 }: {
   cart: {
     name: string;
@@ -11,15 +12,14 @@ function OrderInfo({
     id: string;
   }[];
   totalPrice: number;
-  discount?: { name: string; value: number };
+  code?: string;
+  code_value?: number;
 }) {
-  const discountValue = discount
+  const discountValue = code_value
     ? new Intl.NumberFormat("sl-SI", {
         style: "currency",
         currency: "EUR",
-      }).format(
-        cart.reduce((c, a) => c + a.price * discount.value * a.quantity, 0),
-      )
+      }).format(cart.reduce((c, a) => c + a.price * code_value * a.quantity, 0))
     : 0;
 
   return (
@@ -29,9 +29,9 @@ function OrderInfo({
       {cart.map((article) => (
         <ArticleCard article={article} key={article.name} />
       ))}
-      {discount && (
+      {code && (
         <div className="grid grid-cols-[7fr_3fr_3fr_3fr_3fr] rounded-xl bg-white p-5 text-sm font-semibold shadow-[0px_1px_2px_rgba(0,0,0,0.25)]">
-          <p className="col-span-4">Koda za popust: {discount.name}</p>
+          <p className="col-span-4">Koda za popust: {code}</p>
           <p className="text-center">-{discountValue}</p>
         </div>
       )}

@@ -33,10 +33,7 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
       (
         c: number,
         a: { price: number; discountPrice: number; quantity: number },
-      ) =>
-        c + a.discountPrice
-          ? a.discountPrice * a.quantity
-          : a.price * a.quantity,
+      ) => c + (a.discountPrice ?? a.price) * a.quantity,
       0,
     );
 
@@ -69,7 +66,8 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
       <Delivery deliveryPrice={generateDeliveryPrice()} />
       <OrderInfo
         cart={data.cart}
-        discount={data.discount}
+        code={data.code}
+        code_value={data.code_value}
         totalPrice={data.total_price}
       />
       <PaymentType paymentMethod={data.payment_method} notes={data.notes} />

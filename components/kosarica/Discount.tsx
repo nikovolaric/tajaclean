@@ -39,22 +39,20 @@ function Discount() {
 
         const cartDiscount = cart.map(
           (article: { discountPrice?: number; price: number }) => {
-            if (article.discountPrice) return article;
-            if (!article.discountPrice)
-              return {
-                ...article,
-                discountPrice: parseFloat(
-                  (article.price * (1 - data.value)).toFixed(2),
-                ),
-                code: true,
-              };
+            return {
+              ...article,
+              discountPrice: parseFloat(
+                (article.price * (1 - data.value)).toFixed(2),
+              ),
+              code: true,
+            };
           },
         );
 
         localStorage.setItem("cart", JSON.stringify(cartDiscount));
         localStorage.setItem(
           "discount",
-          JSON.stringify({ name: data.name, _id: data._id }),
+          JSON.stringify({ name: data.name, _id: data._id, value: data.value }),
         );
 
         window.dispatchEvent(new Event("cart-updated"));

@@ -18,6 +18,7 @@ export async function createOrder({
   subscribe,
   code,
   notes,
+  code_value,
 }: {
   buyer: Record<string, string>;
   delivery: unknown;
@@ -34,6 +35,7 @@ export async function createOrder({
   subscribe: boolean;
   code?: string;
   notes?: string;
+  code_value?: number;
 }) {
   try {
     const updatedCart = cart.map((i) => {
@@ -94,6 +96,7 @@ export async function createOrder({
       ),
       code,
       notes,
+      code_value,
     };
 
     const { error } = await supabase.from("orders").insert(body);
@@ -169,7 +172,11 @@ export async function getTopProductsByMonth(date = new Date()) {
 export async function getTotalOrdersByMonth(date = new Date()) {
   try {
     const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-    const startOfNextMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+    const startOfNextMonth = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      1,
+    );
 
     const { data, error } = await supabase
       .from("orders")
