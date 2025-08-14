@@ -8,7 +8,13 @@ import { useState } from "react";
 function DiscountCard({
   discount,
 }: {
-  discount: { name: string; used: string; valid_until: string; id: string };
+  discount: {
+    person_name: string;
+    name: string;
+    used: string;
+    valid_until: string;
+    id: string;
+  };
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,7 +30,8 @@ function DiscountCard({
   }
 
   return (
-    <div className="grid grid-cols-[6fr_4fr_5fr_2fr] items-center justify-items-center rounded-xl bg-white py-4 text-sm shadow-sm">
+    <div className="grid grid-cols-[4fr_4fr_3fr_3fr_2fr] items-center justify-items-center rounded-xl bg-white py-4 text-sm shadow-sm">
+      <p className="text-center font-semibold">{discount.person_name}</p>
       <p className="text-center font-semibold">{discount.name}</p>
       <p className="text-secondary text-center font-medium">
         {discount.valid_until

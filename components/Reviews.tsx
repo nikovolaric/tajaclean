@@ -40,8 +40,8 @@ const options = [
 const videos = [
   "/videos/cevljiskrpico.mp4",
   "/videos/pipabeforeafter.mp4",
-  "/videos/cevljiskrpico.mp4",
-  "/videos/pipabeforeafter.mp4",
+  "/videos/okna.mp4",
+  "/videos/avto.mp4",
 ];
 
 export function Reviews() {

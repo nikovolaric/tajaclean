@@ -5,9 +5,11 @@ import { H3 } from "./Text";
 import { Input } from "./Input";
 import Button from "./Button";
 import { useEffect, useState } from "react";
+import { subscribe } from "@/lib/newsletterActions";
 
 function NewsLetter({ visible }: { visible: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [msg, setMsg] = useState("");
 
   function handleClick() {
     setIsOpen(false);
@@ -27,6 +29,19 @@ function NewsLetter({ visible }: { visible: boolean }) {
     }
   }, [visible]);
 
+  async function handleAction(formData: FormData) {
+    const data = await subscribe(formData);
+
+    if (data === "ok") {
+      setMsg("Uspešno ste se prijavili na e-novičke!");
+
+      setTimeout(() => {
+        setIsOpen(false);
+        sessionStorage.setItem("news", "false");
+      }, 3000);
+    }
+  }
+
   if (!isOpen) return <></>;
 
   return (
@@ -45,12 +60,13 @@ function NewsLetter({ visible }: { visible: boolean }) {
             Splošnimi pogoji poslovanja.
           </Link>
         </p>
-        <form className="flex flex-col gap-6">
+        <form className="flex flex-col gap-6" action={handleAction}>
           <Input
             placeholder="Elektronski naslov*"
             name="email"
             autoComplete="off"
           />
+          {msg && <p>{msg}</p>}
           <Button variant="primary" className="flex justify-center sm:self-end">
             Prijavi se
           </Button>

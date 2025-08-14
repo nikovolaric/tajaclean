@@ -11,6 +11,7 @@ function EditDiscountForm() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const [discountData, setDiscountData] = useState<{
+    person_name: string;
     name: string;
     value: number;
     _id: string;
@@ -31,7 +32,7 @@ function EditDiscountForm() {
             }
 
             setDiscountData(data);
-            setOnCancel(!data.discount.valid_until);
+            setOnCancel(!data.valid_until);
           } catch (error) {
             console.log(error);
           }
@@ -60,14 +61,14 @@ function EditDiscountForm() {
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <label className="font-medium text-black/75">
-                Naziv kode za popust
+                Nosilec kode za popust
               </label>
               <input
                 autoComplete="off"
-                name="name"
+                name="person_name"
                 className="w-full rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm"
-                placeholder="Vnesite naziv kode"
-                defaultValue={discountData.name}
+                placeholder="Vnesite nosilca kode"
+                defaultValue={discountData.person_name}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -84,34 +85,48 @@ function EditDiscountForm() {
               />
             </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <label className="font-medium text-black/75">
-              Veljavnost kode za popust
-            </label>
-            <input
-              type="datetime-local"
-              name="validUntil"
-              className="w-full cursor-pointer rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm disabled:opacity-50"
-              placeholder="Vnesite naziv kode"
-              disabled={onCancel}
-              defaultValue={
-                discountData.valid_until
-                  ? `${new Date(discountData.valid_until).toISOString().slice(0, 11)}${new Date(discountData.valid_until).toTimeString()}`.slice(
-                      0,
-                      16,
-                    )
-                  : ""
-              }
-            />
-            <div>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <label className="font-medium text-black/75">
+                Naziv kode za popust
+              </label>
               <input
-                type="checkbox"
-                name="onCancel"
-                className="cursor-pointer"
-                onChange={() => setOnCancel(onCancel ? false : true)}
-                defaultChecked={onCancel}
-              />{" "}
-              <label>Velja do preklica</label>
+                autoComplete="off"
+                name="name"
+                className="w-full rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm"
+                placeholder="Vnesite naziv kode"
+                defaultValue={discountData.name}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="font-medium text-black/75">
+                Veljavnost kode za popust
+              </label>
+              <input
+                type="datetime-local"
+                name="validUntil"
+                className="w-full cursor-pointer rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm disabled:opacity-50"
+                placeholder="Vnesite naziv kode"
+                disabled={onCancel}
+                defaultValue={
+                  discountData.valid_until
+                    ? `${new Date(discountData.valid_until).toISOString().slice(0, 11)}${new Date(discountData.valid_until).toTimeString()}`.slice(
+                        0,
+                        16,
+                      )
+                    : ""
+                }
+              />
+              <div>
+                <input
+                  type="checkbox"
+                  name="onCancel"
+                  className="cursor-pointer"
+                  onChange={() => setOnCancel(onCancel ? false : true)}
+                  defaultChecked={onCancel}
+                />{" "}
+                <label>Velja do preklica</label>
+              </div>
             </div>
           </div>
           <Button variant="primary" className="justify-self-start">

@@ -12,6 +12,7 @@ const supabase = createClient(
 export async function createDiscount(formData: FormData) {
   try {
     const data = {
+      person_name: formData.get("person_name") as string,
       name: formData.get("name") as string,
       value: parseFloat(formData.get("value") as string) / 100,
       valid_until: formData.get("validUntil") as string,
@@ -147,33 +148,13 @@ export async function getDiscountIncome(name: string) {
 
 export async function getIncomeByDiscounts() {
   try {
-    const { data: total, error: totalError } = await supabase
-      .from("orders")
-      .select("total_price")
-      .not("code", "is", null)
-      .gte(
-        "created_at",
-        new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
-      );
+    const { data, error } = await supabase.rpc("get_orders_summary", {
+      last_days: 30,
+    });
 
-    if (totalError) {
-      throw totalError;
-    }
+    if (error) throw error;
 
-    const totalSum = total.reduce((sum, row) => sum + row.total_price, 0);
-
-    const { data: totalsByCode, error: byCodeError } = await supabase
-      .from("orders")
-      .select("code, total_price:total_price")
-      .not("code", "is", null)
-      .gte(
-        "created_at",
-        new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
-      );
-
-    if (byCodeError) throw byCodeError;
-
-    // console.log(totalSum, totalsByCode);
+    return data;
   } catch (error) {
     console.log(error);
     return error as Error;

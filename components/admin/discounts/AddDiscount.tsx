@@ -44,13 +44,13 @@ function AddDiscountForm({
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <label className="font-medium text-black/75">
-              Naziv kode za popust
+              Nosilec kode za popust
             </label>
             <input
               autoComplete="off"
-              name="name"
+              name="person_name"
               className="w-full rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm"
-              placeholder="Vnesite naziv kode"
+              placeholder="Vnesite nosilca kode"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -66,25 +66,38 @@ function AddDiscountForm({
             />
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <label className="font-medium text-black/75">
-            Veljavnost kode za popust
-          </label>
-          <input
-            type="datetime-local"
-            name="validUntil"
-            className="w-full cursor-pointer rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm disabled:opacity-50"
-            placeholder="Vnesite naziv kode"
-            disabled={onCancel}
-          />
-          <div>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <label className="font-medium text-black/75">
+              Naziv kode za popust
+            </label>
             <input
-              type="checkbox"
-              name="onCancel"
-              className="cursor-pointer"
-              onChange={() => setOnCancel(onCancel ? false : true)}
-            />{" "}
-            <label>Velja do preklica</label>
+              autoComplete="off"
+              name="name"
+              className="w-full rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm"
+              placeholder="Vnesite naziv kode"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="font-medium text-black/75">
+              Veljavnost kode za popust
+            </label>
+            <input
+              type="datetime-local"
+              name="validUntil"
+              className="w-full cursor-pointer rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm disabled:opacity-50"
+              placeholder="Vnesite naziv kode"
+              disabled={onCancel}
+            />
+            <div>
+              <input
+                type="checkbox"
+                name="onCancel"
+                className="cursor-pointer"
+                onChange={() => setOnCancel(onCancel ? false : true)}
+              />{" "}
+              <label>Velja do preklica</label>
+            </div>
           </div>
         </div>
         <Button variant="primary" className="justify-self-end">
