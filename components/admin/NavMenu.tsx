@@ -72,11 +72,11 @@ function NavMenu({ newOrders }: { newOrders?: number }) {
             )}
           </Link>
         </li>{" "}
-        {/* <li
-          className={`bg-bg rounded-md ${pathname.startsWith("/admin/stats") ? "inset-shadow-[0.5px_0.5px_4px_rgba(0,0,0,0.25)]" : ""}`}
+        <li
+          className={`bg-bg rounded-md ${pathname.startsWith("/admin/statistika") ? "inset-shadow-[0.5px_0.5px_4px_rgba(0,0,0,0.25)]" : ""}`}
         >
           <Link
-            href="/admin/stats"
+            href="/admin/statistika"
             className="flex items-center gap-2 px-3 py-2"
           >
             <Image
@@ -88,7 +88,7 @@ function NavMenu({ newOrders }: { newOrders?: number }) {
             />
             Statistika
           </Link>
-        </li>{" "} */}
+        </li>{" "}
         <li
           className={`bg-bg rounded-md ${pathname.startsWith("/admin/popusti") ? "inset-shadow-[0.5px_0.5px_4px_rgba(0,0,0,0.25)]" : ""}`}
         >

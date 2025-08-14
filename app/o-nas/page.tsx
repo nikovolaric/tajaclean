@@ -20,7 +20,7 @@ function Page() {
         <LinkBtn
           href="/spletna/trgovina"
           variant="primary"
-          className="justify-self-center"
+          className="self-center"
         >
           Izberi svoj paket krpic
         </LinkBtn>
