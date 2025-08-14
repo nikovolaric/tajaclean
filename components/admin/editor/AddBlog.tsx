@@ -7,8 +7,8 @@ import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
 import TipTapImage from "@tiptap/extension-image";
 import { Dispatch, SetStateAction, useState } from "react";
-import MenuBar from "./MenuBar";
 import { addPost } from "@/lib/blogActions";
+import MenuBar from "./MenuBar";
 
 function AddBlog() {
   const [isOpen, setIsOpen] = useState(false);

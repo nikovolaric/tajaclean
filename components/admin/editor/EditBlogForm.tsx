@@ -10,8 +10,8 @@ import { X } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import MenuBar from "./MenuBar";
 import { editPost, getOnePost } from "@/lib/blogActions";
+import MenuBar from "./MenuBar";
 
 function EditBlogForm() {
   const searchParams = useSearchParams();

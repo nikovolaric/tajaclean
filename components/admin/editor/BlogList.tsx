@@ -1,5 +1,5 @@
-import { getAllBlogPosts } from "@/lib/blogActions";
 import BlogCard from "./BlogCard";
+import { getAllBlogPosts } from "@/lib/blogActions";
 
 async function BlogList() {
   const data = await getAllBlogPosts();
