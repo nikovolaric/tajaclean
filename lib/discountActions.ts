@@ -144,3 +144,38 @@ export async function getDiscountIncome(name: string) {
     return error as Error;
   }
 }
+
+export async function getIncomeByDiscounts() {
+  try {
+    const { data: total, error: totalError } = await supabase
+      .from("orders")
+      .select("total_price")
+      .not("code", "is", null)
+      .gte(
+        "created_at",
+        new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+      );
+
+    if (totalError) {
+      throw totalError;
+    }
+
+    const totalSum = total.reduce((sum, row) => sum + row.total_price, 0);
+
+    const { data: totalsByCode, error: byCodeError } = await supabase
+      .from("orders")
+      .select("code, total_price:total_price")
+      .not("code", "is", null)
+      .gte(
+        "created_at",
+        new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+      );
+
+    if (byCodeError) throw byCodeError;
+
+    // console.log(totalSum, totalsByCode);
+  } catch (error) {
+    console.log(error);
+    return error as Error;
+  }
+}

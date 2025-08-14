@@ -3,7 +3,7 @@
 import { ButtonHTMLAttributes } from "react";
 import { useFormStatus } from "react-dom";
 
-type Variant = "primary" | "secondary";
+type Variant = "primary" | "secondary" | "complimentary";
 
 interface CustomButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
@@ -17,6 +17,8 @@ function Button({ children, variant, ...rest }: CustomButtonProps) {
       "font-medium text-neutral3 uppercase bg-primary h-11 px-9.5 flex items-center cursor-pointer hover:bg-secondary1 transition-colors duration-200",
     secondary:
       "text-secondary1 font-medium uppercase cursor-pointer hover:text-primary transition-colors duration-200",
+    complimentary:
+      "font-medium uppercase border-2 border-primary h-11 px-9.5 flex items-center cursor-pointer hover:bg-secondary1/15 transition-colors duration-200",
   };
 
   return (

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Button from "../Button";
 import { useState } from "react";
 import { MinusIcon, PlusIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 function ArticlesCard({
   article,
@@ -21,6 +22,7 @@ function ArticlesCard({
   const { name, price, favourite, id, packQ } = article;
 
   const [quantity, setQuantity] = useState(1);
+  const router = useRouter();
 
   function handleClick() {
     if (quantity === 0) return;
@@ -61,6 +63,8 @@ function ArticlesCard({
     }
 
     window.dispatchEvent(new Event("cart-updated"));
+
+    router.push("/kosarica");
   }
 
   return (

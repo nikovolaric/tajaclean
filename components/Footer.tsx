@@ -43,7 +43,7 @@ function Footer() {
             className="hover:text-secondary1 leading-6 uppercase transition-colors duration-200"
             href="/spletna-trgovina"
           >
-            Spletna trg.
+            Spletna trgovina
           </Link>
           <Link
             className="hover:text-secondary1 leading-6 uppercase transition-colors duration-200"

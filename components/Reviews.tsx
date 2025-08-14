@@ -37,6 +37,13 @@ const options = [
   },
 ];
 
+const videos = [
+  "/videos/cevljiskrpico.mp4",
+  "/videos/pipabeforeafter.mp4",
+  "/videos/cevljiskrpico.mp4",
+  "/videos/pipabeforeafter.mp4",
+];
+
 export function Reviews() {
   const [slide, setSlide] = useState(0);
 
@@ -58,7 +65,7 @@ export function Reviews() {
 
   return (
     <div className="bg-secondary1/15 ml-[calc(-50vw+50%)] w-[100vw] py-10 lg:py-16">
-      <div className="mx-4 grid max-w-[1440px] md:mx-8 lg:mx-20 lg:grid-cols-[5fr_7fr] lg:gap-x-5 xl:mx-auto xl:px-20">
+      <div className="mx-4 grid max-w-[1440px] md:mx-8 lg:mx-20 lg:grid-cols-[5fr_7fr] lg:gap-x-10 xl:mx-auto xl:px-20">
         <div className="grid gap-8">
           <div className="flex items-center gap-1">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -87,6 +94,21 @@ export function Reviews() {
               <ArrowRight height={24} className="text-secondary1" />
             </button>
           </div>
+        </div>
+        <div className="grid grid-cols-2 gap-5 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4">
+          {videos.map((video, i) => (
+            <video
+              autoPlay
+              height="228"
+              width="165"
+              key={i}
+              muted
+              loop
+              className={`${i % 2 === 1 ? "translate-y-5" : "-translate-y-5"} ${i === 3 ? "lg:hidden xl:block" : ""}`}
+            >
+              <source type="video/mp4" src={video} />
+            </video>
+          ))}
         </div>
       </div>
     </div>

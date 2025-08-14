@@ -82,29 +82,31 @@ function NavMenu() {
 }
 
 function Links() {
+  const pathname = usePathname();
+
   return (
     <div className="hidden items-center gap-12 lg:flex">
       <Link
         href="/spletna-trgovina"
-        className="text-primary hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200"
+        className={`text-primary hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200 ${pathname === "/spletna-trgovina" ? "underline" : ""}`}
       >
         Spletna trgovina
       </Link>
       <Link
         href="/o-nas"
-        className="text-primary hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200"
+        className={`text-primary hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200 ${pathname === "/o-nas" ? "underline" : ""}`}
       >
         O nas
       </Link>
       <Link
         href="/blog"
-        className="text-primary hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200"
+        className={`text-primary hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200 ${pathname === "/blog" ? "underline" : ""}`}
       >
         Blog
       </Link>
       <Link
         href="#contact"
-        className="text-primary hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200"
+        className={`text-primary hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200`}
       >
         Kontakt
       </Link>
@@ -121,6 +123,7 @@ function PhoneLinks({
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }) {
+  const pathname = usePathname();
   const router = useRouter();
   function handleClick() {
     setIsOpen(false);
@@ -133,21 +136,21 @@ function PhoneLinks({
       <X height={24} className="mb-4" onClick={() => setIsOpen(false)} />
       <Link
         href="/spletna-trgovina"
-        className="hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200"
+        className={`hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200 ${pathname === "/spletna-trgovina" ? "underline" : ""}`}
         onClick={handleClick}
       >
         Spletna trgovina
       </Link>
       <Link
         href="/o-nas"
-        className="hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200"
+        className={`hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200 ${pathname === "/o-nas" ? "underline" : ""}`}
         onClick={handleClick}
       >
         O nas
       </Link>
       <Link
         href="/blog"
-        className="hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200"
+        className={`hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200 ${pathname === "/blog" ? "underline" : ""}`}
         onClick={handleClick}
       >
         Blog
