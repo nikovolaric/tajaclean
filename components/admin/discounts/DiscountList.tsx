@@ -22,6 +22,7 @@ async function DiscountList() {
             used: string;
             valid_until: string;
             id: string;
+            value: number;
           }) => <DiscountCard key={discount.id} discount={discount} />,
         )
       )}
@@ -33,18 +34,21 @@ function NameBar() {
   return (
     <>
       <p className="text-lg font-semibold">Aktivne kode za popust</p>
-      <div className="grid grid-cols-[4fr_4fr_3fr_3fr_2fr] text-sm">
+      <div className="grid grid-cols-[4fr_4fr_2fr_2fr_2fr_2fr] text-sm">
         <p className="w-full rounded-s-lg border border-black/25 bg-white px-6 py-2 font-semibold shadow-sm">
           Nosilec kode
         </p>{" "}
-        <p className="w-full border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
+        <p className="w-full border-y border-e border-black/25 bg-white px-2 py-2 font-semibold shadow-sm">
           Naziv kode
         </p>
         <p className="w-full border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
           Velja do
         </p>
         <p className="w-full border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
-          Število vnovčitev
+          Št. vnovčitev
+        </p>
+        <p className="w-full border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
+          Popust
         </p>
         <p className="w-full rounded-e-lg border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
           Uredi

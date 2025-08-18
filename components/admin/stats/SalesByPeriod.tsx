@@ -7,6 +7,7 @@ import {
   getOrdersByDays,
   getSalesByDays,
 } from "@/lib/orderActions";
+import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 
 function SalesByPeriod() {
   const { stats, setStats } = useStatsContext();
@@ -55,7 +56,7 @@ function SalesByPeriod() {
   );
 
   return (
-    <div className="rounded-xl bg-white p-5 shadow-[0px_1px_2px_rgba(0,0,0,0.25)]">
+    <div className="flex flex-col gap-8 rounded-xl bg-white p-5 shadow-[0px_1px_2px_rgba(0,0,0,0.25)]">
       <div className="flex gap-16 select-none">
         <div
           className={`flex cursor-pointer flex-col gap-3 py-2 ${stats.sales ? "border-b-2 border-black/50" : ""}`}
@@ -94,6 +95,31 @@ function SalesByPeriod() {
             }).format(averageTotal.total)}
           </p>
         </div>
+      </div>
+      <div className="h-64">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart width={600} height={500} data={chartData}>
+            <XAxis
+              dataKey="sale_date"
+              tickFormatter={(_, index) => {
+                if (chartData.length > 31) {
+                  const step = Math.floor(chartData.length / 12);
+                  return index % step === 0 ? `${index / step + 1}` : "";
+                } else {
+                  return `${index + 1}`;
+                }
+              }}
+              interval={0}
+            />
+            <Tooltip />
+            <Area
+              type="monotone"
+              dataKey="value"
+              stroke="#8884d8"
+              fill="#8884d8"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );

@@ -14,6 +14,7 @@ function DiscountCard({
     used: string;
     valid_until: string;
     id: string;
+    value: number;
   };
 }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,9 +31,11 @@ function DiscountCard({
   }
 
   return (
-    <div className="grid grid-cols-[4fr_4fr_3fr_3fr_2fr] items-center justify-items-center rounded-xl bg-white py-4 text-sm shadow-sm">
-      <p className="text-center font-semibold">{discount.person_name}</p>
-      <p className="text-center font-semibold">{discount.name}</p>
+    <div className="grid grid-cols-[4fr_4fr_2fr_2fr_2fr_2fr] items-center justify-items-center rounded-xl bg-white py-4 text-sm shadow-sm">
+      <p className="justify-self-start px-2 font-semibold">
+        {discount.person_name}
+      </p>
+      <p className="justify-self-start px-2 font-semibold">{discount.name}</p>
       <p className="text-secondary text-center font-medium">
         {discount.valid_until
           ? new Date(discount.valid_until).toLocaleDateString("sl-SI", {
@@ -45,6 +48,11 @@ function DiscountCard({
           : "do preklica"}
       </p>
       <p className="text-center text-sm font-semibold">{discount.used}</p>
+      <p className="text-center text-sm font-semibold">
+        {new Intl.NumberFormat("sl-SI", { style: "percent" }).format(
+          discount.value,
+        )}
+      </p>
       <div className="flex items-center gap-5">
         <Link href={{ query: { id: discount.id } }}>
           <Pencil className="h-5 stroke-2" />

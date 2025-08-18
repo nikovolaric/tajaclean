@@ -18,13 +18,14 @@ async function ActiveDiscounts() {
         )}
         {data.length > 0 && (
           <ul className="flex flex-col gap-8">
-            {data.map(
-              (discount: { id: string; name: string; used: number }) => (
+            {data
+              .sort((a, b) => b.used - a.used)
+              .slice(0, 3)
+              .map((discount: { id: string; name: string; used: number }) => (
                 <Suspense key={discount.id} fallback={<p>Loading...</p>}>
                   <ActiveDiscountCard discount={discount} />
                 </Suspense>
-              ),
-            )}
+              ))}
           </ul>
         )}
         <LinkBtn

@@ -98,3 +98,16 @@ export async function getOnePost({ slug }: { slug: string }) {
     console.log(error);
   }
 }
+
+export async function deletePost({ slug }: { slug: string }) {
+  try {
+    const { error } = await supabase.from("blog").delete().eq("slug", slug);
+
+    if (error) throw error;
+
+    revalidatePath("/blog");
+    revalidatePath("/admin/urejevalnik");
+  } catch (error) {
+    console.log(error);
+  }
+}

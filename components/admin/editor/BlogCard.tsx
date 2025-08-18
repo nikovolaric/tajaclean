@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { CircleAlert, Pencil, RefreshCcw, Trash2 } from "lucide-react";
+import { deletePost } from "@/lib/blogActions";
 
 function BlogCard({
   blog,
@@ -19,6 +20,8 @@ function BlogCard({
   async function handleDelete() {
     try {
       setIsLoading(true);
+
+      await deletePost({ slug: blog.slug });
 
       setIsSuccess(true);
     } catch (error) {
