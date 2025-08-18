@@ -1,5 +1,6 @@
 import BuyerInfo from "@/components/kosarica/zakjucek/BuyerInfo";
 import DeliveryInfo from "@/components/kosarica/zakjucek/DeliveryInfo";
+import GoToPayment from "@/components/kosarica/zakjucek/GoToPayment";
 import Summary from "@/components/kosarica/zakjucek/Summary";
 import LinkBtn from "@/components/LinkBtn";
 import PageHeader from "@/components/PageHeader";
@@ -21,13 +22,7 @@ function Page() {
           <Summary />
           <BuyerInfo />
           <DeliveryInfo />
-          <LinkBtn
-            variant="primary"
-            href="/kosarica/zakljucek-nakupa/placilo"
-            className="flex justify-center xl:order-9 xl:w-3/4"
-          >
-            Nadaljuj na plačilo
-          </LinkBtn>
+          <GoToPayment />
         </div>
       </div>
     </>

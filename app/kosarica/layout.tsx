@@ -1,8 +1,8 @@
-import ContextProvider from "@/components/ContextProvider";
+import CartContextProvider from "@/components/kosarica/CartContextProvider";
 import { ReactNode } from "react";
 
 function Layout({ children }: { children: ReactNode }) {
-  return <ContextProvider>{children}</ContextProvider>;
+  return <CartContextProvider>{children}</CartContextProvider>;
 }
 
 export default Layout;

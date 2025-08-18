@@ -1,6 +1,6 @@
 "use client";
 
-import { useCartContext } from "@/components/ContextProvider";
+import { useCartContext } from "@/components/kosarica/CartContextProvider";
 import { Input, Textarea } from "@/components/Input";
 import { H2 } from "@/components/Text";
 import { useEffect, useState } from "react";

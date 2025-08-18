@@ -18,7 +18,7 @@ function Page() {
         <WhoAreWe />
         <Technology />
         <LinkBtn
-          href="/spletna/trgovina"
+          href="/spletna-trgovina"
           variant="primary"
           className="self-center"
         >

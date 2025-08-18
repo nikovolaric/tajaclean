@@ -1,6 +1,6 @@
 "use server";
 
-import { sendConfirmOrder } from "@/config/mail";
+import { sendConfirmOrder, sendNewOrderNotice } from "@/config/mail";
 import { createClient } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -21,7 +21,7 @@ export async function createOrder({
   code_value,
 }: {
   buyer: Record<string, string>;
-  delivery: unknown;
+  delivery: Record<string, string>;
   cart: {
     id: string;
     img: string;
@@ -44,6 +44,7 @@ export async function createOrder({
         price: i.price,
         quantity: i.quantity,
         discountPrice: i.discountPrice,
+        packQ: i.packQ,
       };
     });
     const total = parseFloat(
@@ -106,7 +107,19 @@ export async function createOrder({
     }
 
     if (code)
-      await supabase.rpc("increment", { x: 1, name: code.toUpperCase() });
+      await supabase.rpc("increment", { x: 1, p_name: code.toUpperCase() });
+
+    if (subscribe) {
+      await fetch("https://api.sender.net/v2/subscribers", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.SENDER_API_KEY}`,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ email: buyer.email }),
+      });
+    }
 
     await sendConfirmOrder({
       orderId: String(body.id),
@@ -116,6 +129,34 @@ export async function createOrder({
       cart: updatedCart,
       paymentMethod,
       deliveryCost: generateDelivery(),
+      code,
+    });
+
+    await sendNewOrderNotice({
+      orderId: String(body.id),
+      buyer: {
+        name: `${buyer.firstName} ${buyer.lastName}`,
+        mail: buyer.email,
+        address: buyer.address,
+        city: buyer.city,
+        postal: buyer.postal,
+        phone: buyer.phone,
+        company: buyer.company,
+      },
+      delivery: {
+        name: `${delivery.firstName} ${delivery.lastName}`,
+        mail: delivery.email,
+        address: delivery.address,
+        city: delivery.city,
+        postal: delivery.postal,
+        phone: delivery.phone,
+      },
+      totalPrice: generateTotalPrice(),
+      cart: updatedCart,
+      paymentMethod,
+      deliveryCost: generateDelivery(),
+      date: new Date().toString(),
+      code,
     });
 
     redirect("/");
@@ -169,6 +210,73 @@ export async function getTopProductsByMonth(date = new Date()) {
   }
 }
 
+export async function getTopProductsByLastDays(days_back: number) {
+  try {
+    const { data, error } = await supabase.rpc("get_top_products_last_days", {
+      days_back,
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getSalesByDays(days_back: number) {
+  try {
+    const { data, error } = await supabase.rpc("get_daily_sales_last_days", {
+      days_back,
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getOrdersByDays(days_back: number) {
+  try {
+    const { data, error } = await supabase.rpc("get_daily_orders_count", {
+      days_back,
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getAverageByDays(days_back: number) {
+  try {
+    const { data, error } = await supabase.rpc(
+      "get_daily_average_order_value",
+      {
+        days_back,
+      },
+    );
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
 export async function getTotalOrdersByMonth(date = new Date()) {
   try {
     const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -182,7 +290,8 @@ export async function getTotalOrdersByMonth(date = new Date()) {
       .from("orders")
       .select("*")
       .gte("created_at", startOfMonth.toISOString())
-      .lt("created_at", startOfNextMonth.toISOString());
+      .lt("created_at", startOfNextMonth.toISOString())
+      .neq("status", "Preklicano");
 
     if (error) {
       throw error;

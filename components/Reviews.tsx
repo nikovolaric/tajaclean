@@ -105,6 +105,7 @@ export function Reviews() {
               muted
               loop
               className={`${i % 2 === 1 ? "translate-y-5" : "-translate-y-5"} ${i === 3 ? "lg:hidden xl:block" : ""}`}
+              playsInline
             >
               <source type="video/mp4" src={video} />
             </video>

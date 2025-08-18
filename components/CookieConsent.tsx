@@ -24,7 +24,9 @@ function CookieConsent() {
       >
         X
       </p>
-      <H3 className="text-xl sm:text-2xl">Upravljanje soglasja za piškotke</H3>
+      <H3 className="w-11/12 text-xl sm:text-2xl">
+        Upravljanje soglasja za piškotke
+      </H3>
       <p>
         Za zagotavljanje boljše uporabniške izkušnje in spremljanje statistike
         obiska, to spletno mesto uporablja piškotke. Svoje nastavitve lahko

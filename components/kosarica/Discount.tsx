@@ -4,10 +4,20 @@ import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import Button from "../Button";
 import { getOneDiscountByName } from "@/lib/discountActions";
+import LinkBtn from "../LinkBtn";
 
 function Discount() {
   const [discount, setDiscount] = useState("");
   const [error, setError] = useState("");
+  const [cart, setCart] = useState([]);
+
+  function updateCartTotal() {
+    const userCartString = localStorage.getItem("cart");
+    if (userCartString) {
+      const cart = JSON.parse(userCartString);
+      setCart(cart);
+    }
+  }
 
   useEffect(function () {
     const discountCode = localStorage.getItem("discount");
@@ -15,6 +25,16 @@ function Discount() {
     if (discountCode) {
       setDiscount(JSON.parse(discountCode).name);
     }
+
+    updateCartTotal();
+
+    const handleCartTotalUpdate = () => updateCartTotal();
+
+    window.addEventListener("cart-updated", handleCartTotalUpdate);
+
+    return () => {
+      window.removeEventListener("cart-updated", handleCartTotalUpdate);
+    };
   }, []);
 
   async function handleAction(formData: FormData) {
@@ -95,7 +115,7 @@ function Discount() {
   }
 
   return (
-    <>
+    <div className="grid gap-18 md:mx-auto md:w-2/3 md:gap-x-5 lg:w-full lg:grid-cols-[4fr_6fr] xl:w-5/6">
       <form
         className="flex items-center justify-between gap-5 border border-black/50 bg-white px-4 py-2"
         action={handleAction}
@@ -123,7 +143,18 @@ function Discount() {
           />
         </div>
       )}
-    </>
+      <LinkBtn
+        href={
+          cart.length > 0 ? "/kosarica/zakljucek-nakupa" : "/spletna-trgovina"
+        }
+        variant="primary"
+        className="flex justify-center"
+      >
+        {cart.length > 0
+          ? "Nadaljuj na blagajno"
+          : "Izberi izdelke v spletni trgovini"}
+      </LinkBtn>
+    </div>
   );
 }
 

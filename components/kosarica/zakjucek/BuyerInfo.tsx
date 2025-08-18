@@ -1,6 +1,6 @@
 "use client";
 
-import { useCartContext } from "@/components/ContextProvider";
+import { useCartContext } from "@/components/kosarica/CartContextProvider";
 import { Input } from "@/components/Input";
 import { H2 } from "@/components/Text";
 
@@ -12,7 +12,9 @@ function BuyerInfo() {
       <H2>Podatki za račun</H2>
       <form className="grid gap-6 lg:grid-cols-2 lg:gap-x-5 lg:gap-y-10">
         <div>
-          <label>Ime</label>
+          <label>
+            Ime<span className="text-alert font-medium">*</span>
+          </label>
           <Input
             required
             placeholder="Vnesite svoje ime"
@@ -22,7 +24,9 @@ function BuyerInfo() {
           />
         </div>
         <div>
-          <label>Priimek</label>
+          <label>
+            Priimek<span className="text-alert font-medium">*</span>
+          </label>
           <Input
             required
             placeholder="Vnesite svoj priimek"
@@ -32,7 +36,10 @@ function BuyerInfo() {
           />
         </div>
         <div>
-          <label>Elektronski naslov</label>
+          <label>
+            Elektronski naslov
+            <span className="text-alert font-medium">*</span>
+          </label>
           <Input
             required
             placeholder="Vnesite elektronski naslov"
@@ -42,7 +49,10 @@ function BuyerInfo() {
           />
         </div>
         <div>
-          <label>Telefonska številka</label>
+          <label>
+            Telefonska številka
+            <span className="text-alert font-medium">*</span>
+          </label>
           <Input
             required
             placeholder="Vnesite telefonsko številko"
@@ -70,7 +80,10 @@ function BuyerInfo() {
           />
         </div>
         <div>
-          <label>Ulica in hišna številka</label>
+          <label>
+            Ulica in hišna številka
+            <span className="text-alert font-medium">*</span>
+          </label>
           <Input
             required
             placeholder="Vnesite ulico s hišno številko"
@@ -80,7 +93,9 @@ function BuyerInfo() {
           />
         </div>
         <div>
-          <label>Kraj</label>
+          <label>
+            Kraj<span className="text-alert font-medium">*</span>
+          </label>
           <Input
             required
             placeholder="Vnesite kraj"
@@ -90,7 +105,9 @@ function BuyerInfo() {
           />
         </div>
         <div>
-          <label>Poštna številka</label>
+          <label>
+            Poštna številka<span className="text-alert font-medium">*</span>
+          </label>
           <Input
             required
             placeholder="Vnesite ulico s hišno številko"
@@ -100,7 +117,9 @@ function BuyerInfo() {
           />
         </div>
         <div>
-          <label>Država</label>
+          <label>
+            Država<span className="text-alert font-medium">*</span>
+          </label>
           <Input
             required
             placeholder="Slovenija"

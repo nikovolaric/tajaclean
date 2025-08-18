@@ -146,10 +146,10 @@ export async function getDiscountIncome(name: string) {
   }
 }
 
-export async function getIncomeByDiscounts() {
+export async function getIncomeByDiscounts(days: number) {
   try {
     const { data, error } = await supabase.rpc("get_orders_summary", {
-      last_days: 30,
+      last_days: days,
     });
 
     if (error) throw error;

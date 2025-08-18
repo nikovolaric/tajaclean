@@ -1,6 +1,8 @@
 import HomeAnalytics from "@/components/admin/home/HomeAnalytics";
-import MostSoldItems from "@/components/admin/home/MostSoldItems";
+import { MostSoldItemsDays } from "@/components/admin/home/MostSoldItems";
 import ByDiscountCode from "@/components/admin/stats/ByDiscountCode";
+import PeriodFilter from "@/components/admin/stats/PeriodFilter";
+import SalesByPeriod from "@/components/admin/stats/SalesByPeriod";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -14,9 +16,15 @@ function Page() {
       <Suspense>
         <HomeAnalytics />
       </Suspense>
-      <div className="grid grid-cols-[5fr_4fr] gap-x-5 gap-y-15">
+      <div className="flex flex-col gap-2">
+        <PeriodFilter />
         <Suspense>
-          <MostSoldItems />
+          <SalesByPeriod />
+        </Suspense>
+      </div>
+      <div className="grid grid-cols-2 gap-x-5 gap-y-15">
+        <Suspense>
+          <MostSoldItemsDays />
           <ByDiscountCode />
         </Suspense>
       </div>

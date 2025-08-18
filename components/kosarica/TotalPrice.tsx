@@ -60,7 +60,13 @@ function TotalPrice() {
             {new Intl.NumberFormat("sl-SI", {
               style: "currency",
               currency: "EUR",
-            }).format(noDiscount > 3.2 ? noDiscount : 0)}
+            }).format(
+              noDiscount > 3.2
+                ? noDiscount < 40
+                  ? noDiscount + 3.2
+                  : noDiscount
+                : 0,
+            )}
           </p>
         )}
         <p className="font-semibold lg:text-lg">

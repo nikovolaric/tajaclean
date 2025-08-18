@@ -19,16 +19,7 @@ function Page() {
         </LinkBtn>
         <Cart />
         <TotalPrice />
-        <div className="grid gap-18 md:mx-auto md:w-2/3 md:gap-x-5 lg:w-full lg:grid-cols-[4fr_6fr] xl:w-5/6">
-          <Discount />
-          <LinkBtn
-            href="/kosarica/zakljucek-nakupa"
-            variant="primary"
-            className="flex justify-center"
-          >
-            Nadaljuj na blagajno
-          </LinkBtn>
-        </div>
+        <Discount />
       </div>
     </>
   );

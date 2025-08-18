@@ -2,7 +2,6 @@ import {
   getTopProductsByMonth,
   getTotalOrdersByMonth,
 } from "@/lib/orderActions";
-import { ArrowDownRightIcon, ArrowUpRightIcon } from "lucide-react";
 
 async function HomeAnalytics() {
   const month = `(${new Date().toLocaleDateString("sl-SI", {
@@ -34,14 +33,6 @@ async function HomeAnalytics() {
                   ),
                 )}
               </p>
-              {/* <p className="border-secondary flex items-center gap-1 rounded-md border px-2 py-1.5 text-xs shadow-[0px_1px_2px_rgba(0,0,0,0.25)]">
-                {data.incomeGrowthPercent >= 0 ? (
-                  <ArrowUpRightIcon className="w-2.5 stroke-3 text-[#17B26A]" />
-                ) : (
-                  <ArrowDownRightIcon className="w-2.5 stroke-3 text-red-600" />
-                )}
-                {data.incomeGrowthPercent}%
-              </p> */}
             </div>
           </div>
           <div className="flex flex-col gap-2 rounded-xl bg-white p-5 shadow-[0px_1px_2px_rgba(0,0,0,0.25)]">
@@ -50,14 +41,6 @@ async function HomeAnalytics() {
             </p>
             <div className="flex items-end justify-between">
               <p className="text-3xl font-semibold">{totalOrders as number}</p>
-              {/* <p className="border-secondary flex items-center gap-1 rounded-md border px-2 py-1.5 text-xs shadow-[0px_1px_2px_rgba(0,0,0,0.25)]">
-                {data.orderCountGrowthPercent >= 0 ? (
-                  <ArrowUpRightIcon className="w-2.5 stroke-3 text-[#17B26A]" />
-                ) : (
-                  <ArrowDownRightIcon className="w-2.5 stroke-3 text-red-600" />
-                )}
-                {data.orderCountGrowthPercent}%
-              </p> */}
             </div>
           </div>
           <div className="flex flex-col gap-2 rounded-xl bg-white p-5 shadow-[0px_1px_2px_rgba(0,0,0,0.25)]">

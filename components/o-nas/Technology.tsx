@@ -21,10 +21,10 @@ function Technology() {
   return (
     <div className="grid gap-10 md:mx-auto md:w-2/3 xl:w-full xl:grid-cols-2 xl:gap-x-5">
       <AniImage
-        src="/homeBg.jpg"
+        src="/hang.jpg"
         alt="Paketi"
-        width={610}
-        height={450}
+        width={1000}
+        height={800}
         className="h-auto max-h-70 w-full object-cover md:max-h-90 lg:max-h-100 xl:max-h-120"
       />
       <div className="grid gap-10 xl:gap-14">

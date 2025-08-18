@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/Button";
-import { useCartContext } from "@/components/ContextProvider";
+import { useCartContext } from "@/components/kosarica/CartContextProvider";
 import Amex from "@/components/icons/Amex";
 import Maestro from "@/components/icons/Maestro";
 import Master from "@/components/icons/Master";
@@ -173,13 +173,10 @@ function PaymentMethod() {
                   maxLength={19}
                   minLength={18}
                   onChange={(e) => {
-                    const formattedValue = e.target.value
-                      .split("")
-                      .fill(" ", 4, 5)
-                      .fill(" ", 9, 10)
-                      .fill(" ", 14, 15)
-                      .join("");
-                    setCard({ ...card, number: formattedValue });
+                    const raw = e.target.value.replace(/\s+/g, "");
+                    const formatted = raw.match(/.{1,4}/g)?.join(" ") || "";
+                    setCard({ ...card, number: formatted });
+                    setCard({ ...card, number: formatted });
                   }}
                   value={card.number}
                 />
@@ -298,16 +295,10 @@ function PaymentMethod() {
                 !
               </div>
               <p>
-                Po oddaji naročila, boste prejeli potrditveni e-mail, v katerem
-                bodo navedeni podatki za nakazilo.
-                <br />
-                <br />
-                Da krpice čim prej krenejo na pot, vas prosimo, da na mail
-                anja@tajaclean.si pošljete informacijo o izvedenem plačilu.
-                Dovolj je le vaša številka naročila in beseda plačano.
-                <br />
-                <br />
-                Hvala že vnaprej.
+                V primeru, da plačilo izvede druga oseba (drugo ime in priimek
+                kot naročnik), prosimo, da to sporočite na email
+                anja@tajaclean.si. Dovolj je, da navedete številko naročila in
+                besedo &apos;plačano&apos;.
               </p>
             </div>
           )}
@@ -330,7 +321,8 @@ function PaymentMethod() {
                 !
               </div>
               <p>
-                Po oddaji naročila, boste prejeli potrditveni e-mail.
+                Znesek naročila se poravna poštarju ob dostavi. Poštnina za
+                plačilo po povzetju znaša 5,5 €.
                 <br />
                 <br />
                 Hvala za zaupanje.

@@ -15,7 +15,9 @@ function PaymentType({
               ? "Predračun"
               : paymentMethod === "paypal"
                 ? "PayPal"
-                : "Spletno plačilo"}
+                : paymentMethod === "povzetje"
+                  ? "Po povzetju"
+                  : "Spletno plačilo"}
           </p>
         </div>
       </div>

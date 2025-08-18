@@ -1,6 +1,6 @@
 "use client";
 
-import { useCartContext } from "@/components/ContextProvider";
+import { useCartContext } from "@/components/kosarica/CartContextProvider";
 import { H2 } from "@/components/Text";
 import { useState, useEffect } from "react";
 
@@ -117,18 +117,14 @@ function Summary() {
                   {new Intl.NumberFormat("sl-SI", {
                     style: "currency",
                     currency: "EUR",
-                  }).format(
-                    item.discountPrice
-                      ? item.discountPrice * item.quantity
-                      : item.price * item.quantity,
-                  )}
+                  }).format(item.price * item.quantity)}
                 </span>
               </p>
             </div>
           ),
         )}
         <div className="border-neutral1 border-y py-6">
-          <div className="flex items-center justify-between">
+          {/* <div className="flex items-center justify-between">
             <p>Izdelki</p>
             <p className="font-semibold">
               {new Intl.NumberFormat("sl-SI", {
@@ -136,7 +132,7 @@ function Summary() {
                 currency: "EUR",
               }).format(total)}
             </p>
-          </div>
+          </div> */}
           <div className="flex items-center justify-between">
             <p>Dostava</p>
             <p className="font-semibold">

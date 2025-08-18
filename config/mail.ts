@@ -21,8 +21,10 @@ export async function sendConfirmOrder(options: {
     quantity: number;
     price: number;
     discountPrice?: number;
+    packQ: number;
   }[];
   deliveryCost: number;
+  code?: string;
 }) {
   //1. Create transporter
   const transporter = createTransport(transporterOptions);
@@ -119,7 +121,7 @@ export async function sendConfirmOrder(options: {
         <strong>${new Date(options.date).toLocaleDateString("sl-SI", { day: "2-digit", month: "2-digit", year: "numeric" })}</strong>.
       </p>
 
-      ${options.paymentMethod === "proforma" ? `<p>Ker ste se odločili za plačilo po predračunu, prosimo, da znesek nakažete na podatkee za plačilo spodaj. Za sklic uporabite št. naročila <strong>${options.orderId}</strong>.</p>` : ""}
+      ${options.paymentMethod === "proforma" ? `<p>Ker ste se odločili za plačilo po predračunu, prosimo, da znesek nakažete na podatke za plačilo spodaj. Za sklic uporabite št. naročila <strong>${options.orderId}</strong>.</p>` : ""}
     
       <table>
         <thead>
@@ -133,18 +135,14 @@ export async function sendConfirmOrder(options: {
          ${options.cart
            .map((article) => {
              return `<tr>
-            <td>${article.name}</td>
+            <td>${article.name} - ${article.packQ} ${article.packQ === 3 ? "krpice" : "krpic"}</td>
             <td>${article.quantity}</td>
             <td>${new Intl.NumberFormat("sl-SI", {
               style: "currency",
               currency: "EUR",
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
-            }).format(
-              article.discountPrice
-                ? article.discountPrice * article.quantity
-                : article.price * article.quantity,
-            )}</td>
+            }).format(article.price * article.quantity)}</td>
           </tr>`;
            })
            .join("")}
@@ -157,7 +155,25 @@ export async function sendConfirmOrder(options: {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             }).format(options.deliveryCost)}</td>
-          </tr>     
+          </tr>
+            ${
+              options.code
+                ? `<tr>
+            <td>Koda za popust ${options.code}</td>
+            <td>1</td>
+            <td>${new Intl.NumberFormat("sl-SI", {
+              style: "currency",
+              currency: "EUR",
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            }).format(
+              options.cart.reduce((c, a) => c + a.discountPrice!, 0) -
+                options.cart.reduce((c, a) => c + a.price!, 0),
+            )}</td>
+            </tr>  
+            `
+                : ""
+            }     
         </tbody>
         <tfoot>
           <tr>
@@ -182,7 +198,7 @@ export async function sendConfirmOrder(options: {
       </table>
 
       <p class="info">
-        Način plačila: ${options.paymentMethod === "proforma" ? "Predračun" : options.paymentMethod === "paypal" ? "PayPal" : options.paymentMethod === "paypal" ? "Po povzetju" : "Spletno plačilo"}<br />
+        Način plačila: ${options.paymentMethod === "proforma" ? "Predračun" : options.paymentMethod === "paypal" ? "PayPal" : options.paymentMethod === "povzetje" ? "Po povzetju" : "Spletno plačilo"}<br />
         Način dostave: Pošta Slovenije
       </p>
 
@@ -216,7 +232,23 @@ export async function sendConfirmOrder(options: {
 
 export async function sendNewOrderNotice(options: {
   orderId: string;
-  buyer: { name: string; mail: string };
+  buyer: {
+    name: string;
+    mail: string;
+    address: string;
+    city: string;
+    postal: string;
+    phone: string;
+    company: string;
+  };
+  delivery: {
+    name: string;
+    mail: string;
+    address: string;
+    city: string;
+    postal: string;
+    phone: string;
+  };
   date: string;
   totalPrice: number;
   paymentMethod: string;
@@ -225,7 +257,10 @@ export async function sendNewOrderNotice(options: {
     quantity: number;
     price: number;
     discountPrice?: number;
+    packQ: number;
   }[];
+  deliveryCost: number;
+  code?: string;
 }) {
   //1. Create transporter
   const transporter = createTransport(transporterOptions);
@@ -239,7 +274,7 @@ export async function sendNewOrderNotice(options: {
 <html lang="sl">
   <head>
     <meta charset="UTF-8" />
-    <title>Novo naročilo</title>
+    <title>Potrditev naročila</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       body {
@@ -316,11 +351,27 @@ export async function sendNewOrderNotice(options: {
   </head>
   <body>
     <div class="container">
-      <h2>Novo naročilo od ${options.buyer.name}!</h2>
+      <h2>Prejeli ste novo naročilo!</h2>
       <p class="info">
-        Novo naročilo št. <strong>${options.orderId}</strong> je bilo ustvarjeno dne
+        Prejeli ste naročilo št. <strong>${options.orderId}</strong> z dne
         <strong>${new Date(options.date).toLocaleDateString("sl-SI", { day: "2-digit", month: "2-digit", year: "numeric" })}</strong>.
       </p>
+
+      <p>
+        <strong>Podatki za račun</strong><br/>
+        ${options.buyer.company ? options.buyer.company : options.buyer.name}<br/>
+        ${options.buyer.address}<br/>
+        ${options.buyer.postal}, ${options.buyer.city}<br/>
+        ${options.buyer.phone}<br/>
+        <a href="mailto:${options.buyer.mail}">${options.buyer.mail}</a>
+      </p>
+      <p>
+        <strong>Podatki za dostavo</strong><br/>
+        ${options.delivery.name}<br/>
+        ${options.delivery.address}<br/>
+        ${options.delivery.postal}, ${options.delivery.city}<br/>
+      </p>
+    
       <table>
         <thead>
           <tr>
@@ -333,18 +384,14 @@ export async function sendNewOrderNotice(options: {
          ${options.cart
            .map((article) => {
              return `<tr>
-            <td>${article.name}</td>
+            <td>${article.name} - ${article.packQ} ${article.packQ === 3 ? "krpice" : "krpic"}</td>
             <td>${article.quantity}</td>
             <td>${new Intl.NumberFormat("sl-SI", {
               style: "currency",
               currency: "EUR",
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
-            }).format(
-              article.discountPrice
-                ? article.discountPrice * article.quantity
-                : article.price * article.quantity,
-            )}</td>
+            }).format(article.price * article.quantity)}</td>
           </tr>`;
            })
            .join("")}
@@ -356,8 +403,26 @@ export async function sendNewOrderNotice(options: {
               currency: "EUR",
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
-            }).format(3.2)}</td>
-          </tr>     
+            }).format(options.deliveryCost)}</td>
+          </tr>   
+          ${
+            options.code
+              ? `<tr>
+            <td>Koda za popust ${options.code}</td>
+            <td>1</td>
+            <td>${new Intl.NumberFormat("sl-SI", {
+              style: "currency",
+              currency: "EUR",
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            }).format(
+              options.cart.reduce((c, a) => c + a.discountPrice!, 0) -
+                options.cart.reduce((c, a) => c + a.price!, 0),
+            )}</td>
+            </tr>  
+            `
+              : ""
+          }
         </tbody>
         <tfoot>
           <tr>
@@ -367,7 +432,7 @@ export async function sendNewOrderNotice(options: {
               currency: "EUR",
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
-            }).format(options.totalPrice - options.totalPrice / 1.22)}</td>
+            }).format(0)}</td>
           </tr>
           <tr>
             <td colspan="2"><strong>Za plačilo:</strong></td>
@@ -382,12 +447,14 @@ export async function sendNewOrderNotice(options: {
       </table>
 
       <p class="info">
-        Način plačila: ${options.paymentMethod}<br />
+        Način plačila: ${options.paymentMethod === "proforma" ? "Predračun" : options.paymentMethod === "paypal" ? "PayPal" : options.paymentMethod === "povzetje" ? "Po povzetju" : "Spletno plačilo"}<br />
         Način dostave: Pošta Slovenije
       </p>
-      <a href=${process.env.API_URL}/admin/narocila class="btn">Oglej si naročilo</a>
+
       <p class="footer">
-        Vsa naročila si lahko ogledaš v svoji skrbniški konzoli.
+        Hvala za zaupanje!<br />
+        TajaClean<br />
+        <small>anja@tajaclean.si | +386 40 306 996</small>
       </p>
     </div>
   </body>
