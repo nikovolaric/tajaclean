@@ -22,8 +22,8 @@ function OrderStatus({ status, id }: { status: string; id: number }) {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <p className="text-xl font-semibold">Status naročila</p>
+    <div className="flex items-center gap-4">
+      <p className="font-semibold">Status naročila</p>
       <div
         className={`relative flex items-center gap-6 self-start ${isOpen ? "rounded-t-xl" : "rounded-xl"} bg-white p-5 shadow-[0px_1px_2px_rgba(0,0,0,0.25)]`}
       >

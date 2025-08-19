@@ -1,3 +1,5 @@
+import Delivery from "./Delivery";
+
 function OrderInfo({
   cart,
   totalPrice,
@@ -22,6 +24,22 @@ function OrderInfo({
       }).format(cart.reduce((c, a) => c + a.price * code_value * a.quantity, 0))
     : 0;
 
+  function generateDeliveryPrice() {
+    const cartTotal = cart.reduce(
+      (
+        c: number,
+        a: { price: number; discountPrice?: number; quantity: number },
+      ) => c + (a.discountPrice ?? a.price) * a.quantity,
+      0,
+    );
+
+    if (cartTotal === totalPrice) {
+      return 0;
+    } else {
+      return totalPrice - cartTotal;
+    }
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <p className="text-xl font-semibold">Podrobnosti o naročilu</p>
@@ -29,6 +47,7 @@ function OrderInfo({
       {cart.map((article) => (
         <ArticleCard article={article} key={article.name} />
       ))}
+      <Delivery deliveryPrice={generateDeliveryPrice()} />
       {code && (
         <div className="grid grid-cols-[7fr_3fr_3fr_3fr_3fr] rounded-xl bg-white p-5 text-sm font-semibold shadow-[0px_1px_2px_rgba(0,0,0,0.25)]">
           <p className="col-span-4">Koda za popust: {code}</p>
@@ -61,7 +80,7 @@ function NameBar() {
       <p className="w-full border-y border-e border-[rgba(0,0,0,0.25)] bg-white py-2 text-center font-semibold shadow-sm">
         Količina
       </p>
-      <p className="w-full border-y border-e border-[rgba(0,0,0,0.25)] bg-white py-2 text-center font-semibold shadow-sm">
+      <p className="w-full rounded-r-lg border-y border-e border-[rgba(0,0,0,0.25)] bg-white py-2 text-center font-semibold shadow-sm">
         Skupni znesek
       </p>
     </div>
@@ -81,7 +100,14 @@ function ArticleCard({
 }) {
   return (
     <div className="grid grid-cols-[7fr_3fr_3fr_3fr_3fr] rounded-xl bg-white p-5 text-sm shadow-[0px_1px_2px_rgba(0,0,0,0.25)]">
-      <p className="font-medium">{article.name}</p>
+      <p className="font-medium">
+        {article.name}{" "}
+        {article.name.includes("MODRI")
+          ? "- 10 krpic"
+          : article.name.includes("PAMETNI")
+            ? "- 5 krpic"
+            : "- 3 krpice"}
+      </p>
       <p className="text-center font-medium"></p>
       <p className="text-center font-medium">
         {new Intl.NumberFormat("sl-SI", {

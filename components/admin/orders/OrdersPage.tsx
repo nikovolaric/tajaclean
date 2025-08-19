@@ -141,7 +141,7 @@ function OrdersPage() {
                   },
                   i: number,
                 ) => (
-                  <OrderCard key={`${order.id}${i}`} order={order} />
+                  <OrderCard key={`${order.id}${i}`} order={order} i={i} />
                 ),
               )}
             </>
@@ -263,8 +263,9 @@ function NameBar({
   );
 }
 
-function OrderCard({
+export function OrderCard({
   order,
+  i,
 }: {
   order: {
     id: string;
@@ -273,9 +274,12 @@ function OrderCard({
     total_price: number;
     status: string;
   };
+  i: number;
 }) {
   return (
-    <div className="grid grid-cols-[3fr_3fr_4fr_3fr_4fr_2fr] items-center justify-items-center rounded-xl bg-white py-4 text-sm shadow-sm">
+    <div
+      className={`grid grid-cols-[3fr_3fr_4fr_3fr_4fr_2fr] items-center justify-items-center rounded-xl py-4 text-sm shadow-sm ${i % 2 === 0 ? "bg-[#e4ebe3]" : "bg-white"}`}
+    >
       <p className="text-center font-semibold">{order.id}</p>
       <p className="text-secondary text-center font-medium">
         {new Date(order.created_at).toLocaleDateString("sl-SI", {

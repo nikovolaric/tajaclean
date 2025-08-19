@@ -115,7 +115,7 @@ function Discount() {
   }
 
   return (
-    <div className="grid gap-18 md:mx-auto md:w-2/3 md:gap-x-5 lg:w-full lg:grid-cols-[4fr_6fr] xl:w-5/6">
+    <div className="relative grid gap-18 md:mx-auto md:w-2/3 md:gap-x-5 lg:w-full lg:grid-cols-[4fr_6fr] lg:gap-y-6 xl:w-5/6">
       <form
         className="flex items-center justify-between gap-5 border border-black/50 bg-white px-4 py-2"
         action={handleAction}
@@ -134,7 +134,7 @@ function Discount() {
         <p className="text-alert order-3 text-sm font-medium">{error}</p>
       )}
       {discount && (
-        <div className="order-3 flex items-center justify-between">
+        <div className="absolute top-14 left-0 flex w-full items-center justify-between lg:static lg:order-3">
           <p className="font-semibold">{discount}</p>
           <X
             height={24}

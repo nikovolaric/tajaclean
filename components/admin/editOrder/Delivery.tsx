@@ -1,17 +1,17 @@
-function Delivery({deliveryPrice}: {deliveryPrice:number}) {
+function Delivery({ deliveryPrice }: { deliveryPrice: number }) {
   return (
-    <div className="flex flex-col gap-4">
-      <p className="text-xl font-semibold">Način dostave</p>
-      <div className="flex items-center justify-between rounded-xl bg-white p-5 shadow-[0px_1px_2px_rgba(0,0,0,0.25)]">
-        <p className="text-sm font-medium">Pošta Slovenije</p>
-        <p className="text-sm font-semibold">
-          {new Intl.NumberFormat("sl-SI", {
-            style: "currency",
-            currency: "EUR",
-          }).format(deliveryPrice)}
-        </p>
-      </div>
+    // <div className="flex flex-col gap-4">
+    //   <p className="text-xl font-semibold">Način dostave</p>
+    <div className="grid grid-cols-[7fr_3fr_3fr_3fr_3fr] rounded-xl bg-white p-5 shadow-[0px_1px_2px_rgba(0,0,0,0.25)]">
+      <p className="col-span-4 text-sm font-medium">Pošta Slovenije</p>
+      <p className="text-center text-sm font-semibold">
+        {new Intl.NumberFormat("sl-SI", {
+          style: "currency",
+          currency: "EUR",
+        }).format(deliveryPrice)}
+      </p>
     </div>
+    // </div>
   );
 }
 

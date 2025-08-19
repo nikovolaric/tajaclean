@@ -302,3 +302,30 @@ export async function getTotalOrdersByMonth(date = new Date()) {
     return error;
   }
 }
+
+export async function getOrder({ email, id }: { email?: string; id?: string }) {
+  try {
+    const query = supabase
+      .from("orders")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (email) {
+      query.eq("buyer->>email", email);
+    }
+
+    if (id) {
+      query.eq("id", id);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
