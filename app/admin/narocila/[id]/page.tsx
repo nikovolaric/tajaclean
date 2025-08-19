@@ -8,6 +8,7 @@ import BuyerInfo from "@/components/admin/editOrder/BuyerInfo";
 import OrderStatus from "@/components/admin/editOrder/OrderStatus";
 import DeliveryInfo from "@/components/admin/editOrder/DeliveryInfo";
 import Subscribe from "@/components/admin/editOrder/Subscribe";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Uredi naročilo",
@@ -44,7 +45,9 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
             {data.status}
           </span>
         </p> */}
-        <OrderStatus status={data.status} id={data.id} />
+        <Suspense>
+          <OrderStatus status={data.status} id={data.id} />
+        </Suspense>
       </div>
       <BasicInfo order={data} />
       <OrderInfo

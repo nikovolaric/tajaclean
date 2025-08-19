@@ -43,7 +43,7 @@ function ByDiscountCode() {
     return color;
   }
 
-  const top3Codes = discountData.by_code
+  const top3Codes = [...discountData.by_code]
     .sort(
       (a: { total_sum: number }, b: { total_sum: number }) =>
         b.total_sum - a.total_sum,
