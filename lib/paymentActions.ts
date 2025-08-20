@@ -90,7 +90,7 @@ export async function payWithCard({
       throw new Error(data.message);
     }
 
-    await createOrder(orderData);
+    if (data.status === "PAID") await createOrder(orderData);
   } catch (error) {
     console.log(error);
     return error;
