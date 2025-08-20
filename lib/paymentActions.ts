@@ -65,8 +65,6 @@ export async function payWithCard({
 
     const data = await res.json();
 
-    console.log(data);
-
     if (!res.ok) {
       throw new Error(data.message);
     }
@@ -79,47 +77,3 @@ export async function payWithCard({
     return error;
   }
 }
-
-// export async function payWithCard({
-//   id,
-//   card,
-// }: {
-//   id: string;
-//   card: { name: string; number: string; date: string; cvv: string };
-// }) {
-//   try {
-//     const { name, number, date, cvv } = card;
-
-//     const [expiry_month, expiry_year] = date.split("/");
-
-//     const res = await fetch(`${process.env.FRONTEND_URL}/api/payments`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         id,
-//         name,
-//         number: number.replaceAll(" ", ""),
-//         expiry_month,
-//         expiry_year,
-//         cvv,
-//       }),
-//     });
-
-//     const data = await res.json();
-
-//     console.log(data);
-
-//     if (!res.ok) {
-//       throw new Error(data.message);
-//     }
-
-//     if (data.next_step) {
-//       return data.next_step;
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     return error;
-//   }
-// }
