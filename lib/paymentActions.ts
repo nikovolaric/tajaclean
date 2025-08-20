@@ -4,6 +4,8 @@ import { randomUUID } from "crypto";
 
 export async function createSession({ amount }: { amount: number }) {
   try {
+    const id = randomUUID();
+
     const res = await fetch("https://api.sumup.com/v0.1/checkouts", {
       method: "POST",
       headers: {
@@ -11,11 +13,11 @@ export async function createSession({ amount }: { amount: number }) {
         Authorization: `Bearer ${process.env.SUMUP_SECRET_KEY as string}`,
       },
       body: JSON.stringify({
-        checkout_reference: randomUUID(),
+        checkout_reference: id,
         amount,
         currency: "EUR",
         merchant_code: process.env.MERCHANT_CODE,
-        redirect_url: `${process.env.FRONTEND_URL}/nakup-uspesen`,
+        redirect_url: `${process.env.FRONTEND_URL}/nakup-uspesen?id=${id}`,
       }),
     });
 
