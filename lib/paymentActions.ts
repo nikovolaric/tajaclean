@@ -67,6 +67,10 @@ export async function payWithCard({
     if (!res.ok) {
       throw new Error(data.message);
     }
+
+    if (data.next_step) {
+      return data.next_step;
+    }
   } catch (error) {
     console.log(error);
     return error;

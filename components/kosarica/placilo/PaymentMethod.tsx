@@ -115,6 +115,11 @@ function PaymentMethod() {
         if (result instanceof Error) {
           throw new Error(result.message);
         }
+
+        if (result.url) {
+          window.open(result.url, "_blank");
+          return;
+        }
       }
 
       await createOrder({
