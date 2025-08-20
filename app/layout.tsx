@@ -61,6 +61,9 @@ export const metadata: Metadata = {
     "max-video-preview": -1,
     googleBot: "index, follow",
   },
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default async function RootLayout({
