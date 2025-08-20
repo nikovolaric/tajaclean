@@ -13,6 +13,7 @@ function OldOrders({
     buyer: { firstName: string; lastName: string };
     status: string;
     total_price: number;
+    paid: boolean;
   }[];
 }) {
   const [isOpen, setIsOpen] = useState(false);
