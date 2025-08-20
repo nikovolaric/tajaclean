@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     googleBot: "index, follow",
   },
   icons: {
-    icon: "/icon.png",
+    icon: "https://www.tajaclean.si/icon.png",
   },
 };
 
