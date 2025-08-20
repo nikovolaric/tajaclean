@@ -110,15 +110,24 @@ function PaymentMethod() {
       }
 
       if (paymentMethod === "card") {
-        const result = await payWithCard({ id, card });
+        const result = await payWithCard({
+          id,
+          card,
+          orderData: {
+            buyer,
+            delivery,
+            paymentMethod,
+            cart,
+            subscribe,
+            code,
+            notes,
+            code_value: codeValue,
+            paid: paymentMethod === "card" ? true : false,
+          },
+        });
 
         if (result instanceof Error) {
           throw new Error(result.message);
-        }
-
-        if (result.url) {
-          window.open(result.url, "_blank");
-          return;
         }
       }
 

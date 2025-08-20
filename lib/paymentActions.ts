@@ -1,6 +1,7 @@
 "use server";
 
 import { randomUUID } from "crypto";
+import { createOrder } from "./orderActions";
 
 export async function createSession({ amount }: { amount: number }) {
   try {
@@ -15,6 +16,7 @@ export async function createSession({ amount }: { amount: number }) {
         amount,
         currency: "EUR",
         merchant_code: process.env.MERCHANT_CODE,
+        redirect_url: `${process.env.FRONTEND_URL}/nakup-uspesen`,
       }),
     });
 
@@ -33,9 +35,29 @@ export async function createSession({ amount }: { amount: number }) {
 export async function payWithCard({
   id,
   card,
+  orderData,
 }: {
   id: string;
   card: { name: string; number: string; date: string; cvv: string };
+  orderData: {
+    buyer: Record<string, string>;
+    delivery: Record<string, string>;
+    cart: {
+      id: string;
+      img: string;
+      name: string;
+      packQ: number;
+      price: number;
+      quantity: number;
+      discountPrice?: number;
+    }[];
+    paymentMethod: string;
+    subscribe: boolean;
+    code?: string;
+    notes?: string;
+    code_value?: number;
+    paid: boolean;
+  };
 }) {
   try {
     const { name, number, date, cvv } = card;
@@ -68,11 +90,53 @@ export async function payWithCard({
       throw new Error(data.message);
     }
 
-    if (data.next_step) {
-      return data.next_step;
-    }
+    await createOrder(orderData);
   } catch (error) {
     console.log(error);
     return error;
   }
 }
+
+// export async function payWithCard({
+//   id,
+//   card,
+// }: {
+//   id: string;
+//   card: { name: string; number: string; date: string; cvv: string };
+// }) {
+//   try {
+//     const { name, number, date, cvv } = card;
+
+//     const [expiry_month, expiry_year] = date.split("/");
+
+//     const res = await fetch(`${process.env.FRONTEND_URL}/api/payments`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         id,
+//         name,
+//         number: number.replaceAll(" ", ""),
+//         expiry_month,
+//         expiry_year,
+//         cvv,
+//       }),
+//     });
+
+//     const data = await res.json();
+
+//     console.log(data);
+
+//     if (!res.ok) {
+//       throw new Error(data.message);
+//     }
+
+//     if (data.next_step) {
+//       return data.next_step;
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     return error;
+//   }
+// }
