@@ -14,8 +14,10 @@ import { createSession, payWithCard } from "@/lib/paymentActions";
 import { useEffect, useState } from "react";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function PaymentMethod() {
+  const router = useRouter();
   const {
     paymentMethod,
     setPaymentMethod,
@@ -148,7 +150,7 @@ function PaymentMethod() {
               clearInterval(interval);
               threeDSWin?.close();
 
-              if (data.status === "SUCCESS") {
+              if (data.status === "PAID") {
                 await createOrder({
                   buyer,
                   delivery,
@@ -160,6 +162,8 @@ function PaymentMethod() {
                   code_value: codeValue,
                   paid: true,
                 });
+
+                router.push("/nakup-uspesen");
               } else {
                 setErr("Plačilo ni uspelo. Poskusi znova.");
               }
