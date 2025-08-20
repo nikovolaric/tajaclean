@@ -117,8 +117,13 @@ function PaymentMethod() {
         }
 
         if (result.url && result.payload?.creq) {
-          window.open("", "threeDSWindow", "width=500,height=700");
+          const threeDSWin = window.open(
+            "",
+            "threeDSWindow",
+            "width=500,height=700",
+          );
 
+          // pošlji creq v popup
           const form = document.createElement("form");
           form.method = "POST";
           form.action = result.url;
@@ -133,6 +138,35 @@ function PaymentMethod() {
           document.body.appendChild(form);
           form.submit();
           document.body.removeChild(form);
+
+          // začni polling
+          const interval = setInterval(async () => {
+            const res = await fetch(`/api/checkPaymentStatus?id=${id}`);
+            const data = await res.json();
+
+            if (data.status && data.status !== "PENDING") {
+              clearInterval(interval);
+              threeDSWin?.close();
+
+              if (data.status === "SUCCESS") {
+                await createOrder({
+                  buyer,
+                  delivery,
+                  paymentMethod,
+                  cart,
+                  subscribe,
+                  code,
+                  notes,
+                  code_value: codeValue,
+                  paid: true,
+                });
+              } else {
+                setErr("Plačilo ni uspelo. Poskusi znova.");
+              }
+            }
+          }, 3000);
+
+          return;
         }
       }
 
