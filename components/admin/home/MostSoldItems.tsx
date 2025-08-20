@@ -131,9 +131,21 @@ export function MostSoldItemsDays() {
       async function getData() {
         setIsloading(true);
         try {
-          const data = await getTopProductsByLastDays(stats.days);
+          if (stats.start_date && stats.end_date) {
+            const data = await getTopProductsByLastDays({
+              start_date: stats.start_date,
+              end_date: stats.end_date,
+            });
+            setItems(data);
+          } else {
+            const data = await getTopProductsByLastDays({
+              start_date: new Date(
+                Date.now() - stats.days * 24 * 60 * 60 * 1000,
+              ),
+            });
 
-          setItems(data);
+            setItems(data);
+          }
         } catch (error) {
           console.log(error);
         } finally {
@@ -143,7 +155,7 @@ export function MostSoldItemsDays() {
 
       getData();
     },
-    [stats.days],
+    [stats.days, stats.end_date, stats.start_date],
   );
 
   return (

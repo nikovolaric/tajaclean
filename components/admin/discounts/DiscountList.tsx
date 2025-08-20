@@ -16,14 +16,17 @@ async function DiscountList() {
         <p className="font-medium">Trenutno ni aktivnih kod za popust</p>
       ) : (
         data.map(
-          (discount: {
-            person_name: string;
-            name: string;
-            used: string;
-            valid_until: string;
-            id: string;
-            value: number;
-          }) => <DiscountCard key={discount.id} discount={discount} />,
+          (
+            discount: {
+              person_name: string;
+              name: string;
+              used: string;
+              valid_until: string;
+              id: string;
+              value: number;
+            },
+            i: number,
+          ) => <DiscountCard key={discount.id} discount={discount} i={i} />,
         )
       )}
     </div>

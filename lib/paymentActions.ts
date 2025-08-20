@@ -1,7 +1,6 @@
 "use server";
 
 import { randomUUID } from "crypto";
-import { redirect } from "next/navigation";
 
 export async function createSession({ amount }: { amount: number }) {
   try {

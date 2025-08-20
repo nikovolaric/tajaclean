@@ -52,90 +52,94 @@ function EditDiscountForm() {
 
   if (id && discountData)
     return (
-      <div className="flex flex-col gap-4">
-        <p className="font-semibold">Uredi kodo za popust</p>
-        <form
-          className="relative grid grid-cols-3 gap-x-5 rounded-xl bg-white px-5 py-4 text-sm shadow-sm"
-          action={handleAction}
-        >
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <label className="font-medium text-black/75">
-                Nosilec kode za popust
-              </label>
-              <input
-                autoComplete="off"
-                name="person_name"
-                className="w-full rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm"
-                placeholder="Vnesite nosilca kode"
-                defaultValue={discountData.person_name}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="font-medium text-black/75">
-                Vrednost kode za popust (%)
-              </label>
-              <input
-                type="number"
-                autoComplete="off"
-                name="value"
-                className="w-full rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm"
-                placeholder="Vnesite vrednost kode (%)"
-                defaultValue={(discountData.value * 100).toString()}
-              />
-            </div>
-          </div>
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-2">
-              <label className="font-medium text-black/75">
-                Naziv kode za popust
-              </label>
-              <input
-                autoComplete="off"
-                name="name"
-                className="w-full rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm"
-                placeholder="Vnesite naziv kode"
-                defaultValue={discountData.name}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="font-medium text-black/75">
-                Veljavnost kode za popust
-              </label>
-              <input
-                type="datetime-local"
-                name="validUntil"
-                className="w-full cursor-pointer rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm disabled:opacity-50"
-                placeholder="Vnesite naziv kode"
-                disabled={onCancel}
-                defaultValue={
-                  discountData.valid_until
-                    ? `${new Date(discountData.valid_until).toISOString().slice(0, 11)}${new Date(discountData.valid_until).toTimeString()}`.slice(
-                        0,
-                        16,
-                      )
-                    : ""
-                }
-              />
-              <div>
+      <div className="fixed top-0 left-0 h-dvh w-dvw bg-black/50">
+        <div className="mx-auto mt-32 flex max-w-5xl flex-col gap-4">
+          <form
+            className="relative grid grid-cols-3 gap-x-5 rounded-xl bg-white px-5 py-4 text-sm shadow-sm"
+            action={handleAction}
+          >
+            <p className="col-span-3 mb-6 font-semibold">
+              Uredi kodo za popust
+            </p>
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <label className="font-medium text-black/75">
+                  Nosilec kode za popust
+                </label>
                 <input
-                  type="checkbox"
-                  name="onCancel"
-                  className="cursor-pointer"
-                  onChange={() => setOnCancel(onCancel ? false : true)}
-                  defaultChecked={onCancel}
-                />{" "}
-                <label>Velja do preklica</label>
+                  autoComplete="off"
+                  name="person_name"
+                  className="w-full rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm"
+                  placeholder="Vnesite nosilca kode"
+                  defaultValue={discountData.person_name}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="font-medium text-black/75">
+                  Vrednost kode za popust (%)
+                </label>
+                <input
+                  type="number"
+                  autoComplete="off"
+                  name="value"
+                  className="w-full rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm"
+                  placeholder="Vnesite vrednost kode (%)"
+                  defaultValue={(discountData.value * 100).toString()}
+                />
               </div>
             </div>
-          </div>
-          <Button variant="primary" className="justify-self-start">
-            + Uredi kodo
-          </Button>
-          <Link className="absolute top-4 right-4" href="/admin/popusti">
-            <X className="h-6 stroke-2" />
-          </Link>
-        </form>
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <label className="font-medium text-black/75">
+                  Naziv kode za popust
+                </label>
+                <input
+                  autoComplete="off"
+                  name="name"
+                  className="w-full rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm"
+                  placeholder="Vnesite naziv kode"
+                  defaultValue={discountData.name}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="font-medium text-black/75">
+                  Veljavnost kode za popust
+                </label>
+                <input
+                  type="datetime-local"
+                  name="validUntil"
+                  className="w-full cursor-pointer rounded-md border border-black/25 px-4 py-1 text-sm shadow-sm disabled:opacity-50"
+                  placeholder="Vnesite naziv kode"
+                  disabled={onCancel}
+                  defaultValue={
+                    discountData.valid_until
+                      ? `${new Date(discountData.valid_until).toISOString().slice(0, 11)}${new Date(discountData.valid_until).toTimeString()}`.slice(
+                          0,
+                          16,
+                        )
+                      : ""
+                  }
+                />
+                <div>
+                  <input
+                    type="checkbox"
+                    name="onCancel"
+                    className="cursor-pointer"
+                    onChange={() => setOnCancel(onCancel ? false : true)}
+                    defaultChecked={onCancel}
+                  />{" "}
+                  <label>Velja do preklica</label>
+                </div>
+              </div>
+            </div>
+            <Button variant="primary" className="justify-self-start">
+              + Uredi kodo
+            </Button>
+            <Link className="absolute top-4 right-4" href="/admin/popusti">
+              <X className="h-6 stroke-2" />
+            </Link>
+          </form>
+        </div>
       </div>
     );
 }

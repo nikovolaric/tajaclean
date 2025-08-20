@@ -1,5 +1,4 @@
 import Contact from "@/components/Contact";
-import CookieConsent from "@/components/CookieConsent";
 import FAQ from "@/components/FAQ";
 import Comunity from "@/components/home/Comunity";
 import Header from "@/components/home/Header";
@@ -26,7 +25,6 @@ export default async function Home() {
         <Comunity />
       </main>
       <NewsLetter visible={data.visible} />
-      <CookieConsent />
     </>
   );
 }

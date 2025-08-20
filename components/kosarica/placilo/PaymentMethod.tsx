@@ -13,6 +13,7 @@ import { createOrder } from "@/lib/orderActions";
 import { createSession, payWithCard } from "@/lib/paymentActions";
 import { useEffect, useState } from "react";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
+import Link from "next/link";
 
 function PaymentMethod() {
   const {
@@ -23,6 +24,8 @@ function PaymentMethod() {
     buyer,
     delivery,
     notes,
+    agrees,
+    setAgrees,
   } = useCartContext();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -123,6 +126,7 @@ function PaymentMethod() {
         code,
         notes,
         code_value: codeValue,
+        paid: paymentMethod === "card" ? true : false,
       });
     } catch (error) {
       setErr((error as Error).message);
@@ -267,6 +271,7 @@ function PaymentMethod() {
                       subscribe,
                       code,
                       code_value: codeValue,
+                      paid: true,
                     });
                   }}
                   onError={(err) => {
@@ -346,11 +351,29 @@ function PaymentMethod() {
           sporočilih, na prej navedene osebne podatke.
         </label>
       </div>
+      <div className="flex gap-6">
+        <div
+          className="border-primary flex h-3.5 w-3.5 flex-none cursor-pointer items-center justify-center rounded-full border bg-white select-none"
+          onClick={() => setAgrees(!agrees)}
+        >
+          <span
+            className={`h-2 w-2 rounded-full ${agrees ? "bg-primary" : ""}`}
+          />
+        </div>
+        <label>
+          Prebral/a sem in se strinjam s{" "}
+          <Link href="/pogoji-poslovanja" target="_blank" className="underline">
+            Splošnimi pogoji poslovanja.
+          </Link>
+        </label>
+      </div>
       <Button
         variant="primary"
         className="flex w-full items-center justify-center disabled:cursor-not-allowed disabled:opacity-50"
         onClick={handleSubmitOrder}
-        disabled={isLoading || !paymentMethod || paymentMethod === "paypal"}
+        disabled={
+          isLoading || !paymentMethod || paymentMethod === "paypal" || !agrees
+        }
       >
         {isLoading ? "..." : "Oddaj naročilo"}
       </Button>

@@ -7,6 +7,7 @@ import { useState } from "react";
 
 function DiscountCard({
   discount,
+  i,
 }: {
   discount: {
     person_name: string;
@@ -16,6 +17,7 @@ function DiscountCard({
     id: string;
     value: number;
   };
+  i: number;
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,7 +33,9 @@ function DiscountCard({
   }
 
   return (
-    <div className="grid grid-cols-[4fr_4fr_2fr_2fr_2fr_2fr] items-center justify-items-center rounded-xl bg-white py-4 text-sm shadow-sm">
+    <div
+      className={`grid grid-cols-[4fr_4fr_2fr_2fr_2fr_2fr] items-center justify-items-center rounded-xl py-4 text-sm shadow-sm ${i % 2 === 0 ? "bg-[#e4ebe3]" : "bg-white"}`}
+    >
       <p className="justify-self-start px-2 font-semibold">
         {discount.person_name}
       </p>

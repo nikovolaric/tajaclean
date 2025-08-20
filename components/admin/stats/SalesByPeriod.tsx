@@ -24,34 +24,91 @@ function SalesByPeriod() {
       try {
         setIsLoading(true);
         async function getSales() {
-          const salesData = await getSalesByDays(stats.days);
-          setSalesTotal({
-            total: salesData.total_sum,
-            growth: salesData.growth_percent,
-          });
+          if (stats.start_date && stats.end_date) {
+            const salesData = await getSalesByDays({
+              start_date: stats.start_date,
+              end_date: stats.end_date,
+            });
 
-          if (stats.sales) {
-            setChartData(salesData.data);
-          }
+            setSalesTotal({
+              total: salesData.total_sum,
+              growth: salesData.growth_percent,
+            });
 
-          const ordersData = await getOrdersByDays(stats.days);
-          setOrdersTotal({
-            total: ordersData.total_sum,
-            growth: ordersData.percent_change,
-          });
+            if (stats.sales) {
+              setChartData(salesData.data);
+            }
 
-          if (stats.orders) {
-            setChartData(ordersData.data);
-          }
+            const ordersData = await getOrdersByDays({
+              start_date: stats.start_date,
+              end_date: stats.end_date,
+            });
 
-          const averageData = await getAverageByDays(stats.days);
-          setAverageTotal({
-            total: averageData.total_sum,
-            growth: averageData.percent_change,
-          });
+            setOrdersTotal({
+              total: ordersData.total_sum,
+              growth: ordersData.percent_change,
+            });
 
-          if (stats.average) {
-            setChartData(averageData.data);
+            if (stats.orders) {
+              setChartData(ordersData.data);
+            }
+
+            const averageData = await getAverageByDays({
+              start_date: stats.start_date,
+              end_date: stats.end_date,
+            });
+
+            setAverageTotal({
+              total: averageData.total_sum,
+              growth: averageData.percent_change,
+            });
+
+            if (stats.average) {
+              setChartData(averageData.data);
+            }
+          } else {
+            const salesData = await getSalesByDays({
+              start_date: new Date(
+                Date.now() - stats.days * 24 * 60 * 60 * 1000,
+              ),
+            });
+            setSalesTotal({
+              total: salesData.total_sum,
+              growth: salesData.growth_percent,
+            });
+
+            if (stats.sales) {
+              setChartData(salesData.data);
+            }
+
+            const ordersData = await getOrdersByDays({
+              start_date: new Date(
+                Date.now() - stats.days * 24 * 60 * 60 * 1000,
+              ),
+            });
+
+            setOrdersTotal({
+              total: ordersData.total_sum,
+              growth: ordersData.percent_change,
+            });
+
+            if (stats.orders) {
+              setChartData(ordersData.data);
+            }
+
+            const averageData = await getAverageByDays({
+              start_date: new Date(
+                Date.now() - stats.days * 24 * 60 * 60 * 1000,
+              ),
+            });
+
+            setAverageTotal({
+              total: averageData.total_sum,
+              growth: averageData.percent_change,
+            });
+            if (stats.average) {
+              setChartData(averageData.data);
+            }
           }
         }
 

@@ -19,9 +19,22 @@ function ByDiscountCode() {
       async function getDiscountData() {
         setIsLoading(true);
         try {
-          const data = await getIncomeByDiscounts(stats.days);
+          if (stats.start_date && stats.end_date) {
+            const data = await getIncomeByDiscounts({
+              start_date: stats.start_date,
+              end_date: stats.end_date,
+            });
 
-          setDiscountData(data);
+            setDiscountData(data);
+          } else {
+            const data = await getIncomeByDiscounts({
+              start_date: new Date(
+                Date.now() - stats.days * 24 * 60 * 60 * 1000,
+              ),
+            });
+
+            setDiscountData(data);
+          }
         } catch (error) {
           console.log(error);
         } finally {
@@ -31,7 +44,7 @@ function ByDiscountCode() {
 
       getDiscountData();
     },
-    [stats.days],
+    [stats.days, stats.start_date, stats.end_date],
   );
 
   function getRandomColor() {

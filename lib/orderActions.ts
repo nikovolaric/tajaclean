@@ -19,6 +19,7 @@ export async function createOrder({
   code,
   notes,
   code_value,
+  paid,
 }: {
   buyer: Record<string, string>;
   delivery: Record<string, string>;
@@ -36,6 +37,7 @@ export async function createOrder({
   code?: string;
   notes?: string;
   code_value?: number;
+  paid: boolean;
 }) {
   try {
     const updatedCart = cart.map((i) => {
@@ -88,19 +90,13 @@ export async function createOrder({
       total_price: generateTotalPrice(),
       subscribe,
       status: "Nepregledano",
-      id: parseFloat(
-        `${new Date().toLocaleDateString("sl-SI", { year: "2-digit" })}${Math.floor(
-          Math.random() * 10000,
-        )
-          .toString()
-          .padStart(4, "0")}`,
-      ),
       code,
       notes,
       code_value,
+      paid,
     };
 
-    const { error } = await supabase.from("orders").insert(body);
+    const { error, data } = await supabase.from("orders").insert(body).select();
 
     if (error) {
       throw error;
@@ -122,7 +118,7 @@ export async function createOrder({
     }
 
     await sendConfirmOrder({
-      orderId: String(body.id),
+      orderId: String(data[0].id),
       buyer: { name: buyer.firstName, mail: buyer.email },
       date: new Date().toString(),
       totalPrice: generateTotalPrice(),
@@ -133,7 +129,7 @@ export async function createOrder({
     });
 
     await sendNewOrderNotice({
-      orderId: String(body.id),
+      orderId: String(data[0].id),
       buyer: {
         name: `${buyer.firstName} ${buyer.lastName}`,
         mail: buyer.email,
@@ -210,10 +206,17 @@ export async function getTopProductsByMonth(date = new Date()) {
   }
 }
 
-export async function getTopProductsByLastDays(days_back: number) {
+export async function getTopProductsByLastDays({
+  start_date,
+  end_date = new Date(),
+}: {
+  start_date: Date;
+  end_date?: Date;
+}) {
   try {
     const { data, error } = await supabase.rpc("get_top_products_last_days", {
-      days_back,
+      start_date: start_date.toISOString().split("T")[0],
+      end_date: end_date.toISOString().split("T")[0],
     });
 
     if (error) {
@@ -226,10 +229,17 @@ export async function getTopProductsByLastDays(days_back: number) {
   }
 }
 
-export async function getSalesByDays(days_back: number) {
+export async function getSalesByDays({
+  start_date,
+  end_date = new Date(),
+}: {
+  start_date: Date;
+  end_date?: Date;
+}) {
   try {
     const { data, error } = await supabase.rpc("get_daily_sales_last_days", {
-      days_back,
+      start_date: start_date.toISOString().split("T")[0],
+      end_date: end_date.toISOString().split("T")[0],
     });
 
     if (error) {
@@ -242,10 +252,17 @@ export async function getSalesByDays(days_back: number) {
   }
 }
 
-export async function getOrdersByDays(days_back: number) {
+export async function getOrdersByDays({
+  start_date,
+  end_date = new Date(),
+}: {
+  start_date: Date;
+  end_date?: Date;
+}) {
   try {
     const { data, error } = await supabase.rpc("get_daily_orders_count", {
-      days_back,
+      start_date: start_date.toISOString().split("T")[0],
+      end_date: end_date.toISOString().split("T")[0],
     });
 
     if (error) {
@@ -258,12 +275,19 @@ export async function getOrdersByDays(days_back: number) {
   }
 }
 
-export async function getAverageByDays(days_back: number) {
+export async function getAverageByDays({
+  start_date,
+  end_date = new Date(),
+}: {
+  start_date: Date;
+  end_date?: Date;
+}) {
   try {
     const { data, error } = await supabase.rpc(
       "get_daily_average_order_value",
       {
-        days_back,
+        start_date: start_date.toISOString().split("T")[0],
+        end_date: end_date.toISOString().split("T")[0],
       },
     );
 

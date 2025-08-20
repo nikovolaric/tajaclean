@@ -7,6 +7,8 @@ type StatsType = {
   sales: boolean;
   orders: boolean;
   average: boolean;
+  start_date?: Date;
+  end_date?: Date;
 };
 
 type StatsContextType = {

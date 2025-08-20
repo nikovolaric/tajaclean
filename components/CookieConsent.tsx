@@ -4,6 +4,7 @@ import Link from "next/link";
 import { H3 } from "./Text";
 import Button from "./Button";
 import { useState } from "react";
+import { acceptCookies, declineCookies } from "@/lib/cookieActions";
 
 function CookieConsent() {
   const [isOpen, setIsOpen] = useState(true);
@@ -36,10 +37,18 @@ function CookieConsent() {
         </Link>
       </p>
       <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-        <Button variant="primary" className="flex justify-center">
+        <Button
+          variant="primary"
+          className="flex justify-center"
+          onClick={acceptCookies}
+        >
           SPREJMI VSE PIŠKOTKE
         </Button>
-        <Button variant="complimentary" className="flex justify-center">
+        <Button
+          variant="complimentary"
+          className="flex justify-center"
+          onClick={declineCookies}
+        >
           ZAVRNI PIŠKOTKE
         </Button>
       </div>

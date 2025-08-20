@@ -3,13 +3,7 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import NewOrderCard from "./NewOrderCard";
 import Link from "next/link";
-import {
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  Pencil,
-  Search,
-} from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import Spinner from "@/components/Spinner";
 
@@ -20,6 +14,7 @@ function OrdersPage() {
     buyer: { firstName: string; lastName: string };
     total_price: number;
     status: string;
+    paid: boolean;
   };
 
   const [orders, setOrders] = useState<Order[]>([]);
@@ -28,6 +23,7 @@ function OrdersPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(1);
+  const [paid, setPaid] = useState<boolean | null>(null);
 
   useEffect(function () {
     async function getNewOrders() {
@@ -84,6 +80,10 @@ function OrdersPage() {
             query.eq("status", status);
           }
 
+          if (paid !== null) {
+            query.eq("paid", paid);
+          }
+
           const { data, error } = await query;
 
           if (error) {
@@ -100,7 +100,7 @@ function OrdersPage() {
 
       getOrders();
     },
-    [name, status, page],
+    [name, status, page, paid],
   );
 
   return (
@@ -125,7 +125,7 @@ function OrdersPage() {
           )}
         </div>
         <div className="flex flex-col gap-4">
-          <NameBar setStatus={setStatus} />
+          <NameBar setStatus={setStatus} setPaid={setPaid} />
           {isLoading ? (
             <Spinner />
           ) : (
@@ -138,6 +138,7 @@ function OrdersPage() {
                     buyer: { firstName: string; lastName: string };
                     total_price: number;
                     status: string;
+                    paid: boolean;
                   },
                   i: number,
                 ) => (
@@ -186,20 +187,28 @@ function SearchBar({ setName }: { setName: Dispatch<SetStateAction<string>> }) {
 
 function NameBar({
   setStatus,
+  setPaid,
 }: {
   setStatus: Dispatch<SetStateAction<string>>;
+  setPaid: Dispatch<SetStateAction<boolean | null>>;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenPaid, setIsOpenPaid] = useState(false);
 
   function handleClick(status: string) {
     setStatus(status);
     setIsOpen(false);
   }
 
+  function handlePaid(status: boolean | null) {
+    setPaid(status);
+    setIsOpenPaid(false);
+  }
+
   return (
     <>
       <p className="text-xl font-semibold">Vsa naročila</p>
-      <div className="grid grid-cols-[3fr_3fr_4fr_3fr_4fr_2fr] text-sm select-none">
+      <div className="grid grid-cols-[2fr_3fr_4fr_2fr_3fr_2fr] text-sm select-none">
         <p className="w-full rounded-s-lg border border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
           ID naročila
         </p>
@@ -213,7 +222,7 @@ function NameBar({
           Znesek
         </p>
         <div className="relative">
-          <p className="flex w-full items-center justify-center gap-4 border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
+          <p className="flex w-full items-center justify-center gap-3 border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
             Status{" "}
             <ChevronDown
               className={`cursor-pointer ${isOpen ? "rotate-180" : ""}`}
@@ -255,9 +264,37 @@ function NameBar({
             </div>
           )}
         </div>
-        <p className="w-full rounded-e-lg border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
-          Uredi
-        </p>
+        <div className="relative">
+          <p className="flex w-full items-center justify-center gap-2 rounded-r-lg border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
+            Plačilo
+            <ChevronDown
+              className={`cursor-pointer ${isOpenPaid ? "rotate-180" : ""}`}
+              onClick={() => setIsOpenPaid((isOpen) => !isOpen)}
+            />
+          </p>
+          {isOpenPaid && (
+            <div className="absolute flex w-full flex-col gap-2 rounded-lg border border-black/25 bg-white px-2 py-4 shadow-xs">
+              <button
+                className="cursor-pointer rounded-md border border-green-600 px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handlePaid(true)}
+              >
+                Plačano
+              </button>
+              <button
+                className="cursor-pointer rounded-md border border-red-600 px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handlePaid(false)}
+              >
+                Neplačano
+              </button>
+              <button
+                className="cursor-pointer rounded-md px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handlePaid(null)}
+              >
+                Vsi
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
@@ -273,12 +310,14 @@ export function OrderCard({
     buyer: { firstName: string; lastName: string };
     total_price: number;
     status: string;
+    paid: boolean;
   };
   i: number;
 }) {
   return (
-    <div
-      className={`grid grid-cols-[3fr_3fr_4fr_3fr_4fr_2fr] items-center justify-items-center rounded-xl py-4 text-sm shadow-sm ${i % 2 === 0 ? "bg-[#e4ebe3]" : "bg-white"}`}
+    <Link
+      href={`/admin/narocila/${order.id}`}
+      className={`grid grid-cols-[2fr_3fr_4fr_2fr_3fr_2fr] items-center justify-items-center rounded-xl py-4 text-sm shadow-sm ${i % 2 === 0 ? "bg-[#e4ebe3]" : "bg-white"}`}
     >
       <p className="text-center font-semibold">{order.id}</p>
       <p className="text-secondary text-center font-medium">
@@ -304,10 +343,12 @@ export function OrderCard({
       >
         {order.status}
       </p>
-      <Link href={`/admin/narocila/${order.id}`}>
-        <Pencil className="h-5 stroke-2" />
-      </Link>
-    </div>
+      <p
+        className={`rounded-md border px-1.5 text-center text-xs font-medium shadow-sm ${!order.paid ? "border-red-600" : "border-green-600"}`}
+      >
+        {order.paid ? "Plačano" : "Neplačano"}
+      </p>
+    </Link>
   );
 }
 

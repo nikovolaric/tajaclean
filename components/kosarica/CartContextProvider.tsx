@@ -44,6 +44,8 @@ type CartContextType = {
   setSubscribe: (subscribe: boolean) => void;
   notes?: string;
   setNotes: (notes: string) => void;
+  agrees: boolean;
+  setAgrees: (aggres: boolean) => void;
 };
 
 const defaultBuyer: BuyerType = {
@@ -90,6 +92,7 @@ function ContextProvider({ children }: { children: ReactNode }) {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [subscribe, setSubscribe] = useState(true);
   const [notes, setNotes] = useState("");
+  const [agrees, setAgrees] = useState(false);
 
   useEffect(
     function () {
@@ -116,6 +119,8 @@ function ContextProvider({ children }: { children: ReactNode }) {
         setSubscribe,
         notes,
         setNotes,
+        agrees,
+        setAgrees,
       }}
     >
       {children}

@@ -31,7 +31,7 @@ export async function sendConfirmOrder(options: {
 
   //2. Define the email options
   const mailOptions = {
-    from: "TajaClean.si <info@lamastrategies.com>",
+    from: `TajaClean.si <${process.env.EMAIL_USERNAME}>`,
     to: options.buyer.mail,
     subject: `Potrditev naročila ${options.orderId} | TajaClean.si`,
     html: `
@@ -267,8 +267,8 @@ export async function sendNewOrderNotice(options: {
 
   //2. Define the email options
   const mailOptions = {
-    from: "TajaClean.si <info@lamastrategies.com>",
-    to: "niko.volaric@gmail.com",
+    from: `TajaClean.si <${process.env.EMAIL_USERNAME}>`,
+    to: process.env.EMAIL_USERNAME,
     subject: `Novo naročilo ${options.orderId} | TajaClean.si`,
     html: `
 <html lang="sl">
