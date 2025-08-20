@@ -1,1 +1,9 @@
-Disallow:*
+User-agent: *
+Disallow: /login
+Disallow: /admin
+Disallow: /kosarica
+Disallow: /kosarica
+Disallow: /nakup-uspesen
+Disallow: /pogoji-poslovanja
+
+sitemap:https://www.tajaclean.si/sitemap.xml
