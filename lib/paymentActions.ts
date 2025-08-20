@@ -1,7 +1,6 @@
 "use server";
 
 import { randomUUID } from "crypto";
-import { createOrder } from "./orderActions";
 
 export async function createSession({ amount }: { amount: number }) {
   try {
@@ -35,29 +34,9 @@ export async function createSession({ amount }: { amount: number }) {
 export async function payWithCard({
   id,
   card,
-  orderData,
 }: {
   id: string;
   card: { name: string; number: string; date: string; cvv: string };
-  orderData: {
-    buyer: Record<string, string>;
-    delivery: Record<string, string>;
-    cart: {
-      id: string;
-      img: string;
-      name: string;
-      packQ: number;
-      price: number;
-      quantity: number;
-      discountPrice?: number;
-    }[];
-    paymentMethod: string;
-    subscribe: boolean;
-    code?: string;
-    notes?: string;
-    code_value?: number;
-    paid: boolean;
-  };
 }) {
   try {
     const { name, number, date, cvv } = card;
@@ -90,7 +69,9 @@ export async function payWithCard({
       throw new Error(data.message);
     }
 
-    if (data.status === "PAID") await createOrder(orderData);
+    if (data.next_step) {
+      return data.next_step;
+    }
   } catch (error) {
     console.log(error);
     return error;

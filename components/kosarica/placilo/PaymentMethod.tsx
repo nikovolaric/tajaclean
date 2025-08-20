@@ -14,6 +14,7 @@ import { createSession, payWithCard } from "@/lib/paymentActions";
 import { useEffect, useState } from "react";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Link from "next/link";
+import ThreeDSChallenge from "./ThreeDSChallenge";
 
 function PaymentMethod() {
   const {
@@ -41,6 +42,9 @@ function PaymentMethod() {
     date: "",
     cvv: "",
   });
+  const [threeDS, setThreeDS] = useState<{ url: string; creq: string } | null>(
+    null,
+  );
 
   function updateCart() {
     const cartString = localStorage.getItem("cart");
@@ -110,24 +114,16 @@ function PaymentMethod() {
       }
 
       if (paymentMethod === "card") {
-        const result = await payWithCard({
-          id,
-          card,
-          orderData: {
-            buyer,
-            delivery,
-            paymentMethod,
-            cart,
-            subscribe,
-            code,
-            notes,
-            code_value: codeValue,
-            paid: paymentMethod === "card" ? true : false,
-          },
-        });
+        const result = await payWithCard({ id, card });
 
         if (result instanceof Error) {
           throw new Error(result.message);
+        }
+
+        if (result.url && result.payload?.creq) {
+          // namesto window.open zdaj prikažeš React komponento
+          setThreeDS({ url: result.url, creq: result.payload.creq });
+          return;
         }
       }
 
@@ -151,6 +147,7 @@ function PaymentMethod() {
 
   return (
     <div className="flex flex-col gap-10 xl:w-3/4">
+      {threeDS && <ThreeDSChallenge url={threeDS.url} creq={threeDS.creq} />}
       <H2>Način plačila</H2>
       <form className="bg-primary/5 grid gap-10 px-4 py-6 lg:px-6 lg:py-10">
         <div className="grid gap-6">
