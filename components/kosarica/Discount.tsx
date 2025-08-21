@@ -16,6 +16,10 @@ function Discount() {
     if (userCartString) {
       const cart = JSON.parse(userCartString);
       setCart(cart);
+
+      if (JSON.parse(userCartString).length === 0) {
+        setDiscount("");
+      }
     }
   }
 
@@ -36,15 +40,6 @@ function Discount() {
       window.removeEventListener("cart-updated", handleCartTotalUpdate);
     };
   }, []);
-
-  useEffect(
-    function () {
-      if (cart.length === 0) {
-        setDiscount("");
-      }
-    },
-    [cart],
-  );
 
   async function handleAction(formData: FormData) {
     setError("");

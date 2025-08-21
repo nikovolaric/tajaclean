@@ -21,6 +21,10 @@ function Cart() {
         setCode("");
       }
 
+      if (JSON.parse(cartString).length === 0) {
+        localStorage.removeItem("discount");
+      }
+
       const cartTotal = JSON.parse(cartString).reduce(
         (
           a: number,
@@ -61,15 +65,6 @@ function Cart() {
       window.removeEventListener("cart-updated", handleCartUpdate);
     };
   }, []);
-
-  useEffect(
-    function () {
-      if (cart.length === 0) {
-        localStorage.removeItem("discount");
-      }
-    },
-    [cart],
-  );
 
   return (
     <div className="grid gap-12 lg:gap-18">

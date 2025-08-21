@@ -161,7 +161,7 @@ function PaymentMethod() {
                   notes,
                   code_value: codeValue,
                   paid: true,
-                  sumup_id: data.transactions[0].transaction_code,
+                  sumup_id: result.current_transaction.transaction_code,
                 });
 
                 router.push("/nakup-uspesen");
@@ -238,7 +238,6 @@ function PaymentMethod() {
                     const raw = e.target.value.replace(/\s+/g, "");
                     const formatted = raw.match(/.{1,4}/g)?.join(" ") || "";
                     setCard({ ...card, number: formatted });
-                    setCard({ ...card, number: formatted });
                   }}
                   value={card.number}
                 />
@@ -248,17 +247,21 @@ function PaymentMethod() {
                   <label>Velja do</label>
                   <Input
                     required
-                    placeholder="MM/LL"
+                    placeholder="MM/YY"
                     autoComplete="off"
                     maxLength={5}
-                    minLength={5}
                     onChange={(e) => {
-                      let formattedValue = e.target.value;
-                      if (e.target.value.length === 2) {
-                        formattedValue = `${formattedValue}/`;
+                      let val = e.target.value;
+
+                      // odstrani vse kar ni številka
+                      val = val.replace(/\D/g, "");
+
+                      // če imamo vsaj 2 cifri, dodamo "/"
+                      if (val.length >= 3) {
+                        val = val.slice(0, 2) + "/" + val.slice(2, 4);
                       }
 
-                      setCard({ ...card, date: formattedValue });
+                      setCard({ ...card, date: val });
                     }}
                     value={card.date}
                   />
