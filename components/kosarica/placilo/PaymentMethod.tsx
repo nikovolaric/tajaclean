@@ -131,13 +131,13 @@ function PaymentMethod() {
           form.action = result.url;
           form.target = "threeDSWindow";
 
-          const creqInput = document.createElement("input");
-          creqInput.type = "hidden";
           if (result.payload?.creq) {
+            const creqInput = document.createElement("input");
+            creqInput.type = "hidden";
             creqInput.name = "creq";
             creqInput.value = result.payload.creq;
+            form.appendChild(creqInput);
           }
-          form.appendChild(creqInput);
 
           document.body.appendChild(form);
           form.submit();
