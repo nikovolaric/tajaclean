@@ -73,7 +73,7 @@ function TotalPrice() {
           {new Intl.NumberFormat("sl-SI", {
             style: "currency",
             currency: "EUR",
-          }).format(total > 3.2 ? (total < 40 ? total + 3.2 : total) : 0)}
+          }).format(total > 0 ? (total > 40 ? total : total + 3.2) : 0)}
         </p>
       </div>
     </div>

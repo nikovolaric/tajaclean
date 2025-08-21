@@ -46,6 +46,7 @@ function Cart() {
       setNoCodeTotal(noCodeTotal);
     } else {
       setCart([]);
+      localStorage.removeItem("discount");
     }
   }
 
@@ -60,6 +61,15 @@ function Cart() {
       window.removeEventListener("cart-updated", handleCartUpdate);
     };
   }, []);
+
+  useEffect(
+    function () {
+      if (cart.length === 0) {
+        localStorage.removeItem("discount");
+      }
+    },
+    [cart],
+  );
 
   return (
     <div className="grid gap-12 lg:gap-18">
@@ -79,7 +89,7 @@ function Cart() {
             <CartCard item={item} key={item.id} />
           ),
         )}
-        {code && (
+        {code && cart.length > 0 && (
           <div className="bg-secondary1/15 flex items-center justify-between gap-8 px-4 py-6 md:mx-auto md:w-2/3 lg:w-full lg:px-8 xl:w-5/6">
             <div className="flex flex-col gap-2 lg:flex-row lg:gap-22">
               <p className="font-semibold">KODA ZA POPUST</p>

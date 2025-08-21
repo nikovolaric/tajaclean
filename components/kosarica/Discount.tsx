@@ -37,6 +37,15 @@ function Discount() {
     };
   }, []);
 
+  useEffect(
+    function () {
+      if (cart.length === 0) {
+        setDiscount("");
+      }
+    },
+    [cart],
+  );
+
   async function handleAction(formData: FormData) {
     setError("");
     try {
