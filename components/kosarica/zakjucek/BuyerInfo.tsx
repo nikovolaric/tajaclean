@@ -110,7 +110,7 @@ function BuyerInfo() {
           </label>
           <Input
             required
-            placeholder="Vnesite ulico s hišno številko"
+            placeholder="Vnesite poštno številko"
             name="postal"
             onChange={(e) => setBuyer({ ...buyer, postal: e.target.value })}
             defaultValue={buyer.postal}

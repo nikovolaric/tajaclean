@@ -202,7 +202,7 @@ function DeliveryInfo() {
               <label>Poštna številka</label>
               <Input
                 required
-                placeholder="Vnesite ulico s hišno številko"
+                placeholder="Vnesite poštno številko"
                 name="postal"
                 onChange={(e) =>
                   setDelivery({ ...delivery, postal: e.target.value })

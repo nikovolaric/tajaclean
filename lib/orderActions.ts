@@ -20,6 +20,7 @@ export async function createOrder({
   notes,
   code_value,
   paid,
+  sumup_id,
 }: {
   buyer: Record<string, string>;
   delivery: Record<string, string>;
@@ -38,6 +39,7 @@ export async function createOrder({
   notes?: string;
   code_value?: number;
   paid: boolean;
+  sumup_id?: string;
 }) {
   try {
     const updatedCart = cart.map((i) => {
@@ -94,6 +96,7 @@ export async function createOrder({
       notes,
       code_value,
       paid,
+      sumup_id,
     };
 
     const { error, data } = await supabase.from("orders").insert(body).select();
@@ -167,14 +170,16 @@ export async function createOrder({
 export async function updateOrderStatus({
   id,
   status,
+  paid,
 }: {
   id: number;
-  status: string;
+  status?: string;
+  paid?: boolean;
 }) {
   try {
     const { error } = await supabase
       .from("orders")
-      .update({ status: status })
+      .update({ status, paid })
       .eq("id", id);
 
     if (error) {

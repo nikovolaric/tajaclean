@@ -60,7 +60,13 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
       {data.buyer.address === data.delivery.address && (
         <DeliveryInfo recepient={data.delivery} />
       )}
-      <PaymentType paymentMethod={data.payment_method} notes={data.notes} />
+      <PaymentType
+        paymentMethod={data.payment_method}
+        notes={data.notes}
+        paid={data.paid}
+        id={data.id}
+        sumupId={data.sumup_id}
+      />
       <Subscribe subscribe={data.subscribe} />
     </div>
   );

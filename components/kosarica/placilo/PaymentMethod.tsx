@@ -161,6 +161,7 @@ function PaymentMethod() {
                   notes,
                   code_value: codeValue,
                   paid: true,
+                  sumup_id: data.transactions[0].transaction_code,
                 });
 
                 router.push("/nakup-uspesen");
@@ -300,7 +301,7 @@ function PaymentMethod() {
                 options={{
                   clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENTID!,
                   currency: "EUR",
-                  disableFunding: "card",
+                  // disableFunding: "card",
                 }}
               >
                 <PayPalButtons
