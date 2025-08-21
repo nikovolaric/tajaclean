@@ -118,7 +118,7 @@ function PaymentMethod() {
           throw new Error(result.message);
         }
 
-        if (result.url && result.payload?.creq) {
+        if (result.url) {
           const threeDSWin = window.open(
             "",
             "threeDSWindow",
@@ -133,8 +133,10 @@ function PaymentMethod() {
 
           const creqInput = document.createElement("input");
           creqInput.type = "hidden";
-          creqInput.name = "creq";
-          creqInput.value = result.payload.creq;
+          if (result.payload?.creq) {
+            creqInput.name = "creq";
+            creqInput.value = result.payload.creq;
+          }
           form.appendChild(creqInput);
 
           document.body.appendChild(form);
