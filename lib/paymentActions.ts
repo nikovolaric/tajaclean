@@ -70,6 +70,7 @@ export async function payWithCard({
     }
 
     if (data.next_step) {
+      console.log(data);
       return data.next_step;
     }
   } catch (error) {
