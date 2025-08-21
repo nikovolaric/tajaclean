@@ -28,8 +28,18 @@ function ArticlesCard({
     if (quantity === 0) return;
 
     const curCart = localStorage.getItem("cart");
+    const curDiscount = localStorage.getItem("discount");
 
-    const cartData = {
+    const cartData: {
+      name: string;
+      price: number;
+      id: string;
+      quantity: number;
+      packQ: number;
+      img: string;
+      discountPrice?: number;
+      code?: boolean;
+    } = {
       name,
       price,
       id,
@@ -37,6 +47,13 @@ function ArticlesCard({
       packQ,
       img,
     };
+
+    if (curDiscount) {
+      const discount = JSON.parse(curDiscount);
+
+      cartData.discountPrice = price * (1 - discount.value);
+      cartData.code = true;
+    }
 
     if (curCart) {
       const cart = JSON.parse(curCart);
