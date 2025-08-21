@@ -161,7 +161,7 @@ function PaymentMethod() {
                   notes,
                   code_value: codeValue,
                   paid: true,
-                  sumup_id: result.current_transaction.transaction_code,
+                  sumup_id: data.transactions[0].transaction_code,
                 });
 
                 router.push("/nakup-uspesen");
