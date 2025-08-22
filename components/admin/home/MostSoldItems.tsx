@@ -101,20 +101,28 @@ function MostSoldItems() {
         {isLoading ? (
           <Spinner />
         ) : (
-          items.map((el: { product_name: string; total_price: number }) => (
-            <div
-              key={el.product_name}
-              className="flex items-center justify-between rounded-xl border border-[#ADADAD]/50 p-4 text-sm font-medium shadow-xs"
-            >
-              <p>{el.product_name}</p>
-              <p className="rounded-md border border-[#ADADAD]/50 p-1 shadow-xs">
-                {new Intl.NumberFormat("sl-SI", {
-                  style: "currency",
-                  currency: "EUR",
-                }).format(el.total_price)}
-              </p>
-            </div>
-          ))
+          items.map(
+            (el: {
+              product_name: string;
+              total_price: number;
+              total_quantity: number;
+            }) => (
+              <div
+                key={el.product_name}
+                className="flex items-center justify-between rounded-xl border border-[#ADADAD]/50 p-4 text-sm font-medium shadow-xs"
+              >
+                <p>
+                  {el.product_name} ({el.total_quantity} kom.)
+                </p>
+                <p className="rounded-md border border-[#ADADAD]/50 p-1 shadow-xs">
+                  {new Intl.NumberFormat("sl-SI", {
+                    style: "currency",
+                    currency: "EUR",
+                  }).format(el.total_price)}
+                </p>
+              </div>
+            ),
+          )
         )}
       </div>
     </div>
