@@ -14,7 +14,7 @@ function OrdersPage() {
     buyer: { firstName: string; lastName: string };
     total_price: number;
     status: string;
-    paid: boolean;
+    paid: string;
   };
 
   const [orders, setOrders] = useState<Order[]>([]);
@@ -23,7 +23,7 @@ function OrdersPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(1);
-  const [paid, setPaid] = useState<boolean | null>(null);
+  const [paid, setPaid] = useState<string>("");
 
   useEffect(function () {
     async function getNewOrders() {
@@ -80,7 +80,7 @@ function OrdersPage() {
             query.eq("status", status);
           }
 
-          if (paid !== null) {
+          if (paid) {
             query.eq("paid", paid);
           }
 
@@ -138,7 +138,7 @@ function OrdersPage() {
                     buyer: { firstName: string; lastName: string };
                     total_price: number;
                     status: string;
-                    paid: boolean;
+                    paid: string;
                   },
                   i: number,
                 ) => (
@@ -190,7 +190,7 @@ function NameBar({
   setPaid,
 }: {
   setStatus: Dispatch<SetStateAction<string>>;
-  setPaid: Dispatch<SetStateAction<boolean | null>>;
+  setPaid: Dispatch<SetStateAction<string>>;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenPaid, setIsOpenPaid] = useState(false);
@@ -200,7 +200,7 @@ function NameBar({
     setIsOpen(false);
   }
 
-  function handlePaid(status: boolean | null) {
+  function handlePaid(status: string) {
     setPaid(status);
     setIsOpenPaid(false);
   }
@@ -232,19 +232,19 @@ function NameBar({
           {isOpen && (
             <div className="absolute flex w-full flex-col gap-2 rounded-lg border border-black/25 bg-white p-4 shadow-xs">
               <button
-                className="cursor-pointer rounded-md border border-red-600 px-1.5 text-center text-xs font-medium shadow-sm"
+                className="cursor-pointer rounded-md border border-red-600 bg-red-600/15 px-1.5 text-center text-xs font-medium shadow-sm"
                 onClick={() => handleClick("Preklicano")}
               >
                 Preklicano
               </button>
               <button
-                className="cursor-pointer rounded-md border border-yellow-200 px-1.5 text-center text-xs font-medium shadow-sm"
+                className="cursor-pointer rounded-md border border-yellow-200 bg-yellow-200/20 px-1.5 text-center text-xs font-medium shadow-sm"
                 onClick={() => handleClick("V obdelavi")}
               >
                 V obdelavi
               </button>
               <button
-                className="cursor-pointer rounded-md border border-green-600 px-1.5 text-center text-xs font-medium shadow-sm"
+                className="cursor-pointer rounded-md border border-green-600 bg-green-600/15 px-1.5 text-center text-xs font-medium shadow-sm"
                 onClick={() => handleClick("Zaključeno")}
               >
                 Zaključeno
@@ -275,20 +275,26 @@ function NameBar({
           {isOpenPaid && (
             <div className="absolute flex w-full flex-col gap-2 rounded-lg border border-black/25 bg-white px-2 py-4 shadow-xs">
               <button
-                className="cursor-pointer rounded-md border border-green-600 px-1.5 text-center text-xs font-medium shadow-sm"
-                onClick={() => handlePaid(true)}
+                className="cursor-pointer rounded-md border border-green-600 bg-green-600/15 px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handlePaid("Plačano")}
               >
                 Plačano
               </button>
               <button
-                className="cursor-pointer rounded-md border border-red-600 px-1.5 text-center text-xs font-medium shadow-sm"
-                onClick={() => handlePaid(false)}
+                className="cursor-pointer rounded-md border border-red-600 bg-red-600/15 px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handlePaid("Neplačano")}
               >
                 Neplačano
               </button>
               <button
+                className="cursor-pointer rounded-md border border-yellow-200 bg-yellow-200/20 px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handlePaid("Vračilo")}
+              >
+                Vračilo
+              </button>
+              <button
                 className="cursor-pointer rounded-md px-1.5 text-center text-xs font-medium shadow-sm"
-                onClick={() => handlePaid(null)}
+                onClick={() => handlePaid("")}
               >
                 Vsi
               </button>
@@ -310,7 +316,7 @@ export function OrderCard({
     buyer: { firstName: string; lastName: string };
     total_price: number;
     status: string;
-    paid: boolean;
+    paid: string;
   };
   i: number;
 }) {
@@ -344,9 +350,9 @@ export function OrderCard({
         {order.status}
       </p>
       <p
-        className={`rounded-md border px-1.5 text-center text-xs font-medium shadow-sm ${!order.paid ? "border-red-600 bg-red-600/15" : "border-green-600 bg-green-600/15"}`}
+        className={`rounded-md border px-1.5 text-center text-xs font-medium shadow-sm ${order.paid === "Neplačano" ? "border-red-600 bg-red-600/15" : order.paid === "Plačano" ? "border-green-600 bg-green-600/15" : "border-yellow-200 bg-yellow-200/20"}`}
       >
-        {order.paid ? "Plačano" : "Neplačano"}
+        {order.paid}
       </p>
     </Link>
   );

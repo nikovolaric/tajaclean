@@ -165,7 +165,7 @@ function PaymentMethod() {
                   code,
                   notes,
                   code_value: codeValue,
-                  paid: true,
+                  paid: "Plačano",
                   sumup_id: data.transactions[0].transaction_code,
                 });
 
@@ -190,7 +190,7 @@ function PaymentMethod() {
         code,
         notes,
         code_value: codeValue,
-        paid: paymentMethod === "card" ? true : false,
+        paid: "Neplačano",
       });
     } catch (error) {
       setErr((error as Error).message);
@@ -343,7 +343,7 @@ function PaymentMethod() {
                         subscribe,
                         code,
                         code_value: codeValue,
-                        paid: true,
+                        paid: "Plačano",
                       });
                     }}
                     onError={(err) => {

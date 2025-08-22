@@ -13,7 +13,7 @@ function PaymentType({
 }: {
   paymentMethod: string;
   notes?: string;
-  paid: boolean;
+  paid: string;
   id: number;
   sumupId?: string;
 }) {
@@ -60,9 +60,7 @@ function PaymentType({
         <div
           className={`relative flex items-center gap-6 ${isOpen ? "rounded-t-xl" : "rounded-xl"} bg-white p-5 shadow-[0px_1px_2px_rgba(0,0,0,0.25)]`}
         >
-          <p className="text-sm font-medium">
-            {curStatus ? "Plačano" : "Neplačano"}
-          </p>
+          <p className="text-sm font-medium">{curStatus}</p>
           <ChevronDown
             className={`w-6 cursor-pointer stroke-2 ${isOpen ? "rotate-180" : ""}`}
             onClick={() => setIsOpen((isOpen) => !isOpen)}
@@ -78,27 +76,71 @@ function PaymentType({
           )}
           {isOpen && (
             <div className="absolute top-full left-0 z-10 flex w-full flex-col gap-2 rounded-b-xl bg-white p-5 shadow-[0px_1px_2px_rgba(0,0,0,0.25)]">
-              {curStatus && (
-                <p
-                  className="w-fit cursor-pointer rounded-md border border-[rgba(0,0,0,0.25)] bg-white px-1.5 text-xs font-medium shadow-sm"
-                  onClick={() => {
-                    setCurStatus(false);
-                    setIsOpen(false);
-                  }}
-                >
-                  Neplačano
-                </p>
+              {curStatus === "Plačano" && (
+                <>
+                  <p
+                    className="w-fit cursor-pointer rounded-md border border-[rgba(0,0,0,0.25)] bg-white px-1.5 text-xs font-medium shadow-sm"
+                    onClick={() => {
+                      setCurStatus("Neplačano");
+                      setIsOpen(false);
+                    }}
+                  >
+                    Neplačano
+                  </p>
+                  <p
+                    className="w-fit cursor-pointer rounded-md border border-[rgba(0,0,0,0.25)] bg-white px-1.5 text-xs font-medium shadow-sm"
+                    onClick={() => {
+                      setCurStatus("Vračilo");
+                      setIsOpen(false);
+                    }}
+                  >
+                    Vračilo
+                  </p>
+                </>
               )}{" "}
-              {!curStatus && (
-                <p
-                  className="w-fit cursor-pointer rounded-md border border-[rgba(0,0,0,0.25)] bg-white px-1.5 text-xs font-medium shadow-sm"
-                  onClick={() => {
-                    setCurStatus(true);
-                    setIsOpen(false);
-                  }}
-                >
-                  Plačano
-                </p>
+              {curStatus === "Neplačano" && (
+                <>
+                  <p
+                    className="w-fit cursor-pointer rounded-md border border-[rgba(0,0,0,0.25)] bg-white px-1.5 text-xs font-medium shadow-sm"
+                    onClick={() => {
+                      setCurStatus("Plačano");
+                      setIsOpen(false);
+                    }}
+                  >
+                    Plačano
+                  </p>
+                  <p
+                    className="w-fit cursor-pointer rounded-md border border-[rgba(0,0,0,0.25)] bg-white px-1.5 text-xs font-medium shadow-sm"
+                    onClick={() => {
+                      setCurStatus("Vračilo");
+                      setIsOpen(false);
+                    }}
+                  >
+                    Vračilo
+                  </p>
+                </>
+              )}
+              {curStatus === "Vračilo" && (
+                <>
+                  <p
+                    className="w-fit cursor-pointer rounded-md border border-[rgba(0,0,0,0.25)] bg-white px-1.5 text-xs font-medium shadow-sm"
+                    onClick={() => {
+                      setCurStatus("Plačano");
+                      setIsOpen(false);
+                    }}
+                  >
+                    Plačano
+                  </p>
+                  <p
+                    className="w-fit cursor-pointer rounded-md border border-[rgba(0,0,0,0.25)] bg-white px-1.5 text-xs font-medium shadow-sm"
+                    onClick={() => {
+                      setCurStatus("Neplačano");
+                      setIsOpen(false);
+                    }}
+                  >
+                    Neplačano
+                  </p>
+                </>
               )}
             </div>
           )}

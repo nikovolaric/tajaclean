@@ -38,7 +38,7 @@ export async function createOrder({
   code?: string;
   notes?: string;
   code_value?: number;
-  paid: boolean;
+  paid: string;
   sumup_id?: string;
 }) {
   try {
@@ -175,7 +175,7 @@ export async function updateOrderStatus({
 }: {
   id: number;
   status?: string;
-  paid?: boolean;
+  paid?: string;
 }) {
   try {
     const { error } = await supabase
