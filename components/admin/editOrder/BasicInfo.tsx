@@ -17,7 +17,7 @@ async function BasicInfo({
     buyer: { firstName: string; lastName: string };
     status: string;
     total_price: number;
-    paid: boolean;
+    paid: string;
   }[];
 
   return (
