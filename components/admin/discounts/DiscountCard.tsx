@@ -1,7 +1,11 @@
 "use client";
 
-import { deleteDiscount } from "@/lib/discountActions";
-import { Pencil, RefreshCcw, Trash2 } from "lucide-react";
+import {
+  deleteDiscount,
+  pauseDiscount,
+  playDiscount,
+} from "@/lib/discountActions";
+import { Pause, Pencil, Play, RefreshCcw, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -16,10 +20,12 @@ function DiscountCard({
     valid_until: string;
     id: string;
     value: number;
+    paused: boolean;
   };
   i: number;
 }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingPause, setIsLoadingPause] = useState(false);
 
   async function handleDelete() {
     try {
@@ -32,11 +38,48 @@ function DiscountCard({
     }
   }
 
+  async function handlePause() {
+    try {
+      setIsLoadingPause(true);
+
+      await pauseDiscount(discount.id);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoadingPause(false);
+    }
+  }
+
+  async function handlePlay() {
+    try {
+      setIsLoadingPause(true);
+
+      await playDiscount(discount.id);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoadingPause(false);
+    }
+  }
+
   return (
     <div
       className={`grid grid-cols-[4fr_4fr_2fr_2fr_2fr_2fr] items-center justify-items-center rounded-xl py-4 text-sm shadow-sm ${i % 2 === 0 ? "bg-[#e4ebe3]" : "bg-white"}`}
     >
-      <p className="justify-self-start px-2 font-semibold">
+      <p className="flex items-center gap-3 justify-self-start px-2 font-semibold">
+        {isLoadingPause ? (
+          <RefreshCcw className="w-4 flex-none animate-spin" />
+        ) : discount.paused ? (
+          <Pause
+            className="text-alert w-4 flex-none cursor-pointer"
+            onClick={handlePlay}
+          />
+        ) : (
+          <Play
+            className="text-secondary1 w-4 flex-none cursor-pointer"
+            onClick={handlePause}
+          />
+        )}
         {discount.person_name}
       </p>
       <p className="justify-self-start px-2 font-semibold">{discount.name}</p>

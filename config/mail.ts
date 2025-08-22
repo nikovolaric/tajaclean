@@ -1,4 +1,5 @@
 import { createTransport, SendMailOptions, TransportOptions } from "nodemailer";
+import isEmail from "validator/lib/isEmail";
 
 const transporterOptions = {
   host: process.env.EMAIL_HOST,
@@ -224,10 +225,14 @@ export async function sendConfirmOrder(options: {
 `,
   } as SendMailOptions;
 
+  if (!isEmail(options.buyer.mail)) {
+    return;
+  }
+
   //3. Actually send the email
   const res = await transporter.sendMail(mailOptions);
 
-  return res.response;
+  return res;
 }
 
 export async function sendNewOrderNotice(options: {
@@ -261,6 +266,7 @@ export async function sendNewOrderNotice(options: {
   }[];
   deliveryCost: number;
   code?: string;
+  notes?: string;
 }) {
   //1. Create transporter
   const transporter = createTransport(transporterOptions);
@@ -451,6 +457,8 @@ export async function sendNewOrderNotice(options: {
         Način plačila: ${options.paymentMethod === "proforma" ? "Predračun" : options.paymentMethod === "paypal" ? "PayPal" : options.paymentMethod === "povzetje" ? "Po povzetju" : "Spletno plačilo"}<br />
         Način dostave: Pošta Slovenije
       </p>
+
+      ${options.notes ? `<p class="info"><strong>Opombe:</strong> ${options.notes}</p>` : ""}
 
       <p class="footer">
         Hvala za zaupanje!<br />

@@ -15,7 +15,9 @@ export async function createDiscount(formData: FormData) {
       person_name: formData.get("person_name") as string,
       name: formData.get("name") as string,
       value: parseFloat(formData.get("value") as string) / 100,
-      valid_until: formData.get("validUntil") as string,
+      valid_until: (formData.get("validUntil") as string)
+        ? new Date(formData.get("validUntil") as string)
+        : null,
     };
 
     const { error } = await supabase.from("discounts").insert(data);
@@ -71,6 +73,8 @@ export async function getOneDiscountByName(name: string) {
       .from("discounts")
       .select()
       .eq("name", name.toUpperCase())
+      .eq("paused", false)
+      .or(`valid_until.is.null,valid_until.gte.${new Date().toISOString()}`)
       .single();
 
     if (error) {
@@ -89,12 +93,56 @@ export async function updateDiscount(formData: FormData, id: string) {
     const data = {
       name: formData.get("name") as string,
       value: parseFloat(formData.get("value") as string) / 100,
-      valid_until: formData.get("validUntil") as string,
+      valid_until: (formData.get("validUntil") as string)
+        ? new Date(formData.get("validUntil") as string)
+        : null,
     };
 
     const { error } = await supabase
       .from("discounts")
       .update(data)
+      .eq("id", id);
+
+    if (error) {
+      throw error;
+    }
+
+    revalidatePath("/admin/popusti");
+    redirect("/");
+  } catch (error) {
+    if ((error as Error).message === "NEXT_REDIRECT")
+      redirect("/admin/popusti");
+    console.log(error);
+    return error as Error;
+  }
+}
+
+export async function pauseDiscount(id: string) {
+  try {
+    const { error } = await supabase
+      .from("discounts")
+      .update({ paused: true })
+      .eq("id", id);
+
+    if (error) {
+      throw error;
+    }
+
+    revalidatePath("/admin/popusti");
+    redirect("/");
+  } catch (error) {
+    if ((error as Error).message === "NEXT_REDIRECT")
+      redirect("/admin/popusti");
+    console.log(error);
+    return error as Error;
+  }
+}
+
+export async function playDiscount(id: string) {
+  try {
+    const { error } = await supabase
+      .from("discounts")
+      .update({ paused: false })
       .eq("id", id);
 
     if (error) {

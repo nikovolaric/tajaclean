@@ -37,7 +37,7 @@ function OldOrders({
               Pretekla naročila:{" "}
               {`${orders[0].buyer.firstName} ${orders[0].buyer.lastName}`}
             </p>
-            <div className="flex flex-col gap-4">
+            <div className="flex h-[70dvh] flex-col gap-4 overflow-y-scroll">
               {orders.map((order, i: number) => (
                 <OrderCard key={`${order.id}${i}`} order={order} i={i} />
               ))}

@@ -13,7 +13,7 @@ import { H2 } from "./Text";
 const options = [
   {
     review:
-      "Minimalistično, ekološko in učinkovito – točno to, kar sem iskala. Krpice pereš v stroju in so kot nove. Priporočam vsem, ki jim ni vseeno za okolje.",
+      "Minimalistično, trajnostno in učinkovito – točno to, kar sem iskala. Krpice pereš v stroju in so kot nove. Priporočam vsem, ki jim ni vseeno za okolje.",
     author: "Petra L.",
     stars: 5,
   },
@@ -31,8 +31,8 @@ const options = [
   },
   {
     review:
-      "Sprva sem bila skeptična, ampak te krpice dejansko delujejo. Površine so res čiste, brez lis, pa še brez kemikalij. Zdaj jih uporabljam vsak dan.",
-    author: "Marija N.",
+      "Krpice TajaClean uporabljam vsak dan - od kuhinje do kopalnice. Najboljše je, da ne rabim čistil in se vse sveti v minuti. Odkar jih uporabljam, me manj skrbi za zdravje moje družine.",
+    author: "Ana V.",
     stars: 5,
   },
 ];

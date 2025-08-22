@@ -24,6 +24,7 @@ async function DiscountList() {
               valid_until: string;
               id: string;
               value: number;
+              paused: boolean;
             },
             i: number,
           ) => <DiscountCard key={discount.id} discount={discount} i={i} />,

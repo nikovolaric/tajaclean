@@ -8,7 +8,7 @@ const techs = [
     text: "Stisnjeni mikrofilamenti namesto običajnih tkanin povečajo učinkovitost in vzdržljivost čudežne krpice.",
   },
   {
-    title: "EKOLOŠKI PREMIK",
+    title: "TRAJNOSTNI PREMIK",
     text: "Krpice so bile zasnovane kot trajnostna alternativa papirnatim brisačkam in kemičnim čistilom, ki onesnažujejo okolje.",
   },
   {

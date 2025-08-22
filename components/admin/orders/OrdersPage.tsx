@@ -339,12 +339,12 @@ export function OrderCard({
         }).format(order.total_price)}
       </p>
       <p
-        className={`rounded-md border px-1.5 text-center text-xs font-medium shadow-sm ${order.status === "Preklicano" ? "border-red-600" : order.status === "V obdelavi" ? "border-yellow-200" : order.status === "Zaključeno" ? "border-green-600" : "border-black/25"}`}
+        className={`rounded-md border px-1.5 text-center text-xs font-medium shadow-sm ${order.status === "Preklicano" ? "border-red-600 bg-red-600/15" : order.status === "V obdelavi" ? "border-yellow-200 bg-yellow-200/20" : order.status === "Zaključeno" ? "border-green-600 bg-green-600/15" : "border-black/25"}`}
       >
         {order.status}
       </p>
       <p
-        className={`rounded-md border px-1.5 text-center text-xs font-medium shadow-sm ${!order.paid ? "border-red-600" : "border-green-600"}`}
+        className={`rounded-md border px-1.5 text-center text-xs font-medium shadow-sm ${!order.paid ? "border-red-600 bg-red-600/15" : "border-green-600 bg-green-600/15"}`}
       >
         {order.paid ? "Plačano" : "Neplačano"}
       </p>

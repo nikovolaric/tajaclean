@@ -156,6 +156,7 @@ export async function createOrder({
       deliveryCost: generateDelivery(),
       date: new Date().toString(),
       code,
+      notes,
     });
 
     redirect("/");
