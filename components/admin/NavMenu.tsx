@@ -63,7 +63,7 @@ function NavMenu({ newOrders }: { newOrders?: number }) {
               className="object-contain"
             />
             Naročila{" "}
-            {newOrders > 0 && (
+            {(newOrders ?? 0) > 0 && (
               <div className="ml-8 flex h-6 w-6 items-center justify-center rounded-full border border-[0.5px_0.5px_4px_rgba(0,0,0,0.25)]">
                 <span className="text-xs leading-3 font-medium text-red-500">
                   {newOrders}
