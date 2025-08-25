@@ -476,3 +476,29 @@ export async function sendNewOrderNotice(options: {
 
   return res.response;
 }
+
+export async function sendEnquiry(options: {
+  name: string;
+  email: string;
+  message: string;
+}) {
+  //1. Create transporter
+  const transporter = createTransport(transporterOptions);
+
+  //2. Define the email options
+  const mailOptions = {
+    from: `TajaClean.si <${process.env.EMAIL_USERNAME}>`,
+    to: process.env.EMAIL_USERNAME,
+    // to: "niko.volaric@gmail.com",
+    subject: "Povpraševanje",
+    html: `<div style='font-family:Verdana'>Ime in priimek:${
+      options.name
+    }<br/>Mail:${options.email}
+    <br/><br/>${options.message.replaceAll("\r\n", "<br/>")}`,
+  };
+
+  //3. Actually send the email
+  const res = await transporter.sendMail(mailOptions);
+
+  return res.response;
+}
