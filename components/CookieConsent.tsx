@@ -18,7 +18,7 @@ function CookieConsent() {
   }
 
   return (
-    <div className="fixed right-4 bottom-4 flex h-fit w-fit max-w-[calc(100dvw-32px)] flex-col gap-6 bg-[#F6F4F2] p-4 shadow-[2px_2px_10px_rgba(0,0,0,0.25)] sm:max-w-158 sm:p-8 lg:right-20">
+    <div className="fixed right-4 bottom-4 z-[999] flex h-fit w-fit max-w-[calc(100dvw-32px)] flex-col gap-6 bg-[#F6F4F2] p-4 shadow-[2px_2px_10px_rgba(0,0,0,0.25)] sm:max-w-158 sm:p-8 lg:right-20">
       <p
         className="absolute top-4 right-4 cursor-pointer font-semibold text-black/30"
         onClick={handleClick}
