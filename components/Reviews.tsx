@@ -106,6 +106,7 @@ export function Reviews() {
               loop
               className={`${i % 2 === 1 ? "translate-y-5" : "-translate-y-5"} ${i === 3 ? "lg:hidden xl:block" : ""}`}
               playsInline
+              poster="/modri.jpg"
             >
               <source type="video/mp4" src={video} />
             </video>

@@ -149,20 +149,23 @@ function OrdersPage() {
           )}
 
           <div className="items-cente flex justify-between text-sm">
-            {page > 1 && (
+            {page > 1 ? (
               <button
-                className="cursor-pointer"
+                className="flex cursor-pointer items-center gap-1"
                 onClick={() => setPage((p) => p - 1)}
               >
                 <ChevronLeft height={16} />
+                Prejšna stran
               </button>
+            ) : (
+              <span />
             )}
             {orders.length === 30 && (
               <button
-                className="cursor-pointer"
+                className="flex cursor-pointer items-center gap-1"
                 onClick={() => setPage((p) => p + 1)}
               >
-                <ChevronRight height={16} />
+                Naslednja stran <ChevronRight height={16} />
               </button>
             )}
           </div>
