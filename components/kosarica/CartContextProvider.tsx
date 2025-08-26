@@ -58,7 +58,7 @@ const defaultBuyer: BuyerType = {
   address: "",
   city: "",
   postal: "",
-  country: "",
+  country: "Slovenija",
 };
 
 const defaultDelivery: DeliveryType = {

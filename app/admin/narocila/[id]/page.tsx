@@ -9,6 +9,8 @@ import OrderStatus from "@/components/admin/editOrder/OrderStatus";
 import DeliveryInfo from "@/components/admin/editOrder/DeliveryInfo";
 import Subscribe from "@/components/admin/editOrder/Subscribe";
 import { Suspense } from "react";
+import Tracking from "@/components/admin/editOrder/Tracking";
+import MyNotes from "@/components/admin/editOrder/MyNotes";
 
 export const metadata: Metadata = {
   title: "Uredi naročilo",
@@ -57,9 +59,8 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
         totalPrice={data.total_price}
       />
       <BuyerInfo buyer={data.buyer} />
-      {data.buyer.address === data.delivery.address && (
-        <DeliveryInfo recepient={data.delivery} />
-      )}
+      <DeliveryInfo recepient={data.delivery} />
+      <Tracking tracking_no={data.tracking_no} id={data.id} />
       <PaymentType
         paymentMethod={data.payment_method}
         notes={data.notes}
@@ -68,6 +69,7 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
         sumupId={data.sumup_id}
       />
       <Subscribe subscribe={data.subscribe} />
+      <MyNotes id={data.id} my_notes={data.my_notes} />
     </div>
   );
 }

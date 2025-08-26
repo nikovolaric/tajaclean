@@ -189,9 +189,6 @@ export async function updateOrderStatus({
 
     revalidatePath("/admin");
   } catch (error) {
-    if ((error as Error).message === "NEXT_REDIRECT") {
-      redirect("/nakup-uspesen");
-    }
     return error;
   }
 }
@@ -355,6 +352,52 @@ export async function getOrder({ email, id }: { email?: string; id?: string }) {
     }
 
     return data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function updateOrderTrackingNo({
+  id,
+  tracking_no,
+}: {
+  id: number;
+  tracking_no: string | null;
+}) {
+  try {
+    const { error } = await supabase
+      .from("orders")
+      .update({ tracking_no })
+      .eq("id", id);
+
+    if (error) {
+      throw error;
+    }
+
+    revalidatePath("/admin");
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function updateOrderMyNotes({
+  id,
+  my_notes,
+}: {
+  id: number;
+  my_notes: string | null;
+}) {
+  try {
+    const { error } = await supabase
+      .from("orders")
+      .update({ my_notes })
+      .eq("id", id);
+
+    if (error) {
+      throw error;
+    }
+
+    revalidatePath("/admin");
   } catch (error) {
     return error;
   }
