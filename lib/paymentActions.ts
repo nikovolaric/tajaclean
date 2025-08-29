@@ -1,6 +1,13 @@
 "use server";
 
+import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "crypto";
+import { revalidatePath } from "next/cache";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_KEY!,
+);
 
 export async function createSession({ amount }: { amount: number }) {
   try {
@@ -72,6 +79,42 @@ export async function payWithCard({
     if (data.next_step) {
       return data.next_step;
     }
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export async function createPayment({
+  payment,
+}: {
+  payment: { buyer_name: string; sumup_id: string; total: number };
+}) {
+  try {
+    const { data, error } = await supabase
+      .from("payments")
+      .insert(payment)
+      .select("id")
+      .single();
+
+    if (error) throw error;
+
+    revalidatePath("/admin/payments");
+
+    return data.id;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+export async function deletePayment({ id }: { id: number }) {
+  try {
+    const { error } = await supabase.from("payments").delete().eq("id", id);
+
+    if (error) throw error;
+
+    revalidatePath("/admin/payments");
   } catch (error) {
     console.log(error);
     return error;

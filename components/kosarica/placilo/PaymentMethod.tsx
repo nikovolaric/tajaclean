@@ -10,7 +10,12 @@ import Visa from "@/components/icons/Visa";
 import { Input } from "@/components/Input";
 import { H2 } from "@/components/Text";
 import { createOrder } from "@/lib/orderActions";
-import { createSession, payWithCard } from "@/lib/paymentActions";
+import {
+  createPayment,
+  createSession,
+  deletePayment,
+  payWithCard,
+} from "@/lib/paymentActions";
 import { useEffect, useState } from "react";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Link from "next/link";
@@ -103,13 +108,11 @@ function PaymentMethod() {
   async function handleClickCard() {
     handleClick("card");
 
-    if (!id) {
-      const data = await createSession({
-        amount: parseFloat(generateTotal().toFixed(2)),
-      });
+    const data = await createSession({
+      amount: parseFloat(generateTotal().toFixed(2)),
+    });
 
-      setId(data.id);
-    }
+    setId(data.id);
   }
 
   async function handleSubmitOrder() {
@@ -127,7 +130,6 @@ function PaymentMethod() {
         }
 
         if (result.url) {
-          setIsPaying(true);
           const threeDSWin = window.open(
             "",
             "threeDSWindow",
@@ -148,14 +150,45 @@ function PaymentMethod() {
             form.appendChild(creqInput);
           }
 
+          if (result.payload?.MD) {
+            const mdInput = document.createElement("input");
+            mdInput.type = "hidden";
+            mdInput.name = "MD";
+            mdInput.value = result.payload.MD;
+            form.appendChild(mdInput);
+          }
+
           document.body.appendChild(form);
           form.submit();
           document.body.removeChild(form);
 
-          // začni polling
+          let sumupid = "";
+          let paymentId: number;
+          setIsPaying(true);
           const interval = setInterval(async () => {
             const res = await fetch(`/api/checkPaymentStatus?id=${id}`);
             const data = await res.json();
+
+            const newId = data.transactions[0].transaction_code;
+
+            if (newId !== sumupid) {
+              const payment = {
+                buyer_name: `${buyer.firstName} ${buyer.lastName}`,
+                sumup_id: newId,
+                total: generateTotal(),
+              };
+
+              const pId = await createPayment({ payment });
+              sumupid = newId;
+              paymentId = pId;
+            }
+
+            if (threeDSWin?.closed) {
+              clearInterval(interval);
+              setIsPaying(false);
+              setErr("Pojavno okno je zaprto, plačilo prekinjeno.");
+              return;
+            }
 
             if (data.status && data.status !== "PENDING") {
               clearInterval(interval);
@@ -174,6 +207,10 @@ function PaymentMethod() {
                   paid: "Plačano",
                   sumup_id: data.transactions[0].transaction_code,
                 });
+
+                if (paymentId) {
+                  await deletePayment({ id: paymentId });
+                }
 
                 router.push("/nakup-uspesen");
               } else {
@@ -200,6 +237,7 @@ function PaymentMethod() {
       });
     } catch (error) {
       setErr((error as Error).message);
+      setIsPaying(false);
     } finally {
       setIsLoading(false);
     }

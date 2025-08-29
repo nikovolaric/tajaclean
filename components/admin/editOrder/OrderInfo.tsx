@@ -21,7 +21,13 @@ function OrderInfo({
     ? new Intl.NumberFormat("sl-SI", {
         style: "currency",
         currency: "EUR",
-      }).format(cart.reduce((c, a) => c + a.price * code_value * a.quantity, 0))
+      }).format(
+        cart.reduce(
+          (c, a) =>
+            c + (a.price * a.quantity - (a.discountPrice ?? 0) * a.quantity),
+          0,
+        ),
+      )
     : 0;
 
   function generateDeliveryPrice() {
