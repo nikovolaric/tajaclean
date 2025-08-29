@@ -423,8 +423,10 @@ export async function sendNewOrderNotice(options: {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             }).format(
-              options.cart.reduce((c, a) => c + a.discountPrice!, 0) -
-                options.cart.reduce((c, a) => c + a.price!, 0),
+              options.cart.reduce(
+                (c, a) => c + a.discountPrice! * a.quantity,
+                0,
+              ) - options.cart.reduce((c, a) => c + a.price! * a.quantity, 0),
             )}</td>
             </tr>  
             `
