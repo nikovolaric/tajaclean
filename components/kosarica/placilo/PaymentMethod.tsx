@@ -209,7 +209,10 @@ function PaymentMethod() {
     <div className="flex flex-col gap-10 xl:w-3/4">
       <H2>Način plačila</H2>
       {isPaying ? (
-        <Spinner />
+        <div className="mx-auto flex flex-col gap-4">
+          <Spinner />
+          <p>Prosimo počakajte na strani, da se naročilo zaključi...</p>
+        </div>
       ) : (
         <form className="bg-primary/5 grid gap-10 px-4 py-6 lg:px-6 lg:py-10">
           <div className="grid gap-6">
