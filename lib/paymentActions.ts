@@ -24,7 +24,7 @@ export async function createSession({ amount }: { amount: number }) {
         amount,
         currency: "EUR",
         merchant_code: process.env.MERCHANT_CODE,
-        redirect_url: `${process.env.FRONTEND_URL}/kosarica/zakljucek-nakupa/placilo?id=${id}`,
+        redirect_url: `${process.env.FRONTEND_URL}/kosarica/zakljucek-nakupa/placilo`,
       }),
     });
 

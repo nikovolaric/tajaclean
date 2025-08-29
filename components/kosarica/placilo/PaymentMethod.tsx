@@ -96,14 +96,14 @@ function PaymentMethod() {
 
   useEffect(
     function () {
-      const id = searchParams.get("id");
+      const checkoutId = searchParams.get("checkout_id");
 
-      if (id) {
+      if (checkoutId) {
         let sumupid = "";
         let paymentId: number;
         setIsPaying(true);
         const interval = setInterval(async () => {
-          const res = await fetch(`/api/checkPaymentStatus?id=${id}`);
+          const res = await fetch(`/api/checkPaymentStatus?id=${checkoutId}`);
           const data = await res.json();
           console.log(data);
 

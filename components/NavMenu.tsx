@@ -20,6 +20,11 @@ function NavMenu() {
     } else {
       setCart([]);
     }
+
+    if (!pathname.startsWith("/kosarica/zakljucek-nakupa")) {
+      localStorage.removeItem("buyer");
+      localStorage.removeItem("delivery");
+    }
   }
 
   useEffect(function () {
