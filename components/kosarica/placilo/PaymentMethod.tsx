@@ -105,6 +105,7 @@ function PaymentMethod() {
         const interval = setInterval(async () => {
           const res = await fetch(`/api/checkPaymentStatus?id=${id}`);
           const data = await res.json();
+          console.log(data);
 
           const newId = data.transactions[0].transaction_code;
 
