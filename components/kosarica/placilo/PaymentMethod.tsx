@@ -149,6 +149,7 @@ function PaymentMethod() {
               router.push("/nakup-uspesen");
             } else {
               setErr("Plačilo ni uspelo. Poskusi znova.");
+              setPaymentMethod("");
               setIsPaying(false);
             }
           }
