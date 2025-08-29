@@ -130,13 +130,7 @@ function PaymentMethod() {
         }
 
         if (result.url) {
-          const threeDSWin = window.open(
-            "",
-            "threeDSWindow",
-            "width=500,height=700",
-          );
-
-          // const newWin = window.open("", "_blank");
+          const threeDSWin = window.open("", "threeDSWindow");
 
           // pošlji creq v popup
           const form = document.createElement("form");
@@ -151,14 +145,6 @@ function PaymentMethod() {
             creqInput.value = result.payload.creq;
             form.appendChild(creqInput);
           }
-
-          // if (result.payload?.MD) {
-          //   const mdInput = document.createElement("input");
-          //   mdInput.type = "hidden";
-          //   mdInput.name = "MD";
-          //   mdInput.value = result.payload.MD;
-          //   form.appendChild(mdInput);
-          // }
 
           document.body.appendChild(form);
           form.submit();
