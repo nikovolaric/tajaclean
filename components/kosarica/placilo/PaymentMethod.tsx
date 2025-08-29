@@ -155,7 +155,7 @@ function PaymentMethod() {
         }, 3000);
       }
     },
-    [searchParams],
+    [searchParams, buyer, cart],
   );
 
   function handleClick(pm: string) {
