@@ -115,7 +115,7 @@ function PaymentMethod() {
     setId(data.id);
   }
 
-  async function handleSubmitOrder(newWin?: Window | null) {
+  async function handleSubmitOrder() {
     setIsLoading(true);
     try {
       if (!paymentMethod) {
@@ -130,11 +130,11 @@ function PaymentMethod() {
         }
 
         if (result.url) {
-          // const threeDSWin = window.open(
-          //   "",
-          //   "threeDSWindow",
-          //   "width=500,height=700",
-          // );
+          const threeDSWin = window.open(
+            "",
+            "threeDSWindow",
+            "width=500,height=700",
+          );
 
           // const newWin = window.open("", "_blank");
 
@@ -142,7 +142,7 @@ function PaymentMethod() {
           const form = document.createElement("form");
           form.method = "POST";
           form.action = result.url;
-          form.target = newWin!.name;
+          form.target = "threeDSWindow";
 
           if (result.payload?.creq) {
             const creqInput = document.createElement("input");
@@ -151,6 +151,14 @@ function PaymentMethod() {
             creqInput.value = result.payload.creq;
             form.appendChild(creqInput);
           }
+
+          // if (result.payload?.MD) {
+          //   const mdInput = document.createElement("input");
+          //   mdInput.type = "hidden";
+          //   mdInput.name = "MD";
+          //   mdInput.value = result.payload.MD;
+          //   form.appendChild(mdInput);
+          // }
 
           document.body.appendChild(form);
           form.submit();
@@ -177,7 +185,7 @@ function PaymentMethod() {
               paymentId = pId;
             }
 
-            if (newWin?.closed) {
+            if (threeDSWin?.closed) {
               clearInterval(interval);
               setIsPaying(false);
               setErr("Pojavno okno je zaprto, plačilo prekinjeno.");
@@ -186,7 +194,7 @@ function PaymentMethod() {
 
             if (data.status && data.status !== "PENDING") {
               clearInterval(interval);
-              newWin?.close();
+              threeDSWin?.close();
 
               if (data.status === "PAID") {
                 if (paymentId) {
@@ -235,17 +243,6 @@ function PaymentMethod() {
     } finally {
       setIsLoading(false);
     }
-  }
-
-  function handleClickPay() {
-    if (paymentMethod !== "card") {
-      handleSubmitOrder();
-      return;
-    }
-
-    const newWin = window.open("", "_blank");
-
-    handleSubmitOrder(newWin);
   }
 
   return (
@@ -495,7 +492,7 @@ function PaymentMethod() {
       <Button
         variant="primary"
         className="flex w-full items-center justify-center disabled:cursor-not-allowed disabled:opacity-50"
-        onClick={handleClickPay}
+        onClick={handleSubmitOrder}
         disabled={
           isLoading || !paymentMethod || paymentMethod === "paypal" || !agrees
         }
