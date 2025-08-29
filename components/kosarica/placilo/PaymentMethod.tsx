@@ -130,17 +130,19 @@ function PaymentMethod() {
         }
 
         if (result.url) {
-          const threeDSWin = window.open(
-            "",
-            "threeDSWindow",
-            "width=500,height=700",
-          );
+          // const threeDSWin = window.open(
+          //   "",
+          //   "threeDSWindow",
+          //   "width=500,height=700",
+          // );
+
+          const newWin = window.open("", "_blank");
 
           // pošlji creq v popup
           const form = document.createElement("form");
           form.method = "POST";
           form.action = result.url;
-          form.target = "threeDSWindow";
+          form.target = newWin!.name;
 
           if (result.payload?.creq) {
             const creqInput = document.createElement("input");
@@ -150,13 +152,13 @@ function PaymentMethod() {
             form.appendChild(creqInput);
           }
 
-          if (result.payload?.MD) {
-            const mdInput = document.createElement("input");
-            mdInput.type = "hidden";
-            mdInput.name = "MD";
-            mdInput.value = result.payload.MD;
-            form.appendChild(mdInput);
-          }
+          // if (result.payload?.MD) {
+          //   const mdInput = document.createElement("input");
+          //   mdInput.type = "hidden";
+          //   mdInput.name = "MD";
+          //   mdInput.value = result.payload.MD;
+          //   form.appendChild(mdInput);
+          // }
 
           document.body.appendChild(form);
           form.submit();
@@ -183,7 +185,7 @@ function PaymentMethod() {
               paymentId = pId;
             }
 
-            if (threeDSWin?.closed) {
+            if (newWin?.closed) {
               clearInterval(interval);
               setIsPaying(false);
               setErr("Pojavno okno je zaprto, plačilo prekinjeno.");
@@ -192,9 +194,13 @@ function PaymentMethod() {
 
             if (data.status && data.status !== "PENDING") {
               clearInterval(interval);
-              threeDSWin?.close();
+              newWin?.close();
 
               if (data.status === "PAID") {
+                if (paymentId) {
+                  await deletePayment({ id: paymentId });
+                }
+
                 await createOrder({
                   buyer,
                   delivery,
@@ -207,10 +213,6 @@ function PaymentMethod() {
                   paid: "Plačano",
                   sumup_id: data.transactions[0].transaction_code,
                 });
-
-                if (paymentId) {
-                  await deletePayment({ id: paymentId });
-                }
 
                 router.push("/nakup-uspesen");
               } else {
