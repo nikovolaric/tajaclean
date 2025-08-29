@@ -130,19 +130,19 @@ function PaymentMethod() {
         }
 
         if (result.url) {
-          // const threeDSWin = window.open(
-          //   "",
-          //   "threeDSWindow",
-          //   "width=500,height=700",
-          // );
+          const threeDSWin = window.open(
+            "",
+            "threeDSWindow",
+            "width=500,height=700",
+          );
 
-          const newWin = window.open("", "_blank");
+          // const newWin = window.open("", "_blank");
 
           // pošlji creq v popup
           const form = document.createElement("form");
           form.method = "POST";
           form.action = result.url;
-          form.target = newWin!.name;
+          form.target = "threeDSWindow";
 
           if (result.payload?.creq) {
             const creqInput = document.createElement("input");
@@ -185,7 +185,7 @@ function PaymentMethod() {
               paymentId = pId;
             }
 
-            if (newWin?.closed) {
+            if (threeDSWin?.closed) {
               clearInterval(interval);
               setIsPaying(false);
               setErr("Pojavno okno je zaprto, plačilo prekinjeno.");
@@ -194,7 +194,7 @@ function PaymentMethod() {
 
             if (data.status && data.status !== "PENDING") {
               clearInterval(interval);
-              newWin?.close();
+              threeDSWin?.close();
 
               if (data.status === "PAID") {
                 if (paymentId) {
