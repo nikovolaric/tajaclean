@@ -94,11 +94,32 @@ function ContextProvider({ children }: { children: ReactNode }) {
   const [notes, setNotes] = useState("");
   const [agrees, setAgrees] = useState(false);
 
+  useEffect(function () {
+    const buyerString = localStorage.getItem("buyer");
+    const deliveryString = localStorage.getItem("delivery");
+
+    if (buyerString && deliveryString) {
+      setBuyer(JSON.parse(buyerString));
+      setDelivery(JSON.parse(deliveryString));
+    }
+  }, []);
+
   useEffect(
     function () {
+      localStorage.setItem("buyer", JSON.stringify(buyer));
+      localStorage.setItem("delivery", JSON.stringify(delivery));
+    },
+    [buyer, delivery],
+  );
+
+  useEffect(
+    function () {
+      const buyerString = localStorage.getItem("buyer");
+      const deliveryString = localStorage.getItem("delivery");
+
       if (
         pathname === "/kosarica/zakljucek-nakupa/placilo" &&
-        (!buyer.firstName || !delivery.firstName)
+        (!buyerString || !deliveryString)
       ) {
         router.push("/kosarica/zakljucek-nakupa");
       }

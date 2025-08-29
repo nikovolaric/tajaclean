@@ -19,11 +19,12 @@ import {
 import { useEffect, useState } from "react";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Spinner from "@/components/Spinner";
 
 function PaymentMethod() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const {
     paymentMethod,
     setPaymentMethod,
@@ -93,6 +94,65 @@ function PaymentMethod() {
     };
   }, []);
 
+  useEffect(
+    function () {
+      const id = searchParams.get("id");
+
+      if (id) {
+        let sumupid = "";
+        let paymentId: number;
+        setIsPaying(true);
+        const interval = setInterval(async () => {
+          const res = await fetch(`/api/checkPaymentStatus?id=${id}`);
+          const data = await res.json();
+
+          const newId = data.transactions[0].transaction_code;
+
+          if (newId !== sumupid) {
+            const payment = {
+              buyer_name: `${buyer.firstName} ${buyer.lastName}`,
+              sumup_id: newId,
+              total: generateTotal(),
+            };
+
+            const pId = await createPayment({ payment });
+            sumupid = newId;
+            paymentId = pId;
+          }
+
+          if (data.status && data.status !== "PENDING") {
+            clearInterval(interval);
+
+            if (data.status === "PAID") {
+              if (paymentId) {
+                await deletePayment({ id: paymentId });
+              }
+
+              await createOrder({
+                buyer,
+                delivery,
+                paymentMethod,
+                cart,
+                subscribe,
+                code,
+                notes,
+                code_value: codeValue,
+                paid: "Plačano",
+                sumup_id: data.transactions[0].transaction_code,
+              });
+
+              router.push("/nakup-uspesen");
+            } else {
+              setErr("Plačilo ni uspelo. Poskusi znova.");
+              setIsPaying(false);
+            }
+          }
+        }, 3000);
+      }
+    },
+    [searchParams],
+  );
+
   function handleClick(pm: string) {
     setPaymentMethod(pm);
   }
@@ -130,13 +190,10 @@ function PaymentMethod() {
         }
 
         if (result.url) {
-          const threeDSWin = window.open("", "threeDSWindow");
-
           // pošlji creq v popup
           const form = document.createElement("form");
           form.method = "POST";
           form.action = result.url;
-          form.target = "threeDSWindow";
 
           if (result.payload?.creq) {
             const creqInput = document.createElement("input");
@@ -149,64 +206,6 @@ function PaymentMethod() {
           document.body.appendChild(form);
           form.submit();
           document.body.removeChild(form);
-
-          let sumupid = "";
-          let paymentId: number;
-          setIsPaying(true);
-          const interval = setInterval(async () => {
-            const res = await fetch(`/api/checkPaymentStatus?id=${id}`);
-            const data = await res.json();
-
-            const newId = data.transactions[0].transaction_code;
-
-            if (newId !== sumupid) {
-              const payment = {
-                buyer_name: `${buyer.firstName} ${buyer.lastName}`,
-                sumup_id: newId,
-                total: generateTotal(),
-              };
-
-              const pId = await createPayment({ payment });
-              sumupid = newId;
-              paymentId = pId;
-            }
-
-            if (threeDSWin?.closed) {
-              clearInterval(interval);
-              setIsPaying(false);
-              setErr("Pojavno okno je zaprto, plačilo prekinjeno.");
-              return;
-            }
-
-            if (data.status && data.status !== "PENDING") {
-              clearInterval(interval);
-              threeDSWin?.close();
-
-              if (data.status === "PAID") {
-                if (paymentId) {
-                  await deletePayment({ id: paymentId });
-                }
-
-                await createOrder({
-                  buyer,
-                  delivery,
-                  paymentMethod,
-                  cart,
-                  subscribe,
-                  code,
-                  notes,
-                  code_value: codeValue,
-                  paid: "Plačano",
-                  sumup_id: data.transactions[0].transaction_code,
-                });
-
-                router.push("/nakup-uspesen");
-              } else {
-                setErr("Plačilo ni uspelo. Poskusi znova.");
-                setIsPaying(false);
-              }
-            }
-          }, 3000);
 
           return;
         }
