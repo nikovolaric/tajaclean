@@ -101,6 +101,10 @@ function ContextProvider({ children }: { children: ReactNode }) {
     if (buyerString && deliveryString) {
       setBuyer(JSON.parse(buyerString));
       setDelivery(JSON.parse(deliveryString));
+      setPaymentMethod(JSON.parse(localStorage.getItem("paymentMethod")!))
+      setSubscribe(JSON.parse(localStorage.getItem("subscribe")!))
+      setNotes(JSON.parse(localStorage.getItem("notes")!))
+      setAgrees(JSON.parse(localStorage.getItem("agrees")!))
     }
   }, []);
 
@@ -108,8 +112,12 @@ function ContextProvider({ children }: { children: ReactNode }) {
     function () {
       localStorage.setItem("buyer", JSON.stringify(buyer));
       localStorage.setItem("delivery", JSON.stringify(delivery));
+      localStorage.setItem("paymentMethod", JSON.stringify(paymentMethod));
+      localStorage.setItem("subscribe", JSON.stringify(subscribe));
+      localStorage.setItem("notes", JSON.stringify(notes));
+      localStorage.setItem("agrees", JSON.stringify(agrees));
     },
-    [buyer, delivery],
+    [buyer, delivery, paymentMethod, subscribe, notes, agrees],
   );
 
   useEffect(

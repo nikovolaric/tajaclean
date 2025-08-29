@@ -98,14 +98,18 @@ function PaymentMethod() {
     function () {
       const checkoutId = searchParams.get("checkout_id");
 
-      if (checkoutId) {
+      if (checkoutId && buyer.firstName && cart) {
         let sumupid = "";
         let paymentId: number;
         setIsPaying(true);
         const interval = setInterval(async () => {
           const res = await fetch(`/api/checkPaymentStatus?id=${checkoutId}`);
           const data = await res.json();
-          console.log(data);
+
+          if (data.error) {
+            setIsPaying(false);
+            setErr("Plačilo ni uspelo. Poskusi znova.");
+          }
 
           const newId = data.transactions[0].transaction_code;
 
