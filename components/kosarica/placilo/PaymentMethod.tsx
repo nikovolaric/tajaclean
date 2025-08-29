@@ -53,8 +53,14 @@ function PaymentMethod() {
       setCart(JSON.parse(cartString));
 
       const cartAmount = JSON.parse(cartString).reduce(
-        (c: number, a: { price: number; discountPrice?: number }) =>
-          c + (a.discountPrice ? a.discountPrice : a.price),
+        (
+          c: number,
+          a: { price: number; discountPrice?: number; quantity: number },
+        ) =>
+          c +
+          (a.discountPrice
+            ? a.discountPrice * a.quantity
+            : a.price * a.quantity),
         0,
       );
 
