@@ -20,16 +20,21 @@ function NavMenu() {
     } else {
       setCart([]);
     }
-
-    if (!pathname.startsWith("/kosarica/zakljucek-nakupa")) {
-      localStorage.removeItem("buyer");
-      localStorage.removeItem("delivery");
-      localStorage.removeItem("notes");
-      localStorage.removeItem("paymentMethod");
-      localStorage.removeItem("subscribe");
-      localStorage.removeItem("agrees");
-    }
   }
+
+  useEffect(
+    function () {
+      if (!pathname.startsWith("/kosarica/zakljucek-nakupa")) {
+        localStorage.removeItem("buyer");
+        localStorage.removeItem("delivery");
+        localStorage.removeItem("notes");
+        localStorage.removeItem("paymentMethod");
+        localStorage.removeItem("subscribe");
+        localStorage.removeItem("agrees");
+      }
+    },
+    [pathname],
+  );
 
   useEffect(function () {
     updateCart();
