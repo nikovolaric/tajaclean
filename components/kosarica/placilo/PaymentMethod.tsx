@@ -107,6 +107,7 @@ function PaymentMethod() {
           const data = await res.json();
 
           if (data.error) {
+            clearInterval(interval);
             setIsPaying(false);
             setErr("Plačilo ni uspelo. Poskusi znova.");
           }

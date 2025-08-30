@@ -1,5 +1,6 @@
 "use client";
 
+import { CreditCard } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -70,6 +71,17 @@ function NavMenu({ newOrders }: { newOrders?: number }) {
                 </span>
               </div>
             )}
+          </Link>
+        </li>{" "}
+        <li
+          className={`bg-bg rounded-md ${pathname.startsWith("/admin/placila") ? "inset-shadow-[0.5px_0.5px_4px_rgba(0,0,0,0.25)]" : ""}`}
+        >
+          <Link
+            href="/admin/placila"
+            className="flex items-center gap-2 px-3 py-2"
+          >
+            <CreditCard className="h-5 shrink-0 text-black/50" />
+            Plačila
           </Link>
         </li>{" "}
         <li

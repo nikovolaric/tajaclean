@@ -99,7 +99,7 @@ export async function createPayment({
 
     if (error) throw error;
 
-    revalidatePath("/admin/payments");
+    revalidatePath("/admin/placila");
 
     return data.id;
   } catch (error) {
@@ -114,9 +114,21 @@ export async function deletePayment({ id }: { id: number }) {
 
     if (error) throw error;
 
-    revalidatePath("/admin/payments");
+    revalidatePath("/admin/placila");
   } catch (error) {
     console.log(error);
     return error;
+  }
+}
+
+export async function getAllPayments() {
+  try {
+    const { data, error } = await supabase.from("payments").select();
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.log(error);
   }
 }
