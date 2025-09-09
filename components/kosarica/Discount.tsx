@@ -65,9 +65,7 @@ function Discount() {
           (article: { discountPrice?: number; price: number }) => {
             return {
               ...article,
-              discountPrice: parseFloat(
-                (article.price * (1 - data.value)).toFixed(2),
-              ),
+              discountPrice: article.price * (1 - data.value),
               code: true,
             };
           },
