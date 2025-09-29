@@ -191,7 +191,7 @@ function PaymentMethod() {
 
       if (!buyer.firstName || !buyer.lastName || !buyer.email) {
         throw new Error(
-          "Podatki o kupcu niso vnešeni. Prosimo preverite na podatke.",
+          "Podatki o kupcu niso vnešeni. Prosimo preverite podatke na prejšni strani.",
         );
       }
 
