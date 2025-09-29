@@ -189,6 +189,12 @@ function PaymentMethod() {
         throw new Error("Izberi način plačila!");
       }
 
+      if (!buyer.firstName || !buyer.lastName || !buyer.email) {
+        throw new Error(
+          "Podatki o kupcu niso vnešeni. Prosimo preverite na podatke.",
+        );
+      }
+
       if (paymentMethod === "card") {
         const result = await payWithCard({ id, card });
 
