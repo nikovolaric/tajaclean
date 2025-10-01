@@ -48,7 +48,7 @@ async function HomeAnalytics() {
               Najbolj prodajan izdelek
             </p>
             <div>
-              <p className="font-semibold">{data[0].product_name ?? "-"}</p>
+              <p className="font-semibold">{data[0]?.product_name ?? "-"}</p>
             </div>
           </div>
         </div>
