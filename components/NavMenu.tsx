@@ -24,7 +24,7 @@ function NavMenu() {
 
   useEffect(
     function () {
-      if (!pathname.startsWith("/kosarica/zakljucek-nakupa")) {
+      if (!pathname.includes("/kosarica/zakljucek-nakupa")) {
         localStorage.removeItem("buyer");
         localStorage.removeItem("delivery");
         localStorage.removeItem("notes");
@@ -63,7 +63,11 @@ function NavMenu() {
           height={68}
           onClick={() => {
             scroll(0, 0);
-            router.push("/");
+            if (pathname.startsWith("/hr")) {
+              router.push("/hr");
+            } else {
+              router.push("/");
+            }
           }}
         />
         <div className="grid items-center justify-items-center gap-x-12 lg:grid-cols-[auto_auto]">
@@ -98,22 +102,24 @@ function NavMenu() {
 function Links() {
   const pathname = usePathname();
 
+  const cro = pathname.startsWith("/hr");
+
   return (
     <div className="hidden items-center gap-12 lg:flex">
       <Link
-        href="/spletna-trgovina"
+        href={`${cro ? "/hr" : ""}/spletna-trgovina`}
         className={`text-primary hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200 ${pathname === "/spletna-trgovina" ? "underline" : ""}`}
       >
-        Spletna trgovina
+        {cro ? "Online trgovina" : "Spletna trgovina"}
       </Link>
       <Link
-        href="/o-nas"
+        href={`${cro ? "/hr" : ""}/o-nas`}
         className={`text-primary hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200 ${pathname === "/o-nas" ? "underline" : ""}`}
       >
-        O nas
+        {cro ? "O nama" : "O nas"}
       </Link>
       <Link
-        href="/blog"
+        href={`${cro ? "/hr" : ""}/blog`}
         className={`text-primary hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200 ${pathname === "/blog" ? "underline" : ""}`}
       >
         Blog
@@ -143,27 +149,29 @@ function PhoneLinks({
     setIsOpen(false);
   }
 
+  const cro = pathname.startsWith("/hr");
+
   return (
     <div
       className={`bg-primary text-neutral3 fixed top-0 left-0 z-[999] flex w-dvw flex-col items-center gap-14 text-center lg:hidden ${isOpen ? "h-dvh pt-16" : "h-0"} overflow-hidden transition-[height] duration-300`}
     >
       <X height={24} className="mb-4" onClick={() => setIsOpen(false)} />
       <Link
-        href="/spletna-trgovina"
+        href={`${cro ? "/hr" : ""}/spletna-trgovina`}
         className={`hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200 ${pathname === "/spletna-trgovina" ? "underline" : ""}`}
         onClick={handleClick}
       >
-        Spletna trgovina
+        {cro ? "Online trgovina" : "Spletna trgovina"}
       </Link>
       <Link
-        href="/o-nas"
+        href={`${cro ? "/hr" : ""}/o-nas`}
         className={`hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200 ${pathname === "/o-nas" ? "underline" : ""}`}
         onClick={handleClick}
       >
-        O nas
+        {cro ? "O nama" : "O nas"}
       </Link>
       <Link
-        href="/blog"
+        href={`${cro ? "/hr" : ""}/blog`}
         className={`hover:text-secondary1 cursor-pointer text-sm font-medium uppercase transition-colors duration-200 ${pathname === "/blog" ? "underline" : ""}`}
         onClick={handleClick}
       >

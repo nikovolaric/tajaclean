@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import IGIcon from "./icons/IGIcon";
 import FBIcon from "./icons/FBIcon";
@@ -14,46 +13,58 @@ function Footer() {
     return <></>;
   }
 
+  const cro = pathname.startsWith("/hr");
+
   return (
     <footer
       className="mt-35 mb-20 grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-3"
       id="contact"
     >
       <div>
-        <h4 className="font-lora mb-8 font-medium">Politika zasebnosti</h4>
+        <h4 className="font-lora mb-8 font-medium">
+          {cro ? "" : "Politika zasebnosti"}
+        </h4>
         <div className="grid gap-2">
-          <LinkBtn variant="secondary" href="/pogoji-poslovanja">
-            NASTAVITVE PIŠKOTKOV
+          <LinkBtn
+            variant="secondary"
+            href={`${cro ? "/hr" : ""}/pogoji-poslovanja`}
+          >
+            {cro ? "POSTAVKE KOLAČIĆA" : "NASTAVITVE PIŠKOTKOV"}
           </LinkBtn>
-          <LinkBtn variant="secondary" href="/pogoji-poslovanja">
-            POGOJI POSLOVANJA
+          <LinkBtn
+            variant="secondary"
+            href={`${cro ? "/hr" : ""}/pogoji-poslovanja`}
+          >
+            {cro ? "UVJETI POSLOVANJA" : "POGOJI POSLOVANJA"}
           </LinkBtn>
         </div>
       </div>
       <div>
-        <h4 className="font-lora mb-8 font-medium">Spletna stran</h4>
+        <h4 className="font-lora mb-8 font-medium">
+          {cro ? "Mrežna stranica" : "Spletna stran"}
+        </h4>
         <div className="flex flex-col">
           <Link
             className="hover:text-secondary1 leading-6 uppercase transition-colors duration-200"
             href="/"
           >
-            Domača stran
+            {cro ? "Naslovnica" : "Domača stran"}
           </Link>
           <Link
             className="hover:text-secondary1 leading-6 uppercase transition-colors duration-200"
-            href="/spletna-trgovina"
+            href={`${cro ? "/hr" : ""}/spletna-trgovina`}
           >
-            Spletna trgovina
+            {cro ? "Online trgovina" : "Spletna trgovina"}
           </Link>
           <Link
             className="hover:text-secondary1 leading-6 uppercase transition-colors duration-200"
-            href="/o-nas"
+            href={`${cro ? "/hr" : ""}/o-nas`}
           >
-            O nas
+            {cro ? "O name" : "O nas"}
           </Link>
           <Link
             className="hover:text-secondary1 leading-6 uppercase transition-colors duration-200"
-            href="/blog"
+            href={`${cro ? "/hr" : ""}/blog`}
           >
             Blog
           </Link>
@@ -79,11 +90,14 @@ function Footer() {
       </div>
       <div className="col-span-2 flex flex-col gap-6 lg:col-span-3 lg:mt-6 lg:flex-row lg:justify-between">
         <p>
-          &copy;{new Date().getFullYear()}, ANINEO, d.o.o. Vse pravice
-          pridržane.
+          &copy;{new Date().getFullYear()}, ANINEO, d.o.o.{" "}
+          {cro ? "Sva prava pridržana" : "Vse pravice pridržane."}
         </p>
         <p>
-          Spletni razvoj in oblikovanje:{" "}
+          {cro
+            ? "Izrada i dizajn mrežne stranice"
+            : "Spletni razvoj in oblikovanje"}
+          :{" "}
           <Link href="https://www.lamastrategies.com" target="_blank">
             LAMA Strategies
           </Link>{" "}

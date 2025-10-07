@@ -58,7 +58,7 @@ const defaultBuyer: BuyerType = {
   address: "",
   city: "",
   postal: "",
-  country: "",
+  country: "Slovenija",
 };
 
 const defaultDelivery: DeliveryType = {
@@ -101,10 +101,10 @@ function ContextProvider({ children }: { children: ReactNode }) {
     if (buyerString && deliveryString) {
       setBuyer(JSON.parse(buyerString));
       setDelivery(JSON.parse(deliveryString));
-      setPaymentMethod(JSON.parse(localStorage.getItem("paymentMethod")!));
-      setSubscribe(JSON.parse(localStorage.getItem("subscribe")!));
-      setNotes(JSON.parse(localStorage.getItem("notes")!));
-      setAgrees(JSON.parse(localStorage.getItem("agrees")!));
+      setPaymentMethod(JSON.parse(localStorage.getItem("paymentMethod")!))
+      setSubscribe(JSON.parse(localStorage.getItem("subscribe")!))
+      setNotes(JSON.parse(localStorage.getItem("notes")!))
+      setAgrees(JSON.parse(localStorage.getItem("agrees")!))
     }
   }, []);
 
@@ -126,7 +126,7 @@ function ContextProvider({ children }: { children: ReactNode }) {
       const deliveryString = localStorage.getItem("delivery");
 
       if (
-        pathname.includes("/kosarica/zakljucek-nakupa/placilo") &&
+        pathname === "/kosarica/zakljucek-nakupa/placilo" &&
         (!buyerString || !deliveryString)
       ) {
         router.push("/kosarica/zakljucek-nakupa");

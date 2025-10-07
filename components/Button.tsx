@@ -24,7 +24,7 @@ function Button({ children, variant, ...rest }: CustomButtonProps) {
   return (
     <button
       {...rest}
-      className={`${style[variant as string]} ${rest.className}`}
+      className={`${style[variant as string]} ${rest.className} disabled:cursor-not-allowed`}
       disabled={rest.disabled ?? pending}
     >
       {pending ? "..." : children}
