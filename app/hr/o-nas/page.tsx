@@ -22,7 +22,7 @@ function Page() {
           variant="primary"
           className="self-center"
         >
-          Izberi svoj paket krpic
+          ODABERI SVOJ PAKET
         </LinkBtn>
       </main>
     </>
