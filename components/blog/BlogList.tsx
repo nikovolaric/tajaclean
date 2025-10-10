@@ -29,8 +29,6 @@ async function BlogListCard({
 
   const { data } = supabase.storage.from("blog").getPublicUrl(post.coverImg);
 
-  console.log(data);
-
   return (
     <div className="flex flex-col gap-6">
       <Image

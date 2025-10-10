@@ -21,7 +21,7 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
   const supabase = await createClient();
 
   const { data, error } = await supabase
-    .from("orders")
+    .from(process.env.NODE_ENV === "development" ? "test_orders" : "orders")
     .select()
     .eq("id", id)
     .single();
@@ -59,8 +59,20 @@ async function Page({ params }: { params: Promise<{ id: string }> }) {
         totalPrice={data.total_price}
       />
       <BuyerInfo buyer={data.buyer} />
-      <DeliveryInfo recepient={data.delivery} />
-      <Tracking tracking_no={data.tracking_no} id={data.id} />
+      {data.buyer.address !== data.delivery.address && (
+        <DeliveryInfo recepient={data.delivery} />
+      )}
+      {data.delivery.country === "Slovenija" && (
+        <Tracking
+          tracking_no={data.tracking_no}
+          posta_guid={data.posta_guid}
+          id={data.id}
+          buyer={data.buyer}
+          delivery={data.delivery}
+          total_price={data.total_price}
+          payment_method={data.payment_method}
+        />
+      )}
       <PaymentType
         paymentMethod={data.payment_method}
         notes={data.notes}

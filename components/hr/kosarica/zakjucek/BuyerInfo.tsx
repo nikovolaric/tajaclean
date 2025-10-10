@@ -122,10 +122,10 @@ function BuyerInfo() {
           </label>
           <Input
             required
-            placeholder="Slovenija"
+            placeholder="Hrvatska"
+            value="Hrvatska"
             name="country"
             onChange={(e) => setBuyer({ ...buyer, country: e.target.value })}
-            defaultValue={buyer.country}
           />
         </div>
       </form>

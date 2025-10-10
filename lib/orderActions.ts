@@ -433,6 +433,7 @@ export async function generateTracking({
   total_price,
   id,
   parcelType,
+  postaId,
 }: {
   delivery: {
     firstName: string;
@@ -446,6 +447,7 @@ export async function generateTracking({
   total_price: number;
   id: number;
   parcelType: string;
+  postaId: string;
 }) {
   try {
     const username = process.env.PS_USER!;
@@ -462,10 +464,10 @@ export async function generateTracking({
       },
       body: JSON.stringify({
         Authentication: {
-          KomitentId: "482164",
-          PogodbaId: "159289",
-          PodruznicaId: "0",
-          PostaID: "7773",
+          KomitentId: process.env.KOMITENET_ID,
+          PogodbaId: process.env.POGODBA_ID,
+          PodruznicaId: process.env.PODRUZNICA_ID,
+          PostaId: process.env.NODE_ENV === "development" ? "7773" : postaId,
         },
       }),
     });
@@ -540,10 +542,10 @@ export async function generateTracking({
       },
       body: JSON.stringify({
         Authentication: {
-          KomitentId: "482164",
-          PogodbaId: "159289",
-          PodruznicaId: "0",
-          PostaID: "7773",
+          KomitentId: process.env.KOMITENET_ID,
+          PogodbaId: process.env.POGODBA_ID,
+          PodruznicaId: process.env.PODRUZNICA_ID,
+          PostaId: process.env.NODE_ENV === "development" ? "7773" : postaId,
         },
         Guid: Value,
         DataType: 4,
@@ -566,10 +568,11 @@ export async function generateTracking({
             },
             body: JSON.stringify({
               Authentication: {
-                KomitentId: "482164",
-                PogodbaId: "159289",
-                PodruznicaId: "0",
-                PostaID: "7773",
+                KomitentId: process.env.KOMITENET_ID,
+                PogodbaId: process.env.POGODBA_ID,
+                PodruznicaId: process.env.PODRUZNICA_ID,
+                PostaId:
+                  process.env.NODE_ENV === "development" ? "7773" : postaId,
               },
               Guid: Value,
             }),
@@ -619,10 +622,11 @@ export async function generateTracking({
               },
               body: JSON.stringify({
                 Authentication: {
-                  KomitentId: 482164,
-                  PogodbaId: 159289,
-                  PodruznicaId: 0,
-                  PostaId: "7773",
+                  KomitentId: process.env.KOMITENET_ID,
+                  PogodbaId: process.env.POGODBA_ID,
+                  PodruznicaId: process.env.PODRUZNICA_ID,
+                  PostaId:
+                    process.env.NODE_ENV === "development" ? "7773" : postaId,
                 },
                 Guid: Value,
                 Data: trackingNo,
@@ -634,7 +638,7 @@ export async function generateTracking({
 
           if (docData.Code === 200) {
             clearInterval(intervalId);
-            // await sendTrackingNumber({ buyer, trackingNo });
+            await sendTrackingNumber({ buyer, trackingNo });
             resolve(docData.Value);
           }
         } catch (err) {
@@ -652,65 +656,12 @@ export async function generateTracking({
   }
 }
 
-export async function downloadList(Guid: string) {
-  try {
-    const username = process.env.PS_USER!;
-    const password = process.env.PS_PASS!;
-    const authHeader =
-      "Basic " + Buffer.from(`${username}:${password}`).toString("base64");
-
-    const docBase64 = await new Promise<string>((resolve, reject) => {
-      const intervalId = setInterval(async () => {
-        try {
-          const docRes = await fetch(
-            `${process.env.POSTA_URL}/eOddaja/R_GetDocument`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "Accept-Encoding": "identity",
-                Authorization: authHeader,
-              },
-              body: JSON.stringify({
-                Authentication: {
-                  KomitentId: 482164,
-                  PogodbaId: 159289,
-                  PodruznicaId: 0,
-                  PostaId: "7773",
-                },
-                Guid,
-              }),
-            },
-          );
-
-          const docData = await docRes.json();
-
-          if (docData.Code === 200) {
-            clearInterval(intervalId);
-            // await sendTrackingNumber({ buyer, trackingNo });
-            resolve(docData.Value);
-          }
-        } catch (err) {
-          clearInterval(intervalId);
-          reject(err);
-        }
-      }, 3000);
-    });
-
-    revalidatePath("/admin/narocila");
-
-    return docBase64;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export async function downloadStamp({
+export async function downloadList({
   Guid,
-  Data,
+  postaId,
 }: {
   Guid: string;
-  Data: string;
+  postaId: string;
 }) {
   try {
     const username = process.env.PS_USER!;
@@ -732,10 +683,72 @@ export async function downloadStamp({
               },
               body: JSON.stringify({
                 Authentication: {
-                  KomitentId: 482164,
-                  PogodbaId: 159289,
-                  PodruznicaId: 0,
-                  PostaId: "7773",
+                  KomitentId: process.env.KOMITENET_ID,
+                  PogodbaId: process.env.POGODBA_ID,
+                  PodruznicaId: process.env.PODRUZNICA_ID,
+                  PostaId:
+                    process.env.NODE_ENV === "development" ? "7773" : postaId,
+                },
+                Guid,
+              }),
+            },
+          );
+
+          const docData = await docRes.json();
+
+          if (docData.Code === 200) {
+            clearInterval(intervalId);
+            resolve(docData.Value);
+          }
+        } catch (err) {
+          clearInterval(intervalId);
+          reject(err);
+        }
+      }, 3000);
+    });
+
+    revalidatePath("/admin/narocila");
+
+    return docBase64;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function downloadStamp({
+  Guid,
+  Data,
+  postaId,
+}: {
+  Guid: string;
+  Data: string;
+  postaId: string;
+}) {
+  try {
+    const username = process.env.PS_USER!;
+    const password = process.env.PS_PASS!;
+    const authHeader =
+      "Basic " + Buffer.from(`${username}:${password}`).toString("base64");
+
+    const docBase64 = await new Promise<string>((resolve, reject) => {
+      const intervalId = setInterval(async () => {
+        try {
+          const docRes = await fetch(
+            `${process.env.POSTA_URL}/eOddaja/R_GetDocument`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Accept-Encoding": "identity",
+                Authorization: authHeader,
+              },
+              body: JSON.stringify({
+                Authentication: {
+                  KomitentId: process.env.KOMITENET_ID,
+                  PogodbaId: process.env.POGODBA_ID,
+                  PodruznicaId: process.env.PODRUZNICA_ID,
+                  PostaId:
+                    process.env.NODE_ENV === "development" ? "7773" : postaId,
                 },
                 Guid,
                 Data,
@@ -747,7 +760,6 @@ export async function downloadStamp({
 
           if (docData.Code === 200) {
             clearInterval(intervalId);
-            // await sendTrackingNumber({ buyer, trackingNo });
             resolve(docData.Value);
           }
         } catch (err) {

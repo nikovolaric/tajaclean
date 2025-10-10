@@ -7,32 +7,39 @@ function Text() {
       <div className="flex flex-col gap-6">
         <p className="grid">
           <span className="font-semibold">Splošni pogoji</span> Prosimo, da pred
-          uporabo spletne strani www.tajaclean.com (v nadaljevanju: spletno
-          mesto) pozorno preberete Splošne pogoje poslovanja, saj ob obisku
-          spletnega mesta, naročilu in nakupu izdelkov velja, da ste s Splošnimi
-          pogoji v celoti seznanjeni in se z njimi strinjate brez omejitev.
-          Pogoji veljajo za vse uporabnike spletnega mesta (v nadaljevanju:
-          uporabnik) ne glede na njihov status.
+          uporabo spletne trgovine www.tajaclean.si (v nadaljevanju: spletna
+          trgovina) pozorno preberete Splošne pogoje poslovanja, saj ob obisku
+          spletne trgovine, naročilu in nakupu izdelkov velja, da ste s
+          Splošnimi pogoji v celoti seznanjeni in se z njimi strinjate brez
+          omejitev. Pogoji veljajo za vse uporabnike spletne trgovine (v
+          nadaljevanju: uporabnik) ne glede na njihov status.
           <br />
           <br />
           Splošni pogoji so sestavljeni v skladu s predpisi s področja varstva
           potrošnikov, na podlagi priporočil Gospodarske zbornice Slovenije in
           mednarodnih kodeksov za spletno in elektronsko poslovanje ter v skladu
           z Zakonom o varstvu potrošnikov (ZVPot), Zakonom o varstvu osebnih
-          podatkov (ZVOP-1) ter Zakonom o elektronskih komunikacijah (ZEKom-1).
+          podatkov (ZVOP-1) ter Zakonom o elektronskem poslovanju na trgu
+          (ZEPT).
           <br />
           <br />
-          Spletno mesto in blagovno znamko TajaCLEAN upravlja ANINEO d.o.o,
-          Trške gorce 1, 3252 Rogatec (v nadaljevanju ponudnik).
+          Spletno trgovino upravlja ANINEO d.o.o, Trške gorce 1, 3252 Rogatec (v
+          nadaljevanju ponudnik).
         </p>
         <p className="grid">
           <span className="font-semibold"> Podatki o podjetju</span>ANINEO d.o.o
           <br />
           Trške gorce 1, 3252 Rogatec
           <br />
-          Davčna številka 97179116 TRR: SI56 6100 0002 9765 088
+          Davčna številka 97179116, ni davčni zavezanec
           <br />
-          Matična št. 9777873000{" "}
+          TRR: SI56 6100 0002 9765 088
+          <br />
+          Matična št. 9777873000
+          <br />
+          Registrirano pri Okrožnem sodišču v Celju Srg. vpisa: 2024/35789
+          <br />
+          Telefon: 040306996
         </p>
         <p className="grid">
           <span className="font-semibold">Ažurnost podatkov</span> Ponudnik si

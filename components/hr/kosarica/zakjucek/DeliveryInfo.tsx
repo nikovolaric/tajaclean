@@ -213,12 +213,12 @@ function DeliveryInfo() {
               <label>Država</label>
               <Input
                 required
-                placeholder="Slovenija"
+                placeholder="Hrvatska"
+                value="Hrvatska"
                 name="country"
                 onChange={(e) =>
                   setDelivery({ ...delivery, country: e.target.value })
                 }
-                defaultValue={delivery.country}
               />
             </div>
           </form>
@@ -241,7 +241,7 @@ function DeliveryInfo() {
             <div className="border-primary flex h-3.5 w-3.5 cursor-not-allowed items-center justify-center rounded-full border bg-white select-none">
               <span className={`bg-primary h-2 w-2 rounded-full`} />
             </div>
-            <label>Pošta Slovenije.</label>
+            <label>Hrvatska Pošta.</label>
           </div>
           <p className="font-semibold">
             {new Intl.NumberFormat("sl-SI", {

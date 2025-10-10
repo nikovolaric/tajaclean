@@ -30,7 +30,9 @@ function OrdersPage() {
       const supabase = createClient();
       try {
         const { data, error } = await supabase
-          .from("orders")
+          .from(
+            process.env.NODE_ENV === "development" ? "test_orders" : "orders",
+          )
           .select("*")
           .eq("status", "Nepregledano");
 
@@ -58,7 +60,9 @@ function OrdersPage() {
           setIsLoading(true);
 
           let query = supabase
-            .from("orders")
+            .from(
+              process.env.NODE_ENV === "development" ? "test_orders" : "orders",
+            )
             .select()
             .order("created_at", { ascending: false })
             .range(pageRange, pageRange + 29);

@@ -103,7 +103,7 @@ function Cart() {
           <div className="bg-secondary1/15 flex items-center justify-between gap-8 px-4 py-6 md:mx-auto md:w-2/3 lg:w-full lg:px-8 xl:w-5/6">
             <div className="flex flex-col gap-2 lg:flex-row lg:gap-22">
               <p className="font-semibold">ISPORUKA</p>
-              <p className="text-sm">Pošta Slovenije</p>
+              <p className="text-sm">Hrvatska Pošta</p>
             </div>
             <p className="font-semibold">
               {new Intl.NumberFormat("sl-SI", {
