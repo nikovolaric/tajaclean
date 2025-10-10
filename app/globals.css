@@ -132,3 +132,9 @@ main {
 .editor h3 {
   font-size: 18px;
 }
+
+.editor a {
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
+}
