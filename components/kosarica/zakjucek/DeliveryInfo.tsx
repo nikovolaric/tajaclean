@@ -219,7 +219,7 @@ function DeliveryInfo() {
                 onChange={(e) =>
                   setDelivery({ ...delivery, country: e.target.value })
                 }
-                defaultValue={delivery.country}
+                value="Slovenija"
               />
             </div>
           </form>

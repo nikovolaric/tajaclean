@@ -125,7 +125,7 @@ function BuyerInfo() {
             placeholder="Slovenija"
             name="country"
             onChange={(e) => setBuyer({ ...buyer, country: e.target.value })}
-            defaultValue={buyer.country}
+            value="Slovenija"
           />
         </div>
       </form>

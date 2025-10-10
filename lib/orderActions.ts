@@ -1,6 +1,10 @@
 "use server";
 
-import { sendConfirmOrder, sendNewOrderNotice } from "@/config/mail";
+import {
+  sendConfirmOrder,
+  sendNewOrderNotice,
+  sendTrackingNumber,
+} from "@/config/mail";
 import { createClient } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -42,6 +46,10 @@ export async function createOrder({
   sumup_id?: string;
 }) {
   try {
+    if (!buyer.firstName || !buyer.lastName || !buyer.email) {
+      throw new Error("Podatki o kupcu niso vnešeni!");
+    }
+
     const updatedCart = cart.map((i) => {
       return {
         name: i.name,
@@ -99,7 +107,10 @@ export async function createOrder({
       sumup_id,
     };
 
-    const { error, data } = await supabase.from("orders").insert(body).select();
+    const { error, data } = await supabase
+      .from(process.env.NODE_ENV === "development" ? "test_orders" : "orders")
+      .insert(body)
+      .select();
 
     if (error) {
       throw error;
@@ -179,7 +190,7 @@ export async function updateOrderStatus({
 }) {
   try {
     const { error } = await supabase
-      .from("orders")
+      .from(process.env.NODE_ENV === "development" ? "test_orders" : "orders")
       .update({ status, paid })
       .eq("id", id);
 
@@ -314,7 +325,7 @@ export async function getTotalOrdersByMonth(date = new Date()) {
     );
 
     const { data, error } = await supabase
-      .from("orders")
+      .from(process.env.NODE_ENV === "development" ? "test_orders" : "orders")
       .select("*")
       .gte("created_at", startOfMonth.toISOString())
       .lt("created_at", startOfNextMonth.toISOString())
@@ -330,10 +341,18 @@ export async function getTotalOrdersByMonth(date = new Date()) {
   }
 }
 
-export async function getOrder({ email, id }: { email?: string; id?: string }) {
+export async function getOrder({
+  email,
+  id,
+  sumup_id,
+}: {
+  email?: string;
+  id?: string;
+  sumup_id?: string;
+}) {
   try {
     const query = supabase
-      .from("orders")
+      .from(process.env.NODE_ENV === "development" ? "test_orders" : "orders")
       .select("*")
       .order("created_at", { ascending: false });
 
@@ -343,6 +362,10 @@ export async function getOrder({ email, id }: { email?: string; id?: string }) {
 
     if (id) {
       query.eq("id", id);
+    }
+
+    if (sumup_id) {
+      query.eq("sumup_id", sumup_id);
     }
 
     const { data, error } = await query;
@@ -366,7 +389,7 @@ export async function updateOrderTrackingNo({
 }) {
   try {
     const { error } = await supabase
-      .from("orders")
+      .from(process.env.NODE_ENV === "development" ? "test_orders" : "orders")
       .update({ tracking_no })
       .eq("id", id);
 
@@ -389,7 +412,7 @@ export async function updateOrderMyNotes({
 }) {
   try {
     const { error } = await supabase
-      .from("orders")
+      .from(process.env.NODE_ENV === "development" ? "test_orders" : "orders")
       .update({ my_notes })
       .eq("id", id);
 
@@ -400,5 +423,344 @@ export async function updateOrderMyNotes({
     revalidatePath("/admin");
   } catch (error) {
     return error;
+  }
+}
+
+export async function generateTracking({
+  delivery,
+  buyer,
+  payment_method,
+  total_price,
+  id,
+  parcelType,
+}: {
+  delivery: {
+    firstName: string;
+    lastName: string;
+    city: string;
+    postal: string;
+    address: string;
+  };
+  buyer: { email: string; phone: string; firstName: string };
+  payment_method: string;
+  total_price: number;
+  id: number;
+  parcelType: string;
+}) {
+  try {
+    const username = process.env.PS_USER!;
+    const password = process.env.PS_PASS!;
+    const authHeader =
+      "Basic " + Buffer.from(`${username}:${password}`).toString("base64");
+
+    const guidRes = await fetch(`${process.env.POSTA_URL}/eOddaja/R_GetGuid`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept-Encoding": "identity",
+        Authorization: authHeader,
+      },
+      body: JSON.stringify({
+        Authentication: {
+          KomitentId: "482164",
+          PogodbaId: "159289",
+          PodruznicaId: "0",
+          PostaID: "7773",
+        },
+      }),
+    });
+
+    const guidData = await guidRes.json();
+
+    if (guidRes.status !== 200) {
+      console.log(guidRes);
+      throw new Error("Nekaj je šlo narobe");
+    }
+
+    const { Value } = guidData;
+
+    function generateData() {
+      if (payment_method === "povzetje") {
+        return [
+          {
+            parcelType: Number(parcelType),
+            parcels: [
+              {
+                additionalServices: [
+                  {
+                    code: "ODKBN",
+                    amount: total_price,
+                  },
+                ],
+                parcelNumber: "",
+              },
+            ],
+            addressee: {
+              addresseeName1: `${delivery.firstName} ${delivery.lastName}`,
+              addresseeAddress: delivery.address,
+              addresseePostId: delivery.postal,
+              addresseePost: delivery.city,
+              addresseeCountryId: "705",
+              addresseePhone: buyer.phone,
+              addresseeEmail: buyer.email,
+            },
+            recordNumber: 1,
+          },
+        ];
+      } else {
+        return [
+          {
+            parcelType: Number(parcelType),
+            parcels: [
+              {
+                parcelNumber: "",
+              },
+            ],
+            addressee: {
+              addresseeName1: `${delivery.firstName} ${delivery.lastName}`,
+              addresseeAddress: delivery.address,
+              addresseePostId: delivery.postal,
+              addresseePost: delivery.city,
+              addresseeCountryId: "705",
+              addresseePhone: buyer.phone,
+              addresseeEmail: buyer.email,
+            },
+            recordNumber: 1,
+          },
+        ];
+      }
+    }
+
+    await fetch(`${process.env.POSTA_URL}/eOddaja/C_PostData`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept-Encoding": "identity",
+        Authorization: authHeader,
+      },
+      body: JSON.stringify({
+        Authentication: {
+          KomitentId: "482164",
+          PogodbaId: "159289",
+          PodruznicaId: "0",
+          PostaID: "7773",
+        },
+        Guid: Value,
+        DataType: 4,
+        Data: generateData(),
+      }),
+    });
+
+    let trackingNo: string;
+
+    const status = await new Promise<{ ResultCode: number }>((resolve) => {
+      const intervalId = setInterval(async function () {
+        const statusRes = await fetch(
+          `${process.env.POSTA_URL}/eOddaja/R_GetStatus`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept-Encoding": "identity",
+              Authorization: authHeader,
+            },
+            body: JSON.stringify({
+              Authentication: {
+                KomitentId: "482164",
+                PogodbaId: "159289",
+                PodruznicaId: "0",
+                PostaID: "7773",
+              },
+              Guid: Value,
+            }),
+          },
+        );
+
+        const statusData = await statusRes.json();
+
+        if (statusData.Value.ResultCode === 4) {
+          clearInterval(intervalId);
+          console.log(statusData.Value.Errors);
+          throw new Error("Napaka");
+        }
+
+        if (statusData.Value.ResultCode !== 1) {
+          clearInterval(intervalId);
+          trackingNo = statusData.Value.ParcelsNumbers[0].ParcelNumber;
+          await supabase
+            .from(
+              process.env.NODE_ENV === "development" ? "test_orders" : "orders",
+            )
+            .update({
+              tracking_no: statusData.Value.ParcelsNumbers[0].ParcelNumber,
+              posta_guid: Value,
+            })
+            .eq("id", id);
+          resolve(statusData.Value);
+        }
+      }, 3000);
+    });
+
+    if (status.ResultCode !== 3) {
+      throw new Error("Nekaj je šlo narobe");
+    }
+
+    const docBase64 = await new Promise<string>((resolve, reject) => {
+      const intervalId = setInterval(async () => {
+        try {
+          const docRes = await fetch(
+            `${process.env.POSTA_URL}/eOddaja/R_GetDocument`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Accept-Encoding": "identity",
+                Authorization: authHeader,
+              },
+              body: JSON.stringify({
+                Authentication: {
+                  KomitentId: 482164,
+                  PogodbaId: 159289,
+                  PodruznicaId: 0,
+                  PostaId: "7773",
+                },
+                Guid: Value,
+                Data: trackingNo,
+              }),
+            },
+          );
+
+          const docData = await docRes.json();
+
+          if (docData.Code === 200) {
+            clearInterval(intervalId);
+            // await sendTrackingNumber({ buyer, trackingNo });
+            resolve(docData.Value);
+          }
+        } catch (err) {
+          clearInterval(intervalId);
+          reject(err);
+        }
+      }, 3000);
+    });
+
+    revalidatePath("/admin/narocila");
+
+    return docBase64;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function downloadList(Guid: string) {
+  try {
+    const username = process.env.PS_USER!;
+    const password = process.env.PS_PASS!;
+    const authHeader =
+      "Basic " + Buffer.from(`${username}:${password}`).toString("base64");
+
+    const docBase64 = await new Promise<string>((resolve, reject) => {
+      const intervalId = setInterval(async () => {
+        try {
+          const docRes = await fetch(
+            `${process.env.POSTA_URL}/eOddaja/R_GetDocument`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Accept-Encoding": "identity",
+                Authorization: authHeader,
+              },
+              body: JSON.stringify({
+                Authentication: {
+                  KomitentId: 482164,
+                  PogodbaId: 159289,
+                  PodruznicaId: 0,
+                  PostaId: "7773",
+                },
+                Guid,
+              }),
+            },
+          );
+
+          const docData = await docRes.json();
+
+          if (docData.Code === 200) {
+            clearInterval(intervalId);
+            // await sendTrackingNumber({ buyer, trackingNo });
+            resolve(docData.Value);
+          }
+        } catch (err) {
+          clearInterval(intervalId);
+          reject(err);
+        }
+      }, 3000);
+    });
+
+    revalidatePath("/admin/narocila");
+
+    return docBase64;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function downloadStamp({
+  Guid,
+  Data,
+}: {
+  Guid: string;
+  Data: string;
+}) {
+  try {
+    const username = process.env.PS_USER!;
+    const password = process.env.PS_PASS!;
+    const authHeader =
+      "Basic " + Buffer.from(`${username}:${password}`).toString("base64");
+
+    const docBase64 = await new Promise<string>((resolve, reject) => {
+      const intervalId = setInterval(async () => {
+        try {
+          const docRes = await fetch(
+            `${process.env.POSTA_URL}/eOddaja/R_GetDocument`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Accept-Encoding": "identity",
+                Authorization: authHeader,
+              },
+              body: JSON.stringify({
+                Authentication: {
+                  KomitentId: 482164,
+                  PogodbaId: 159289,
+                  PodruznicaId: 0,
+                  PostaId: "7773",
+                },
+                Guid,
+                Data,
+              }),
+            },
+          );
+
+          const docData = await docRes.json();
+
+          if (docData.Code === 200) {
+            clearInterval(intervalId);
+            // await sendTrackingNumber({ buyer, trackingNo });
+            resolve(docData.Value);
+          }
+        } catch (err) {
+          clearInterval(intervalId);
+          reject(err);
+        }
+      }, 3000);
+    });
+
+    revalidatePath("/admin/narocila");
+
+    return docBase64;
+  } catch (error) {
+    console.log(error);
   }
 }

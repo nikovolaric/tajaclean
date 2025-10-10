@@ -9,7 +9,7 @@ import Paypal from "@/components/icons/Paypal";
 import Visa from "@/components/icons/Visa";
 import { Input } from "@/components/Input";
 import { H2 } from "@/components/Text";
-import { createOrder } from "@/lib/orderActions";
+import { createOrder, getOrder } from "@/lib/orderActions";
 import {
   createPayment,
   createSession,
@@ -103,58 +103,78 @@ function PaymentMethod() {
         let paymentId: number;
         setIsPaying(true);
         const interval = setInterval(async () => {
-          const res = await fetch(`/api/checkPaymentStatus?id=${checkoutId}`);
-          const data = await res.json();
+          try {
+            const res = await fetch(`/api/checkPaymentStatus?id=${checkoutId}`);
+            const data = await res.json();
 
-          if (data.error) {
+            if (data.error) {
+              clearInterval(interval);
+              setIsPaying(false);
+              setErr("Plačilo ni uspelo. Poskusi znova.");
+              return;
+            }
+
+            const newId = data.transactions[0].transaction_code;
+            if (!newId) return;
+
+            if (newId !== sumupid) {
+              const payment = {
+                buyer_name: `${buyer.firstName} ${buyer.lastName}`,
+                sumup_id: newId,
+                total: generateTotal(),
+              };
+
+              const pId = await createPayment({ payment });
+              sumupid = newId;
+              paymentId = pId;
+            }
+
+            if (data.status && data.status !== "PENDING") {
+              clearInterval(interval);
+
+              if (data.status === "PAID") {
+                if (paymentId) {
+                  await deletePayment({ id: paymentId });
+                }
+
+                const orders = (await getOrder({
+                  sumup_id: newId,
+                })) as unknown[];
+
+                if (orders.length > 0) {
+                  router.push("/nakup-uspesen");
+                  return;
+                }
+
+                await createOrder({
+                  buyer,
+                  delivery,
+                  paymentMethod,
+                  cart,
+                  subscribe,
+                  code,
+                  notes,
+                  code_value: codeValue,
+                  paid: "Plačano",
+                  sumup_id: newId,
+                });
+
+                router.push("/nakup-uspesen");
+                return;
+              } else {
+                setErr("Plačilo ni uspelo. Poskusi znova.");
+                setPaymentMethod("");
+                setIsPaying(false);
+              }
+            }
+          } catch (error) {
+            console.error("Napaka pri preverjanju plačila:", error);
             clearInterval(interval);
             setIsPaying(false);
-            setErr("Plačilo ni uspelo. Poskusi znova.");
-          }
-
-          const newId = data.transactions[0].transaction_code;
-
-          if (newId !== sumupid) {
-            const payment = {
-              buyer_name: `${buyer.firstName} ${buyer.lastName}`,
-              sumup_id: newId,
-              total: generateTotal(),
-            };
-
-            const pId = await createPayment({ payment });
-            sumupid = newId;
-            paymentId = pId;
-          }
-
-          if (data.status && data.status !== "PENDING") {
-            clearInterval(interval);
-
-            if (data.status === "PAID") {
-              if (paymentId) {
-                await deletePayment({ id: paymentId });
-              }
-
-              await createOrder({
-                buyer,
-                delivery,
-                paymentMethod,
-                cart,
-                subscribe,
-                code,
-                notes,
-                code_value: codeValue,
-                paid: "Plačano",
-                sumup_id: data.transactions[0].transaction_code,
-              });
-
-              router.push("/nakup-uspesen");
-            } else {
-              setErr("Plačilo ni uspelo. Poskusi znova.");
-              setPaymentMethod("");
-              setIsPaying(false);
-            }
+            setErr("Pri preverjanju plačila je prišlo do napake.");
           }
         }, 3000);
+        return () => clearInterval(interval);
       }
     },
     [searchParams, buyer, cart],
