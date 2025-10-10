@@ -3,9 +3,14 @@
 import { useCartContext } from "@/components/kosarica/CartContextProvider";
 import { Input } from "@/components/Input";
 import { H2 } from "@/components/Text";
+import { useEffect } from "react";
 
 function BuyerInfo() {
   const { buyer, setBuyer } = useCartContext();
+
+  useEffect(function () {
+    setBuyer({ ...buyer, country: "Slovenija" });
+  }, []);
 
   return (
     <div className="flex flex-col gap-10 xl:w-3/4">
@@ -124,8 +129,8 @@ function BuyerInfo() {
             required
             placeholder="Slovenija"
             name="country"
-            onChange={(e) => setBuyer({ ...buyer, country: e.target.value })}
             value="Slovenija"
+            disabled
           />
         </div>
       </form>

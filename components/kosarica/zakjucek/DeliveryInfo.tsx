@@ -83,7 +83,7 @@ function DeliveryInfo() {
         address: "",
         city: "",
         postal: "",
-        country: "",
+        country: "Slovenija",
       });
     } else {
       setIsSame(true);
@@ -216,10 +216,8 @@ function DeliveryInfo() {
                 required
                 placeholder="Slovenija"
                 name="country"
-                onChange={(e) =>
-                  setDelivery({ ...delivery, country: e.target.value })
-                }
                 value="Slovenija"
+                disabled
               />
             </div>
           </form>
