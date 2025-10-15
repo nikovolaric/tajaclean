@@ -11,6 +11,7 @@ function OldOrders({
     id: string;
     created_at: string;
     buyer: { firstName: string; lastName: string };
+    payment_method: string;
     status: string;
     total_price: number;
     paid: string;
@@ -39,7 +40,7 @@ function OldOrders({
             </p>
             <div className="flex h-[70dvh] flex-col gap-4 overflow-y-scroll">
               {orders.map((order, i: number) => (
-                <OrderCard key={`${order.id}${i}`} order={order} i={i} />
+                <OrderCard key={`${order.id}`} order={order} i={i} />
               ))}
             </div>
           </div>
