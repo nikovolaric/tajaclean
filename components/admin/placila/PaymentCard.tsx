@@ -55,7 +55,7 @@ function PaymentCard({
       </p>
       <p className="text-center text-sm font-medium">{payment.sumup_id}</p>
       <p className="text-center text-sm font-medium">
-        {payment.email || "anamarija.volaric@gmail.com"}
+        {payment.email || "Ni podatka"}
       </p>
       {isDeleting ? (
         <RefreshCcw className="h-6 animate-spin cursor-not-allowed" />
