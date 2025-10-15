@@ -15,6 +15,7 @@ async function BasicInfo({
     id: string;
     created_at: string;
     buyer: { firstName: string; lastName: string };
+    payment_method: string;
     status: string;
     total_price: number;
     paid: string;
