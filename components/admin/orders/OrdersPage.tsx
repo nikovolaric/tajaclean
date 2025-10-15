@@ -12,6 +12,7 @@ function OrdersPage() {
     id: string;
     created_at: string;
     buyer: { firstName: string; lastName: string };
+    payment_method: string;
     total_price: number;
     status: string;
     paid: string;
@@ -23,7 +24,8 @@ function OrdersPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(1);
-  const [paid, setPaid] = useState<string>("");
+  const [paid, setPaid] = useState("");
+  const [method, setMethod] = useState("");
 
   useEffect(function () {
     async function getNewOrders() {
@@ -87,6 +89,9 @@ function OrdersPage() {
           if (paid) {
             query.eq("paid", paid);
           }
+          if (method) {
+            query.eq("payment_method", method);
+          }
 
           const { data, error } = await query;
 
@@ -104,7 +109,7 @@ function OrdersPage() {
 
       getOrders();
     },
-    [name, status, page, paid],
+    [name, status, page, paid, method],
   );
 
   return (
@@ -129,7 +134,11 @@ function OrdersPage() {
           )}
         </div>
         <div className="flex flex-col gap-4">
-          <NameBar setStatus={setStatus} setPaid={setPaid} />
+          <NameBar
+            setStatus={setStatus}
+            setPaid={setPaid}
+            setMethod={setMethod}
+          />
           {isLoading ? (
             <Spinner />
           ) : (
@@ -143,10 +152,11 @@ function OrdersPage() {
                     total_price: number;
                     status: string;
                     paid: string;
+                    payment_method: string;
                   },
                   i: number,
                 ) => (
-                  <OrderCard key={`${order.id}${i}`} order={order} i={i} />
+                  <OrderCard key={`${order.id}`} order={order} i={i} />
                 ),
               )}
             </>
@@ -195,12 +205,15 @@ function SearchBar({ setName }: { setName: Dispatch<SetStateAction<string>> }) {
 function NameBar({
   setStatus,
   setPaid,
+  setMethod,
 }: {
   setStatus: Dispatch<SetStateAction<string>>;
   setPaid: Dispatch<SetStateAction<string>>;
+  setMethod: Dispatch<SetStateAction<string>>;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenPaid, setIsOpenPaid] = useState(false);
+  const [isOpenMethod, setIsOpenMethod] = useState(false);
 
   function handleClick(status: string) {
     setStatus(status);
@@ -212,10 +225,15 @@ function NameBar({
     setIsOpenPaid(false);
   }
 
+  function handleMethod(status: string) {
+    setMethod(status);
+    setIsOpenMethod(false);
+  }
+
   return (
     <>
       <p className="text-xl font-semibold">Vsa naročila</p>
-      <div className="grid grid-cols-[2fr_3fr_4fr_2fr_3fr_2fr] text-sm select-none">
+      <div className="grid grid-cols-[2fr_3fr_4fr_2fr_3fr_2fr_2fr] text-sm select-none">
         <p className="w-full rounded-s-lg border border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
           ID naročila
         </p>
@@ -272,6 +290,49 @@ function NameBar({
           )}
         </div>
         <div className="relative">
+          <p className="flex w-full items-center justify-center gap-2 border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
+            Način
+            <ChevronDown
+              className={`cursor-pointer ${isOpenMethod ? "rotate-180" : ""}`}
+              onClick={() => setIsOpenMethod((isOpen) => !isOpen)}
+            />
+          </p>
+          {isOpenMethod && (
+            <div className="absolute flex w-full flex-col gap-2 rounded-lg border border-black/25 bg-white px-2 py-4 shadow-xs">
+              <button
+                className="cursor-pointer rounded-md border border-green-600 bg-green-600/15 px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handleMethod("card")}
+              >
+                Kartica
+              </button>
+              <button
+                className="cursor-pointer rounded-md border border-blue-600 bg-blue-600/15 px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handleMethod("paypal")}
+              >
+                PayPal
+              </button>
+              <button
+                className="cursor-pointer rounded-md border border-orange-200 bg-orange-200/20 px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handleMethod("proforma")}
+              >
+                Predračun
+              </button>
+              <button
+                className="cursor-pointer rounded-md border border-yellow-200 bg-yellow-200/20 px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handleMethod("povzetje")}
+              >
+                Povzetje
+              </button>
+              <button
+                className="cursor-pointer rounded-md px-1.5 text-center text-xs font-medium shadow-sm"
+                onClick={() => handleMethod("")}
+              >
+                Vsi
+              </button>
+            </div>
+          )}
+        </div>
+        <div className="relative">
           <p className="flex w-full items-center justify-center gap-2 rounded-r-lg border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
             Plačilo
             <ChevronDown
@@ -321,6 +382,7 @@ export function OrderCard({
     id: string;
     created_at: string;
     buyer: { firstName: string; lastName: string };
+    payment_method: string;
     total_price: number;
     status: string;
     paid: string;
@@ -330,7 +392,7 @@ export function OrderCard({
   return (
     <Link
       href={`/admin/narocila/${order.id}`}
-      className={`grid grid-cols-[2fr_3fr_4fr_2fr_3fr_2fr] items-center justify-items-center rounded-xl py-4 text-sm shadow-sm ${i % 2 === 0 ? "bg-[#e4ebe3]" : "bg-white"}`}
+      className={`grid grid-cols-[2fr_3fr_4fr_2fr_3fr_2fr_2fr] items-center justify-items-center rounded-xl py-4 text-sm shadow-sm ${i % 2 === 0 ? "bg-[#e4ebe3]" : "bg-white"}`}
     >
       <p className="text-center font-semibold">{order.id}</p>
       <p className="text-secondary text-center font-medium">
@@ -355,6 +417,17 @@ export function OrderCard({
         className={`rounded-md border px-1.5 text-center text-xs font-medium shadow-sm ${order.status === "Preklicano" ? "border-red-600 bg-red-600/15" : order.status === "V obdelavi" ? "border-yellow-200 bg-yellow-200/20" : order.status === "Zaključeno" ? "border-green-600 bg-green-600/15" : "border-black/25"}`}
       >
         {order.status}
+      </p>
+      <p
+        className={`rounded-md border px-1.5 text-center text-xs font-medium shadow-sm ${order.payment_method === "card" ? "border-green-600 bg-green-600/15" : order.payment_method === "paypal" ? "border-blue-200 bg-blue-200/20" : order.payment_method === "proforma" ? "border-orange-600 bg-orange-600/15" : "border-yellow-600 bg-yellow-600/15"}`}
+      >
+        {order.payment_method === "card"
+          ? "Kartica"
+          : order.payment_method === "paypal"
+            ? "PayPal"
+            : order.payment_method === "proforma"
+              ? "Predračun"
+              : "Povzetje"}
       </p>
       <p
         className={`rounded-md border px-1.5 text-center text-xs font-medium shadow-sm ${order.paid === "Neplačano" ? "border-red-600 bg-red-600/15" : order.paid === "Plačano" ? "border-green-600 bg-green-600/15" : "border-yellow-200 bg-yellow-200/20"}`}

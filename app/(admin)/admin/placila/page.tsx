@@ -29,7 +29,7 @@ async function Page() {
 function NameBar() {
   return (
     <>
-      <div className="grid grid-cols-[3fr_3fr_2fr_3fr_1fr] text-sm select-none">
+      <div className="grid grid-cols-[3fr_2fr_2fr_3fr_3fr_1fr] text-sm select-none">
         <p className="w-full rounded-s-lg border border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
           Datum in ura
         </p>
@@ -41,6 +41,9 @@ function NameBar() {
         </p>
         <p className="w-full border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
           Sumup ID
+        </p>
+        <p className="w-full border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
+          E-mail
         </p>
         <p className="w-full rounded-e-lg border-y border-e border-black/25 bg-white py-2 text-center font-semibold shadow-sm">
           Izbriši

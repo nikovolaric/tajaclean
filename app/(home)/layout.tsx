@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Lora, Montserrat } from "next/font/google";
-import "./globals.css";
+import ".././globals.css";
 import NavMenu from "@/components/NavMenu";
 import Footer from "@/components/Footer";
 import CartFixed from "@/components/CartFixed";
 import CookieConsent from "@/components/CookieConsent";
 import { cookies } from "next/headers";
-import GoogleAnalytics from "./GoogleAnalytics";
+import GoogleAnalytics from "../../components/GoogleAnalytics";
 
 const lora = Lora({
   subsets: ["latin"],
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     googleBot: "index, follow",
   },
   icons: {
-    icon: "https://www.tajaclean.si/icon.png",
+    icon: "https://www.tajaclean.si/logo.avif",
   },
 };
 

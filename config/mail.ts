@@ -372,12 +372,16 @@ export async function sendNewOrderNotice(options: {
         ${options.buyer.phone}<br/>
         <a href="mailto:${options.buyer.mail}">${options.buyer.mail}</a>
       </p>
-      <p>
+      ${
+        options.buyer.address !== options.delivery.address
+          ? `<p>
         <strong>Podatki za dostavo</strong><br/>
         ${options.delivery.name}<br/>
         ${options.delivery.address}<br/>
         ${options.delivery.postal}, ${options.delivery.city}<br/>
-      </p>
+      </p>`
+          : ""
+      }
     
       <table>
         <thead>

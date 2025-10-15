@@ -14,6 +14,7 @@ function PaymentCard({
     sumup_id: string;
     buyer_name: string;
     total: number;
+    email: string;
   };
   i: number;
 }) {
@@ -33,7 +34,7 @@ function PaymentCard({
 
   return (
     <div
-      className={`grid grid-cols-[3fr_3fr_2fr_3fr_1fr] items-center justify-items-center rounded-xl py-4 text-sm shadow-sm ${i % 2 === 0 ? "bg-[#e4ebe3]" : "bg-white"}`}
+      className={`grid grid-cols-[3fr_2fr_2fr_3fr_3fr_1fr] items-center justify-items-center rounded-xl py-4 text-sm shadow-sm ${i % 2 === 0 ? "bg-[#e4ebe3]" : "bg-white"}`}
     >
       <p className="text-secondary text-center font-medium">
         {new Date(payment.created_at).toLocaleDateString("sl-SI", {
@@ -53,6 +54,9 @@ function PaymentCard({
         }).format(payment.total)}
       </p>
       <p className="text-center text-sm font-medium">{payment.sumup_id}</p>
+      <p className="text-center text-sm font-medium">
+        {payment.email || "anamarija.volaric@gmail.com"}
+      </p>
       {isDeleting ? (
         <RefreshCcw className="h-6 animate-spin cursor-not-allowed" />
       ) : (

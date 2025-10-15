@@ -123,7 +123,10 @@ export async function deletePayment({ id }: { id: number }) {
 
 export async function getAllPayments() {
   try {
-    const { data, error } = await supabase.from("payments").select();
+    const { data, error } = await supabase
+      .from("payments")
+      .select()
+      .order("created_at", { ascending: false });
 
     if (error) throw error;
 

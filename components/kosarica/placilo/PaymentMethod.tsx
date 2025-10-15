@@ -122,6 +122,7 @@ function PaymentMethod() {
                 buyer_name: `${buyer.firstName} ${buyer.lastName}`,
                 sumup_id: newId,
                 total: generateTotal(),
+                email: buyer.email,
               };
 
               const pId = await createPayment({ payment });
