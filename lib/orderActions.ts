@@ -776,3 +776,49 @@ export async function downloadStamp({
     console.log(error);
   }
 }
+
+export async function compareSalesByCodes({
+  start_date,
+  end_date = new Date(),
+}: {
+  start_date: Date;
+  end_date?: Date;
+}) {
+  try {
+    const { data, error } = await supabase.rpc("compare_sales_by_code", {
+      start_date: start_date.toISOString().split("T")[0],
+      end_date: end_date.toISOString().split("T")[0],
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function compareNewOld({
+  start_date,
+  end_date = new Date(),
+}: {
+  start_date: Date;
+  end_date?: Date;
+}) {
+  try {
+    const { data, error } = await supabase.rpc("compare_repeat_customers", {
+      start_date: start_date.toISOString().split("T")[0],
+      end_date: end_date.toISOString().split("T")[0],
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}

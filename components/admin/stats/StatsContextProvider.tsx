@@ -2,6 +2,10 @@
 
 import { createContext, ReactNode, useContext, useState } from "react";
 
+const year = new Date().getFullYear();
+const month = new Date().getMonth() + 1;
+const lastDay = new Date(year, month, 0).getDate();
+
 type StatsType = {
   days: number;
   sales: boolean;
@@ -21,6 +25,8 @@ const defaultStats: StatsType = {
   sales: true,
   orders: false,
   average: false,
+  start_date: new Date(`${year}-${month}-01`),
+  end_date: new Date(`${year}-${month}-${lastDay}`),
 };
 
 export const StatsContext = createContext<StatsContextType | undefined>(

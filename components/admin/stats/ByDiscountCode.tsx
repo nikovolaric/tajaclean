@@ -56,13 +56,15 @@ function ByDiscountCode() {
     return color;
   }
 
-  const top3Codes = [...discountData.by_code]
-    .sort(
-      (a: { total_sum: number }, b: { total_sum: number }) =>
-        b.total_sum - a.total_sum,
-    )
-    .slice(0, 3)
-    .map((el: { code: string }) => el.code);
+  const top3Codes = discountData.by_code
+    ? [...discountData.by_code]
+        .sort(
+          (a: { total_sum: number }, b: { total_sum: number }) =>
+            b.total_sum - a.total_sum,
+        )
+        .slice(0, 3)
+        .map((el: { code: string }) => el.code)
+    : null;
 
   return (
     <div className="flex flex-col gap-4">
@@ -70,7 +72,7 @@ function ByDiscountCode() {
       <div className="flex h-full min-h-62 flex-col justify-between gap-4 rounded-xl bg-white p-5 shadow-[0px_1px_2px_rgba(0,0,0,0.25)]">
         {isLoading ? (
           <Spinner />
-        ) : (
+        ) : discountData.by_code ? (
           <ResponsiveContainer>
             <PieChart width={730} height={250}>
               <Pie
@@ -79,7 +81,7 @@ function ByDiscountCode() {
                 data={discountData.by_code}
                 innerRadius={40}
                 outerRadius={80}
-                label={({ name }) => (top3Codes.includes(name) ? name : "")}
+                label={({ name }) => (top3Codes!.includes(name) ? name : "")}
               >
                 {discountData.by_code.map((el: { code: string }) => (
                   <Cell key={el.code} fill={getRandomColor()} />
@@ -126,6 +128,10 @@ function ByDiscountCode() {
               </text>
             </PieChart>
           </ResponsiveContainer>
+        ) : (
+          <p className="font-medium">
+            V tem obdobju ni prodaje s kodami za popust.
+          </p>
         )}
       </div>
     </div>

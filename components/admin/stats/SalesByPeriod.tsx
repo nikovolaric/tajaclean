@@ -251,7 +251,14 @@ function SalesByPeriod() {
                   }}
                   interval={0}
                 />
-                <Tooltip />
+                <Tooltip
+                  formatter={(value: number) =>
+                    new Intl.NumberFormat("sl-SI", {
+                      style: "currency",
+                      currency: "EUR",
+                    }).format(value)
+                  }
+                />
                 <Area
                   type="monotone"
                   dataKey="value"

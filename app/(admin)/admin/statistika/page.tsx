@@ -1,6 +1,8 @@
 import HomeAnalytics from "@/components/admin/home/HomeAnalytics";
 import { MostSoldItemsDays } from "@/components/admin/home/MostSoldItems";
 import ByDiscountCode from "@/components/admin/stats/ByDiscountCode";
+import CompareDiscount from "@/components/admin/stats/CompareDiscount";
+import NewOldBuyer from "@/components/admin/stats/NewOldBuyer";
 import PeriodFilter from "@/components/admin/stats/PeriodFilter";
 import SalesByPeriod from "@/components/admin/stats/SalesByPeriod";
 import { Metadata } from "next";
@@ -15,19 +17,17 @@ function Page() {
     <div className="flex flex-col gap-15">
       <Suspense>
         <HomeAnalytics />
-      </Suspense>
-      <div className="flex flex-col gap-2">
-        <PeriodFilter />
-        <Suspense>
+        <div className="flex flex-col gap-2">
+          <PeriodFilter />
           <SalesByPeriod />
-        </Suspense>
-      </div>
-      <div className="grid grid-cols-2 gap-x-5 gap-y-15">
-        <Suspense>
+        </div>
+        <div className="grid grid-cols-2 gap-x-5 gap-y-15">
           <MostSoldItemsDays />
           <ByDiscountCode />
-        </Suspense>
-      </div>
+          <CompareDiscount />
+          <NewOldBuyer />
+        </div>
+      </Suspense>
     </div>
   );
 }

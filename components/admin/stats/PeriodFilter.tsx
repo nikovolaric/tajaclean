@@ -14,25 +14,53 @@ function PeriodFilter() {
         <div className="flex items-center rounded-lg border border-black/25 bg-[#FAFAFA] p-3 py-1 text-sm font-semibold">
           <button
             className={`cursor-pointer rounded-lg px-3 py-1 ${!stats.end_date && stats.days === 365 ? "border border-black/25 bg-white shadow-xs" : ""}`}
-            onClick={() => setStats({ ...stats, days: 365 })}
+            onClick={() =>
+              setStats({
+                ...stats,
+                days: 365,
+                start_date: undefined,
+                end_date: undefined,
+              })
+            }
           >
             12 mesecev
           </button>
           <button
             className={`cursor-pointer rounded-lg px-3 py-1 ${!stats.end_date && stats.days === 30 ? "border border-black/25 bg-white shadow-xs" : ""}`}
-            onClick={() => setStats({ ...stats, days: 30 })}
+            onClick={() =>
+              setStats({
+                ...stats,
+                days: 30,
+                start_date: undefined,
+                end_date: undefined,
+              })
+            }
           >
             30 dni
           </button>
           <button
             className={`cursor-pointer rounded-lg px-3 py-1 ${!stats.end_date && stats.days === 7 ? "border border-black/25 bg-white shadow-xs" : ""}`}
-            onClick={() => setStats({ ...stats, days: 7 })}
+            onClick={() =>
+              setStats({
+                ...stats,
+                days: 7,
+                start_date: undefined,
+                end_date: undefined,
+              })
+            }
           >
             7 dni
           </button>
           <button
-            className={`cursor-pointer rounded-lg px-3 py-1 ${!stats.end_date && stats.days === 1 ? "bg-white shadow-xs" : ""}`}
-            onClick={() => setStats({ ...stats, days: 1 })}
+            className={`cursor-pointer rounded-lg px-3 py-1 ${!stats.end_date && stats.days === 1 ? "border border-black/25 bg-white shadow-xs" : ""}`}
+            onClick={() =>
+              setStats({
+                ...stats,
+                days: 1,
+                start_date: undefined,
+                end_date: undefined,
+              })
+            }
           >
             24 ur
           </button>
@@ -42,11 +70,16 @@ function PeriodFilter() {
           startDate={stats.start_date}
           endDate={stats.end_date}
           onChange={(dates: [Date | null, Date | null]) => {
+            const toUTCDate = (date: Date) =>
+              new Date(
+                Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),
+              );
             const [start, end] = dates;
+
             setStats({
               ...stats,
-              start_date: start ?? undefined,
-              end_date: end ?? undefined,
+              start_date: start ? toUTCDate(start) : undefined,
+              end_date: end ? toUTCDate(end) : undefined,
             });
           }}
           customInput={<Calendar className="cursor-pointer" />}
