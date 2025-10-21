@@ -64,7 +64,7 @@ function Summary() {
 
   function generateTotalDelivery() {
     if (paymentMethod === "povzetje" && total < 40) {
-      return 5.5;
+      return 3.9;
     }
     if (paymentMethod !== "povzetje" && total < 40) {
       return 3.2;
@@ -75,7 +75,7 @@ function Summary() {
 
   function generateTotal() {
     if (paymentMethod === "povzetje" && total < 40) {
-      return total + 5.5;
+      return total + 3.9;
     }
     if (paymentMethod !== "povzetje" && total < 40) {
       return total + 3.2;
@@ -92,6 +92,7 @@ function Summary() {
           (item: {
             id: string;
             name: string;
+            name_hr: string;
             packQ: number;
             quantity: number;
             price: number;
@@ -99,7 +100,7 @@ function Summary() {
           }) => (
             <div key={item.id} className="flex items-center justify-between">
               <p className="flex flex-col gap-2 font-semibold">
-                {item.name}
+                {item.name_hr}
                 <span className="font-normal">
                   {item.packQ}{" "}
                   {item.packQ === 3

@@ -53,7 +53,7 @@ function TotalPrice() {
 
   return (
     <div className="flex w-full items-center justify-between gap-14 border-y px-4 py-10 md:mx-auto md:w-2/3 lg:w-full lg:px-8 xl:w-5/6">
-      <p>Skupaj za plačilo (z vključenim DDV):</p>
+      <p>Skupaj za plačilo (DDV ne obračunavamo):</p>
       <div className="flex items-center gap-4">
         {noDiscount !== total && (
           <p className="self-start font-bold text-black/50 line-through decoration-2">

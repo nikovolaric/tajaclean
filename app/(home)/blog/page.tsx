@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 async function Page() {
-  const data = await getAllBlogPosts();
+  const data = await getAllBlogPosts({});
 
   type BlogPost = {
     coverImg: string;

@@ -12,6 +12,7 @@ function ArticlesCard({
 }: {
   article: {
     name: string;
+    name_hr: string;
     price: number;
     favourite: boolean;
     id: string;
@@ -19,7 +20,7 @@ function ArticlesCard({
   };
   img: string;
 }) {
-  const { name, price, favourite, id, packQ } = article;
+  const { name, name_hr, price, favourite, id, packQ } = article;
 
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
@@ -32,6 +33,7 @@ function ArticlesCard({
 
     const cartData: {
       name: string;
+      name_hr: string;
       price: number;
       id: string;
       quantity: number;
@@ -41,6 +43,7 @@ function ArticlesCard({
       code?: boolean;
     } = {
       name,
+      name_hr,
       price,
       id,
       quantity,
@@ -96,7 +99,7 @@ function ArticlesCard({
         className="h-auto max-h-60 w-full object-cover lg:max-h-74"
       />
       <p className="text-primary text-lg font-semibold md:text-center">
-        {name}
+        {name_hr}
       </p>
       <p className="md:text-center">
         Paket sadrži{" "}

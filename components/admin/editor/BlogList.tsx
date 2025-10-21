@@ -2,7 +2,7 @@ import BlogCard from "./BlogCard";
 import { getAllBlogPosts } from "@/lib/blogActions";
 
 async function BlogList() {
-  const data = await getAllBlogPosts();
+  const data = await getAllBlogPosts({});
 
   return (
     <div className="flex flex-col gap-4">

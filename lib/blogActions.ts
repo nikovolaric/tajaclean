@@ -10,12 +10,19 @@ const supabase = createClient(
   process.env.SUPABASE_KEY!,
 );
 
-export async function getAllBlogPosts() {
+export async function getAllBlogPosts({ hr }: { hr?: boolean }) {
   try {
-    const { data, error } = await supabase
+    const query = supabase
       .from("blog")
       .select()
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .neq("title", null);
+
+    if (hr) {
+      query.neq("title_hr", null);
+    }
+
+    const { data, error } = await query;
 
     if (error) {
       throw error;
@@ -31,20 +38,35 @@ export async function getAllBlogPosts() {
 export async function addPost({
   title,
   html,
+  title_hr = null,
+  html_hr = null,
+  coverImg,
 }: {
   title: string;
   html: string;
+  title_hr?: string | null;
+  html_hr?: string | null;
+  coverImg: File;
 }) {
   try {
     const data = {
       title,
       html,
+      title_hr,
+      html_hr,
       slug: slugify(title, { lower: true, trim: true }),
+      coverImg: coverImg.name,
     };
 
     const { error } = await supabase.from("blog").insert(data);
 
     if (error) throw error;
+
+    const { error: imgError } = await supabase.storage
+      .from("blog")
+      .upload(data.coverImg, coverImg);
+
+    if (imgError) throw error;
 
     revalidatePath("/blog");
     revalidatePath("/admin/urejevalnik");
@@ -56,22 +78,69 @@ export async function addPost({
 export async function editPost({
   title,
   html,
+  title_hr = null,
+  html_hr = null,
+  coverImg,
   slug,
 }: {
   title: string;
   html: string;
+  title_hr?: string | null;
+  html_hr?: string | null;
+  coverImg?: File;
   slug: string;
 }) {
   try {
-    const data = {
+    if (coverImg) {
+      const { data: oldData, error: oldError } = await supabase
+        .from("blog")
+        .select()
+        .eq("slug", slug)
+        .single();
+
+      if (oldError) {
+        throw oldError;
+      }
+
+      await supabase.storage.from("blog").remove([oldData.coveImg]);
+    }
+
+    const data: {
+      title: string;
+      html: string;
+      title_hr?: string | null;
+      html_hr?: string | null;
+      coverImg?: string;
+      slug: string;
+    } = {
       title,
       html,
+      title_hr,
+      html_hr,
       slug: slugify(title, { lower: true, trim: true }),
     };
 
-    const { error } = await supabase.from("blog").update(data).eq("slug", slug);
+    if (coverImg) {
+      data.coverImg = coverImg.name;
+    }
+
+    console.log(data);
+
+    const { error } = await supabase
+      .from("blog")
+      .update(data)
+      .eq("slug", slug)
+      .select();
 
     if (error) throw error;
+
+    if (data.coverImg && coverImg) {
+      const { error: imgError } = await supabase.storage
+        .from("blog")
+        .upload(data.coverImg, coverImg);
+
+      if (imgError) throw error;
+    }
 
     revalidatePath("/blog");
     revalidatePath("/admin/urejevalnik");

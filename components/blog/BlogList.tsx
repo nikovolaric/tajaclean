@@ -36,12 +36,14 @@ async function BlogListCard({
         alt="Naslovna slika"
         width={413}
         height={272}
-        className="h-auto max-h-68 w-full object-cover"
+        className="h-68 w-full object-cover"
       />
-      <H3 className="text-xl">{post.title}</H3>
+      <H3 className="h-14 text-xl">{post.title}</H3>
       <p
         className="h-25 overflow-clip"
-        dangerouslySetInnerHTML={{ __html: post.html.split("<p>")[1] }}
+        dangerouslySetInnerHTML={{
+          __html: post.html.match(/<p>(.*?)<\/p>/)?.[1] || "",
+        }}
       />
 
       <LinkBtn

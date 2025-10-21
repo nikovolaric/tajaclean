@@ -52,6 +52,8 @@ function NavMenu() {
     return <></>;
   }
 
+  const cro = pathname.startsWith("/hr");
+
   return (
     <>
       <nav className="absolute left-1/2 z-[99] mt-10 flex w-full max-w-[1440px] -translate-x-1/2 items-center justify-between px-4 md:px-8 lg:px-20">
@@ -73,7 +75,13 @@ function NavMenu() {
         <div className="grid items-center justify-items-center gap-x-12 lg:grid-cols-[auto_auto]">
           <div
             className="relative hidden cursor-pointer lg:order-2 lg:block"
-            onClick={() => router.push("/kosarica")}
+            onClick={() => {
+              if (cro) {
+                router.push("/hr/kosarica");
+              } else {
+                router.push("/kosarica");
+              }
+            }}
           >
             <Bag
               className={`relative h-6 w-auto ${cart.length > 0 ? "fill-white" : ""}`}
@@ -187,7 +195,11 @@ function PhoneLinks({
       <div
         className="relative cursor-pointer"
         onClick={() => {
-          router.push("/kosarica");
+          if (cro) {
+            router.push("/hr/kosarica");
+          } else {
+            router.push("/kosarica");
+          }
           setIsOpen(false);
         }}
       >

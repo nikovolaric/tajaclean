@@ -24,8 +24,11 @@ async function LastPost({
         />
         <div className="flex flex-col gap-6 lg:gap-10">
           <H3 className="text-xl">{post.title}</H3>
-          <p dangerouslySetInnerHTML={{ __html: post.html.split("<p>")[1] }} />
-
+          <p
+            dangerouslySetInnerHTML={{
+              __html: post.html.match(/<p>(.*?)<\/p>/)?.[1] || "",
+            }}
+          />
           <LinkBtn variant="secondary" href={`/blog/${post.slug}`}>
             Preberi več
           </LinkBtn>

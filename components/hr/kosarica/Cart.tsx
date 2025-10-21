@@ -76,6 +76,7 @@ function Cart() {
           (item: {
             id: string;
             name: string;
+            name_hr: string;
             packQ: number;
             quantity: number;
             price: number;

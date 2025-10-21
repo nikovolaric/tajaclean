@@ -9,6 +9,7 @@ function CartCard({
 }: {
   item: {
     name: string;
+    name_hr: string;
     packQ: number;
     quantity: number;
     price: number;
@@ -16,7 +17,7 @@ function CartCard({
     id: string;
   };
 }) {
-  const { name, packQ, quantity: curQuantity, price, img, id } = item;
+  const { name, name_hr, packQ, quantity: curQuantity, price, img, id } = item;
 
   const [quantity, setQuantity] = useState(curQuantity);
 
@@ -102,7 +103,7 @@ function CartCard({
         className="hidden max-h-25 max-w-34 object-cover lg:block"
       />
       <div className="flex flex-col gap-2 lg:gap-4">
-        <p className="font-semibold">{name}</p>
+        <p className="font-semibold">{name_hr}</p>
         <p className="text-sm lg:text-base">
           {packQ} {packQ === 3 ? "čudotvorne krpice" : "čudotvornih krpica"}
         </p>

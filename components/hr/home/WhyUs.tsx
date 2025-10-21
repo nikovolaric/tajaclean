@@ -17,11 +17,15 @@ function WhyUs() {
         </div>
         <div className="grid justify-items-center gap-6 lg:gap-12">
           <Sun />
-          <p className="text-center lg:text-lg">Bez grudastih nakupina i tragova</p>
+          <p className="text-center lg:text-lg">
+            Ne ostavlja tragova vode i prašne
+          </p>
         </div>
         <div className="grid justify-items-center gap-6 lg:gap-12">
           <Plant />
-          <p className="text-center lg:text-lg">Čišćenje bez sredstava za čišćenje</p>
+          <p className="text-center lg:text-lg">
+            Čišćenje bez sredstava za čišćenje
+          </p>
         </div>
       </div>
     </div>

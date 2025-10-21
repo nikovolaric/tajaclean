@@ -152,28 +152,7 @@ function DeliveryInfo() {
                 defaultValue={delivery.lastName}
               />
             </div>
-            <div>
-              <label>Naziv tvrtke (nije obavezno)</label>
-              <Input
-                placeholder="Unesite naziv tvrtke"
-                name="company"
-                onChange={(e) =>
-                  setDelivery({ ...delivery, company: e.target.value })
-                }
-                defaultValue={delivery.company}
-              />
-            </div>
-            <div>
-              <label>PDV ID broj (nije obavezno)</label>
-              <Input
-                placeholder="Unesite PDV identifikacijski broj"
-                name="taxNo"
-                onChange={(e) =>
-                  setDelivery({ ...delivery, taxNo: e.target.value })
-                }
-                defaultValue={delivery.taxNo}
-              />
-            </div>
+
             <div>
               <label>Ulica i kućni broj</label>
               <Input
@@ -216,9 +195,7 @@ function DeliveryInfo() {
                 placeholder="Hrvatska"
                 value="Hrvatska"
                 name="country"
-                onChange={(e) =>
-                  setDelivery({ ...delivery, country: e.target.value })
-                }
+                disabled
               />
             </div>
           </form>
@@ -241,7 +218,7 @@ function DeliveryInfo() {
             <div className="border-primary flex h-3.5 w-3.5 cursor-not-allowed items-center justify-center rounded-full border bg-white select-none">
               <span className={`bg-primary h-2 w-2 rounded-full`} />
             </div>
-            <label>Hrvatska Pošta.</label>
+            <label>Hrvatska Pošta</label>
           </div>
           <p className="font-semibold">
             {new Intl.NumberFormat("sl-SI", {

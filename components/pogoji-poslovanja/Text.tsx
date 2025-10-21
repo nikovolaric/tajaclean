@@ -223,13 +223,14 @@ function Text() {
           Hrvaško uporabljamo storitve Hrvaške pošte (Hrvatska pošta).
           <br />
           <br />
-          Dostavo naročenega blaga opravlja Pošta Slovenije, na hrvaško pa
+          Dostavo naročenega blaga opravlja Pošta Slovenije, na Hrvaško pa
           Hrvatska pošta. V kolikor je izdelek na zalogi, naročilo pošljemo v
           roku 1-7 delovnih dni, po potrditvi kupčevega naročila.
           <br />
           <br />
           Stroški dostave znašajo: 3,20 EUR. V primeru plačila po povzetju znaša
-          strošek dostave (zaradi provizije Pošte Slovenije) 5,5€.
+          strošek dostave (zaradi provizije Pošte Slovenije) 5,50 EUR, na
+          Hrvaškem pa 3,90 EUR.
           <br />
           <br />
           Pri naročilu nad 40 EUR so stroški dostave brezplačni.

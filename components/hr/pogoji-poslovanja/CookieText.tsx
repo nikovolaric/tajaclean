@@ -7,27 +7,27 @@ import { acceptCookies, declineCookies } from "@/lib/cookieActions";
 function CookieText({ accepted }: { accepted: boolean }) {
   return (
     <div className="flex flex-col gap-10 lg:gap-16">
-      <H2>Nastavitve piškotkov</H2>
+      <H2>Postavke kolačića</H2>
       <p>
-        Ta spletna stran vsebuje t.i. piškotke (&quot;Cookies&quot;), zaradi
-        uresničevanja namena nemotenega delovanja strani. Ko prvič obiščete
-        spletno mesto, se v vaš računalnik shrani piškotek (če je brskalnik
-        nastavljen tako, da jih sprejema), če ste spletno mesto že obiskali, pa
-        spletni strežnik, prebere piškotek, shranjen v vašem računalniku.
-        Piškotki se ne morejo uporabiti za pogon programov ali za prenos virusov
-        na vaš računalnik.
+        Ova web stranica sadrži takozvane kolačiće („Kolačići“) kako bi se
+        postigla svrha nesmetanog rada web stranice. Kada prvi put posjetite web
+        stranicu, kolačić se pohranjuje na vaše računalo (ako je vaš preglednik
+        postavljen da ih prihvaća), a ako ste već posjetili web stranicu, web
+        poslužitelj očitava kolačić pohranjen na vašem računalu. Kolačići se ne
+        mogu koristiti za pokretanje programa ili za prijenos virusa na vaše
+        računalo.
         <br />
         <br />
-        Na spletni strani se zbirajo podatki o obisku z uporabo storitve Google
-        Analytics, spletno orodje podjetja Google Inc. (&quot;Google&quot;). V
-        ta namen Google Analytics uporablja &quot;piškotke&quot;, ki so
-        tekstovne datoteke, ob privolitvi nameščene na vašem računalniku.
-        Piškotki Google Analytics se hranijo 2 leti.
+        Web stranica prikuplja podatke o vašem posjetu pomoću Google Analyticsa,
+        web alata tvrtke Google Inc. („Google“). U tu svrhu Google Analytics
+        koristi „kolačiće“, tekstualne datoteke koje se instaliraju na vaše
+        računalo uz vaš pristanak. Kolačići Google Analyticsa pohranjuju se 2
+        godine.
         <br />
         <br />
-        Trenutno vaš računalnik, poleg nujnih piškotkov za delovanje spletne
-        strani, {accepted ? "" : "ne"} uporablja Google Analytics piškotkov. Te
-        nastavitve lahko spremenite tukaj.
+        Trenutno vaše računalo, osim kolačića potrebnih za funkcioniranje web
+        stranice, {accepted ? "" : "ne"} koristi kolačiće Google Analyticsa. Ove
+        postavke možete promijeniti ovdje.
       </p>
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-5">
         <Button
@@ -35,36 +35,36 @@ function CookieText({ accepted }: { accepted: boolean }) {
           className="flex justify-center"
           onClick={acceptCookies}
         >
-          Sprejmi piškotke
+          Prihvati kolačiće
         </Button>
         <Button
           variant="complimentary"
           className="flex justify-center"
           onClick={declineCookies}
         >
-          Zavrni in briši
+          Odbij i izbriši
         </Button>
       </div>
       <p>
-        Podatki, ki jih piškotki vsebujejo o uporabi te spletne strani
-        (standardni internetni dnevniški podatki (vključno z naslovom IP) in
-        podatki o vedenju obiskovalcev v anonimni obliki) se prenesejo in
-        shranijo pri podjetju Google, tudi na strežnikih v Združenih državah.
-        Google bo poslane podatke pretvoril v anonimno obliko, tako da bo pred
-        shranitvijo podatkov odstranil zadnji zlog naslova IP. V skladu s pogoji
-        uporabe orodja Google Analytics bo podjetje Google te podatke uporabilo
-        za ovrednotenje vaše uporabe spletne strani in izdelavo poročil za
-        ANINEO, d.o.o o dejavnostih na spletni strani.
+        Informacije sadržane u kolačićima o vašoj upotrebi ove web stranice
+        (standardni podaci internetskog dnevnika (uključujući vašu IP adresu) i
+        podaci o ponašanju posjetitelja u anonimnom obliku) prenose se i
+        pohranjuju od strane Googlea, uključujući i na poslužiteljima u
+        Sjedinjenim Američkim Državama. Google će anonimizirati podatke koje ste
+        poslali uklanjanjem posljednjeg znaka vaše IP adrese prije pohranjivanja
+        podataka. U skladu s uvjetima korištenja usluge Google Analytics, Google
+        će koristiti ove podatke za procjenu vaše upotrebe web stranice i za
+        izradu izvješća za ANINEO, d.o.o. o aktivnosti na web stranici.
         <br />
         <br />
-        Podjetje ANINEO, d.o.o. ne bo uporabilo niti dovolilo nobeni tretji
-        osebi, da uporabi statistično analitično orodje za sledenje ali zbiranje
-        podatkov o obiskovalcih te stani, ki omogočajo identifikacijo
-        posameznika. Google lahko prenese podatke, zbrane z Google Analytics,
-        tretjih osebam, če to zahteva zakon ali če tretje osebe obdelujejo
-        podatke v imenu podjetja Google. V skladu s pogoji uporabe Google
-        Analytics podjetje Google vašega naslova IP ne bo povezalo z nobenimi
-        drugimi podatki, ki jih ima Google.
+        ANINEO, d.o.o. neće koristiti niti dopustiti trećim stranama da koriste
+        alate za statističku analizu za praćenje ili prikupljanje osobnih
+        podataka o posjetiteljima ove web stranice. Google može prenijeti
+        podatke prikupljene putem usluge Google Analytics trećim stranama ako to
+        zahtijeva zakon ili ako treće strane obrađuju podatke u ime Googlea.
+        Prema Uvjetima korištenja usluge Google Analytics, Google neće
+        povezivati ​​vašu IP adresu s bilo kojim drugim podacima koje posjeduje
+        Google.
       </p>
     </div>
   );

@@ -445,7 +445,9 @@ function PaymentMethod() {
                 </div>
                 <p>
                   Iznos narudžbe plaća se poštanskoj službi prilikom dostave.
-                  Poštarina za plaćanje pouzećem iznosi 5,5 EUR.
+                  Poštarina za plaćanje pouzećem iznosi 3,90 €.
+                  <br />
+                  *Provizija poštanske uplatnice 1,90 €
                   <br />
                   <br />
                   Hvala vam na povjerenju.

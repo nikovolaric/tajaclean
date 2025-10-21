@@ -6,7 +6,12 @@ import LinkBtn from "@/components/LinkBtn";
 function BlogList({
   posts,
 }: {
-  posts: { coverImg: string; slug: string; html: string; title: string }[];
+  posts: {
+    coverImg: string;
+    slug: string;
+    html_hr: string;
+    title_hr: string;
+  }[];
 }) {
   return (
     <div className="flex flex-col gap-16 md:grid md:grid-cols-2 md:gap-x-5 lg:grid-cols-3">
@@ -20,7 +25,7 @@ function BlogList({
 async function BlogListCard({
   post,
 }: {
-  post: { coverImg: string; slug: string; html: string; title: string };
+  post: { coverImg: string; slug: string; html_hr: string; title_hr: string };
 }) {
   const supabase = await createClient();
 
@@ -33,15 +38,15 @@ async function BlogListCard({
         alt="Naslovna slika"
         width={413}
         height={272}
-        className="h-auto max-h-68 w-full object-cover"
+        className="h-68 w-full object-cover"
       />
-      <H3 className="text-xl">{post.title}</H3>
-      <p className="h-25 overflow-clip">
-        {post.html
-          .split("<p>")[1]
-          .replaceAll("<br>", "")
-          .replaceAll("</p>", "")}
-      </p>
+      <H3 className="h-14 text-xl">{post.title_hr}</H3>
+      <p
+        className="h-25 overflow-clip"
+        dangerouslySetInnerHTML={{
+          __html: post.html_hr.match(/<p>(.*?)<\/p>/)?.[1] || "",
+        }}
+      />
       <LinkBtn
         variant="secondary"
         href={`/hr/blog/${post.slug}`}

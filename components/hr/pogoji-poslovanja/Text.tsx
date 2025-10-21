@@ -3,359 +3,443 @@ import { H2 } from "@/components/Text";
 function Text() {
   return (
     <div className="flex flex-col gap-10 lg:gap-16">
-      <H2>Splošni pogoji poslovanja</H2>
+      <H2>Opći uvjeti poslovanja</H2>
       <div className="flex flex-col gap-6">
         <p className="grid">
-          <span className="font-semibold">Splošni pogoji</span> Prosimo, da pred
-          uporabo spletne trgovine www.tajaclean.si (v nadaljevanju: spletna
-          trgovina) pozorno preberete Splošne pogoje poslovanja, saj ob obisku
-          spletne trgovine, naročilu in nakupu izdelkov velja, da ste s
-          Splošnimi pogoji v celoti seznanjeni in se z njimi strinjate brez
-          omejitev. Pogoji veljajo za vse uporabnike spletne trgovine (v
-          nadaljevanju: uporabnik) ne glede na njihov status.
+          Molimo vas da prije korištenja internetske trgovine www.tajaclean.si
+          (u daljnjem tekstu: internetska trgovina) pažljivo pročitate Opće
+          uvjete poslovanja, jer posjetom internetskoj trgovini, narudžbom i
+          kupnjom proizvoda važi da ste u potpunosti upoznati s Općim uvjetima i
+          da se s njima slažete bez ograničenja. Uvjeti vrijede za sve korisnike
+          internetske trgovine (u daljnjem tekstu: korisnik) bez obzira na
+          njihov status.
           <br />
           <br />
-          Splošni pogoji so sestavljeni v skladu s predpisi s področja varstva
-          potrošnikov, na podlagi priporočil Gospodarske zbornice Slovenije in
-          mednarodnih kodeksov za spletno in elektronsko poslovanje ter v skladu
-          z Zakonom o varstvu potrošnikov (ZVPot), Zakonom o varstvu osebnih
-          podatkov (ZVOP-1) ter Zakonom o elektronskem poslovanju na trgu
-          (ZEPT).
+          Opći uvjeti, uključujući prava i obaveze, tumače se prema slovenskom
+          pravu, iako su napisani na hrvatskom jeziku.
           <br />
           <br />
-          Spletno trgovino upravlja ANINEO d.o.o, Trške gorce 1, 3252 Rogatec (v
-          nadaljevanju ponudnik).
+          Opći uvjeti su sastavljeni u skladu s propisima iz područja zaštite
+          potrošača, na temelju preporuka Gospodarske komore Slovenije i
+          međunarodnih kodeksa za internetsko i elektroničko poslovanje, te u
+          skladu sa Zakonom o zaštiti potrošača (ZVPot), Zakonom o zaštiti
+          osobnih podataka (ZVOP-1) i Zakonom o elektroničkom poslovanju na
+          tržištu (ZEPT).
+          <br />
+          <br />
+          Internetsku trgovinu upravlja ANINEO d.o.o, Trške gorce 1, 3252
+          Rogatec (u daljnjem tekstu: ponuditelj).
         </p>
+
         <p className="grid">
-          <span className="font-semibold"> Podatki o podjetju</span>ANINEO d.o.o
+          <span className="font-semibold">Podaci o poduzeću</span>
+          <br />
+          ANINEO d.o.o
           <br />
           Trške gorce 1, 3252 Rogatec
           <br />
-          Davčna številka 97179116, ni davčni zavezanec
+          Porezni broj: 97179116, nije obveznik PDV-a
           <br />
-          TRR: SI56 6100 0002 9765 088
+          Broj računa: SI56 6100 0002 9765 088
           <br />
-          Matična št. 9777873000
+          Matični broj: 9777873000
           <br />
-          Registrirano pri Okrožnem sodišču v Celju Srg. vpisa: 2024/35789
+          Registrirano pri Okružnom sudu u Celju, Upisni broj: 2024/35789
           <br />
           Telefon: 040306996
         </p>
+
         <p className="grid">
-          <span className="font-semibold">Ažurnost podatkov</span> Ponudnik si
-          prizadeva pravočasno posodabljati spremembe in skrbeti za pravilnost
-          podatkov na spletni strani, zato za morebitne napake ponudnik ne
-          odgovarja. Pridržujemo si pravico do napak v besedilih oziroma
-          tekstovnih napak.
+          <span className="font-semibold">Točnost podataka</span>
+          <br />
+          Ponuditelj nastoji pravovremeno ažurirati promjene i brinuti o
+          točnosti podataka na internetskoj stranici, stoga ne odgovara za
+          eventualne pogreške. Zadržavamo pravo na pogreške u tekstovima ili
+          tipografske pogreške.
         </p>
+
         <p className="grid">
-          <span className="font-semibold">Cena</span> Vse cene so v EUR. Nobena
-          cena ne vsebuje DDV. Podjetje ni davčni zavezanec. Cene veljajo v
-          trenutku oddaje naročila in nimajo v naprej določene veljavnosti.
-          Omejeno veljavnost imajo le izdelki, ki so v akciji. Te cene veljajo
-          do odprodaje zalog oz. do navedenega datuma.
+          <span className="font-semibold">Isključenje odgovornosti</span>
           <br />
-          <br />
-          Kljub izjemnim naporom, da bi zagotovili najbolj ažurne in točne
-          podatke, se lahko zgodi, da je podatek o ceni napačen. V tem primeru,
-          ali v primeru, da se cena artikla spremeni med obdelavo naročila, bo
-          ponudnik kupcu omogočil odstop od nakupa, hkrati pa bo ponudnik kupcu
-          ponudil rešitev, ki bo šla v obojestransko zadovoljstvo.
-          <br />
-          <br />
-          Navedene cene izdelkov lahko ponudnik spremeni brez predhodnega
-          obvestila.
-          <br />
-          <br />
-          Popusti, promocijske kode ipd. se praviloma ne seštevajo. Kode oz. kod
-          za popust ni možno menjati za gotovino.
-          <br />
-          <br />
+          Zadržavamo pravo onemogućiti internetsku stranicu ili pristup njoj
+          zbog tehničkih ili drugih problema i održavanja, što može rezultirati
+          nemogućnošću ili otežanom uporabom internetske trgovine. U slučaju
+          tehničkih problema, zadržavamo pravo otkazati narudžbe koje su
+          pogođene tehničkom pogreškom. O otkazivanju narudžbi bit ćete
+          obaviješteni u najkraćem mogućem roku s daljnjim uputama. Korisnik
+          mora osigurati odgovarajuću zaštitu opreme (antivirus itd.) prilikom
+          pristupa stranici i njezine upotrebe. Kupac je dužan održavati
+          sigurnost i povjerljivost prijavnih podataka (email, lozinka).
         </p>
+
         <p className="grid">
-          <span className="font-semibold">Koda za popust</span>Koda za popust
-          prinaša različne ugodnosti pri nakupu prek spletne strani
-          www.tajaclean.com in je časovno omejena, Izkoristiti pa se mora v
-          omejenem določenem roku, sicer je neveljavna. Aktivno kodo za popust
-          najdete na naslovni strani oglasnega sporočila, v našem e-obveščevalcu
-          ali drugih medijih.
+          <span className="font-semibold">Cijena</span>
           <br />
-          <br />V primeru, da kupec izkoristi kodo za popust, a naročilo s
-          koriščeno kodo kasneje sam prekliče po lastni volji, do nove ugodnosti
-          z naslova te kode ni več upravičen.
+          Sve cijene su u EUR. Niti jedna cijena ne uključuje PDV jer je
+          poduzeće neobveznik PDV-a. Cijene vrijede u trenutku narudžbe i nemaju
+          unaprijed određenu valjanost. Ograničena valjanost vrijedi samo za
+          proizvode na akciji i važe do isteka zaliha ili do navedenog datuma.
           <br />
           <br />
-          Koda za popust je enkratna koda, kar pomeni, da jo lahko uporabite le
-          enkrat. Kombinacija različnih oblik ugodnosti (koda za popust,
-          promocijska koda in bonus) znotraj istega naročila ni mogoča.
+          Unatoč maksimalnim naporima za točnost, moguće je da je cijena
+          netočna. U tom slučaju ili ako se cijena promijeni tijekom obrade
+          narudžbe, ponuditelj kupcu omogućuje odustanak od kupnje te nudi
+          rješenje koje je prihvatljivo za obje strane.
           <br />
           <br />
-          Za en nakup je možno uveljaviti le eno kodo za popust.
+          Ponuditelj zadržava pravo promijeniti cijene bez prethodne najave.
+          <br />
+          <br />
+          Popusti, promotivni kodovi i slično se uglavnom ne zbrajaju. Kodove se
+          ne može zamijeniti za gotovinu.
         </p>
+
         <p className="grid">
-          <span className="font-semibold">Naročilo in plačilo izdelkov</span>
-          Izdelke lahko naročite s klikom na besedilo Prosimo kontaktirajte nas
-          za naročilo na anja@tajaclean.si ali pa nam pošiljite sporočilo na
-          anja@tajaclean.si. Po oddaji naročila, vam bomo na sporočilo
-          odgovorili v najkrajšem možnem času. Spletna trgovina
-          www.tajaclean.com naročilo pregleda, preveri dobavljivost naročenih
-          artiklov in naročilo potrdi oziroma z razlogom zavrne.
+          <span className="font-semibold">Promotivni kod</span>
+          <br />
+          Promotivni kod donosi različite pogodnosti pri kupnji putem
+          www.tajaclean.si i vremenski je ograničen. Morate ga iskoristiti u
+          određenom roku, inače je nevažeći. Aktivni kod pronaći ćete na
+          naslovnici promotivnih poruka, u newsletteru ili drugim medijima.
           <br />
           <br />
-          Kupoprodajna pogodba med spletnim mestom www.tajaclean.com in kupcem
-          je na spletnem mestu www.tajaclean.com sklenjena v trenutku, ko
-          www.tajaclean.com kupcu pošlje prvo elektronsko sporočilo o statusu
-          njegovega naročila. Kot kupec velja oseba s podatki, kot so navedeni
-          ob oddaji naročila.
+          Ako kupac iskoristi kod, a potom samovoljno otkaže narudžbu s tim
+          kodom, pravo na novu pogodnost iz tog koda prestaje.
           <br />
           <br />
-          Kupoprodajna pogodba (t.j. prvo elektronsko sporočilo o statusu
-          naročila) je v elektronski obliki shranjena na strežniku
-          www.tajaclean.com
+          Kod je jednokratan, što znači da se može upotrijebiti samo jedanput.
+          Kombinacija različitih pogodnosti unutar iste narudžbe nije moguća.
+          <br />
+          <br />
+          Za jednu kupnju može se iskoristiti samo jedan promotivni kod.
         </p>
+
         <p className="grid">
-          <span className="font-semibold">Načini plačila</span>
-          Spletno mesto www.tajaclean.com omogoča naslednje načine plačila:
+          <span className="font-semibold uppercase">
+            NARUDŽBA I PLAĆANJE PROIZVODA
+          </span>
           <br />
-          <br />▪ z gotovino ob prevzemu preko dostave s pošto Slovenije
-          <br />▪ s plačilom po predračunu
-          <br />▪ s paypalom
-          <br />▪ s plačilno kartico
-          <br />
-          <br />
-          Vse informacije o plačilu in pošiljanju vam bomo vrnili v povratnem
-          sporočilu.
-          <br />
-          <br />V kolikor ste se odločili za plačilo po predračunu, vam bomo na
-          vaš e-naslov poslali predračun s podatki za plačilo.
-          <br />
-          <br />
-          Po dostavi naročenih izdelkov boste na svoj e-naslov prejeli račun v
-          PDF formatu, na katerem bodo razčlenjeni cena in vsi stroški v zvezi z
-          nakupom. Kupec je dolžan preveriti pravilnost podatkov na računu in o
-          morebitnih napakah obvestiti prodajalca v osmih dneh od prejema.
-          Kasneje podanih ugovorov glede pravilnosti izdanih računov ponudnik ne
-          bo upošteval.
+          Na početnoj stranici, u odjeljcima &quot;kupi svoju krpicu&quot; i
+          &quot;izaberi svoj paket krpica&quot; usmjeravaju vas na karticu
+          internetske trgovine, gdje možete pregledati ponudu. Dostupna su
+          različita pakiranja istog proizvoda – krpice za čišćenje.
         </p>
+
+        <p className="grid">
+          <span className="font-semibold">Dodavanje u košaricu i košarica</span>
+          <br />
+          Kada se odlučite za kupnju proizvoda, klikom na gumb &quot;Dodaj u
+          košaricu&quot; dodate proizvod u košaricu. Nakon klika na taj gumb
+          otvara se kartica košarice. Istovremeno se u košaricu (gore desno u
+          zaglavlju) dodaje odabrana količina proizvoda, a promijeni se i ukupni
+          iznos kupnje. Količinu proizvoda uvijek možete promijeniti klikom na
+          sadržaj košarice ili dodavanjem drugih proizvoda. U opisima proizvoda
+          dostupno je i polje za izbor količine paketa. Odabirom broja možete
+          dodati željeni broj paketa u košaricu.
+          <br />
+          <br />
+          Pregled sadržaja košarice uvijek je dostupan u gornjem desnom kutu
+          stranice. U tom pregledniku, koji slijedi kupca prilikom
+          pregledavanja, prikazan je ukupni broj dodanih proizvoda i ukupni
+          iznos kupnje. Detaljan sadržaj košarice možete provjeriti klikom na
+          ikonu košarice (u gornjem desnom kutu stranice). Unutar košarice
+          navedeni su dodani proizvodi s imenom, kratkim opisima, cijenom,
+          količinom itd. U košarici možete mijenjati količine, ukloniti
+          neželjene ili isprazniti cijelu košaricu. Košaricu zaključuju troškovi
+          kupnje: ukupna cijena proizvoda, troškovi dostave, iznos bez PDV-a,
+          kuponski popusti itd. Na dnu košarice nalazi se polje &quot;kôd za
+          popust&quot; u koje možete unijeti promotivni kôd primljen putem
+          različitih kanala. Ovisno o kuponskom popustu, vrijednosti kupnje ili
+          uvjeti dostave mogu se promijeniti. Nakon što ste zadovoljni sadržajem
+          košarice, kliknite &quot;Nastavi na blagajnu&quot;.
+          <br />
+          <br />
+          Sadržaj sažetka narudžbe na blagajni sličan je onom u košarici. Želite
+          li promijeniti ili ukloniti proizvod, morate se vratiti na sadržaj
+          košarice.
+        </p>
+
+        <p className="grid">
+          <span className="font-semibold">Vaši podaci</span>
+          <br />
+          Na blagajni je potrebno unijeti vaše osobne podatke ili podatke pravne
+          osobe koja kupuje proizvode. Polja za unos nalaze se pod &quot;Podaci
+          za račun&quot;. U obrascu su definirana obavezna polja. Postoji
+          mogućnost dostave na drugu adresu. U donjem dijelu moguće je dodati
+          napomene vezane uz narudžbu. Podatke spremite klikom na zeleni gumb
+          &quot;nastavi na plaćanje&quot;.
+        </p>
+
+        <p className="grid">
+          <span className="font-semibold">Načini plaćanja</span>
+          <br />
+          Na kartici za plaćanje odabirete način plaćanja i dostave.
+          <br />
+          <br />
+          Internetska trgovina www.tajaclean.si omogućava sljedeće načine
+          plaćanja:
+          <br />
+          <br />
+          gotovinom prilikom preuzimanja preko Pošte Slovenije
+          <br />
+          uplatom po predračunu
+          <br />
+          PayPalom
+          <br />
+          karticom za plaćanje
+          <br />
+          <br />
+          Ukoliko ste odabrali uplatu po predračunu, po potvrdi narudžbe na
+          e-mail ćete dobiti podatke za uplatu.
+        </p>
+
+        <p className="grid">
+          <span className="font-semibold">Završetak kupnje</span>
+          <br />
+          Kada popunite sve podatke, izaberete način dostave i plaćanja te
+          provjerite navedene iznose, potrebno je označiti da se slažete s
+          uvjetima kupnje i kliknuti gumb &quot;Završi kupnju&quot;.
+        </p>
+
+        <p className="grid">
+          <span className="font-semibold">Potvrda kupnje</span>
+          <br />
+          Nakon potvrde kupnje ili klika na gumb &quot;Završi kupnju&quot; na
+          vašem se ekranu pojaviti će prozor &quot;pričekajte dok se vaša
+          narudžba ne obradi&quot;. Pričekajte dok ne budete preusmjereni natrag
+          na internetsku trgovinu. Nakon preusmjeravanja prikazat će vam se
+          potvrda o primitku narudžbe. Istovremeno na e-mail adresu koju ste
+          unijeli prilikom registracije bit će poslano obavještenje o narudžbi i
+          daljnje upute.
+        </p>
+
+        <p className="grid">
+          Kupoprodajni ugovor između internetske trgovine www.tajaclean.si i
+          kupca sklopljen je u trenutku kada internetska trgovina pošalje e-mail
+          s potvrdom narudžbe. Kupcem se smatra osoba čiji su podaci uneseni
+          prilikom narudžbe.
+          <br />
+          <br />
+          Kupoprodajni ugovor (tj. prva elektronska potvrda narudžbe) pohranjena
+          je elektronski na poslužitelju www.tajaclean.si.
+        </p>
+
         <p className="grid">
           <span className="font-semibold">
-            Dostava, stroški dostave in dobavni rok
+            Dostava, troškovi dostave i rok isporuke
           </span>
-          Prodaja in dostava blaga je možna samo na ozemlju Republike Slovenije.
-          Po dogovoru lahko blago dostavimo tudi v tujino.
+          <br />
+          Prodaja i dostava robe moguća je samo na teritoriju Republike
+          Slovenije. Po dogovoru, roba se može dostaviti i u inozemstvo.
           <br />
           <br />
-          Dostavo naročenega blaga opravlja Pošta Slovenije. V kolikor je
-          izdelek na zalogi, naročilo pošljemo v roku 1-7 delovnih dni, po
-          potrditvi kupčevega naročila.
+          Dostavu robe u Sloveniji obavlja Pošta Slovenije, u Hrvatskoj Hrvatska
+          pošta. Ukoliko je proizvod na skladištu, narudžba će biti poslana u
+          roku od 1-7 radnih dana od potvrde narudžbe.
           <br />
           <br />
-          Stroški dostave znašajo: 3,20 EUR. V primeru plačila po povzetju znaša
-          strošek dostave (zaradi provizije Pošte Slovenije) 5,5€.
+          Troškovi dostave iznose 3,20 EUR. U slučaju plaćanja pouzećem,
+          troškovi dostave iznose u Sloveniji 5,50 EUR, a u Hrvatskoj 3,90 EUR.
           <br />
           <br />
-          Pri naročilu nad 40 EUR so stroški dostave brezplačni.
+          Za narudžbe iznad 40 EUR dostava je besplatna.
         </p>
-        <p className="grid">
-          <span className="font-semibold">Sprememba ali preklic nakupa</span>V
-          primeru spremembe ali preklica naročila, je kupec dolžan o tem
-          ponudnika obvestiti na elektronski naslov.
-          <br />
-          <br />
-          Pridržujemo si pravico, da izjemoma (delno) odstopimo od izvedbe
-          naročila v primerih, če naročenih izdelkov zmanjka na zalogi v procesu
-          obdelave naročila, če ugotovimo povečano plačilno rizičnost kupca, če
-          naročilnica ni bila izpolnjena v skladu s Splošnimi pogoji ali če je
-          prišlo do očitne napake v ceniku. V vseh takih in podobnih primerih
-          vas bomo o morebitnem odstopu od pogodbe z naše strani nemudoma
-          obvestili po elektronski pošti.
-        </p>
-        <p className="grid">
-          <span className="font-semibold">Vračilo</span>
-          izdelkov Skladno z Zakonom o varstvu potrošnikov imate pravico, da nam
-          v 14 dneh od prevzema blaga sporočite, da odstopate od pogodbe in
-          sicer z elektronskim sporočilom na naslov anja@tajaclean.si, ne da bi
-          vam bilo potrebno navesti razlog za svojo odločitev.
-          <br />
-          <br />
-          Rok se začne šteti en dan po datumu prevzema artiklov. Potrošnik nima
-          pravice do odstopa od pogodbe pri pogodbah, katerih predmet je
-          artikel, ki je bil izdelan po natančnih navodilih potrošnika, ki je
-          bilo prilagojeno njegovim osebnim potrebam. Poleg vrnjenega izdelka v
-          originalni, neodprti in nepoškodovani embalaži, je zaželeno, da
-          stranka, ki odstopa od pogodbe navede še razloge za vrnitev izdelka z
-          namenom pridobitve povratne informacije za izboljšanje potrošniške
-          storitve.
-          <br />
-          <br />
-          Nepoškodovan in neuporabljen izdelek v originalni embalaži s kopijo
-          računa lahko kupec pošlje (priporočeno s povratnico) najkasneje v 14
-          dneh po sporočilu o odstopu naročila na naslov ANINEO d.o.o, Trg 24,
-          3252 Rogatec. Kupec nosi strošek vračila blaga. V tem primeru ponudnik
-          kupcu vrne kupnino na kupčev TRR ali blago zamenja za drugega v 7 dneh
-          od prejema vrnjenega blaga.
-          <br />
-          <br />
-          Pri odstopu od pogodbe, kjer je bil koriščen bonus, koda za popust ali
-          promocijska koda, se ta sredstva upoštevajo kot popust in se
-          uporabniku ne vrnejo. Uporabniku se vrne le vplačani znesek. Vrnjenih
-          pošiljk z odkupnino ne sprejemamo.
-          <br />
-          <br />
-          Vrnjeni paketi, poslani z odkupnino bodo zavrnjeni.
-        </p>
-        <p className="grid">
-          <span className="font-semibold">Vračilo poškodovanih pošiljk</span>
-          Vsi izdelki so pred dostavo pregledani in odposlani nepoškodovani,
-          zapakirani v škatlo za dostavo. Kupec je dolžan ob prevzemu pošiljko
-          pregledati. V primeru, da je paket fizično poškodovan ali kaže znake
-          odprtja, mora kupec paket reklamirati pri Pošti Slovenije.
-        </p>
-        <p className="grid">
-          <span className="font-semibold">Varovanje osebnih podatkov</span>{" "}
-          Ponudnik se zavezuje k varovanju vseh osebnih podatkov uporabnika.
-          Ponudnik bo osebne podatke uporabil izključno za potrebe izpolnitve
-          naročila, pošiljanje gradiva o novostih, akcijah in ugodnostih,
-          pošiljanje računov in drugih obvestil ter ostalo potrebno
-          komunikacijo. Uporabnikovi podatki v nobenem primeru ne bodo predani
-          nepooblaščenim osebam. Za varovanje osebnih podatkov je odgovoren tudi
-          uporabnik sam in sicer tako, da poskrbi za varnost svojega
-          uporabniškega imena in gesla.
-        </p>
+
         <p className="grid">
           <span className="font-semibold">
-            Komunikacija, obveščanje in e-novice
+            Promjena ili otkazivanje narudžbe
           </span>
-          Ponudnik bo z uporabnikom stopil v stik preko elektronske pošte ali
-          SMS sporočila, v kolikor uporabnik temu izrecno ne nasprotuje.
+          <br />
+          Kupac je dužan obavijestiti ponuditelja o promjeni ili otkazivanju
+          narudžbe putem e-pošte.
           <br />
           <br />
-          Promocijska elektronska in/ali SMS sporočila bodo vsebovala naslednje
-          sestavine: - jasno in nedvoumno bodo označena kot oglasna sporočila,
-          pošiljatelj bo jasno razviden, različne akcije, promocije in druge
-          tržne tehnike bodo označene kot takšne (prav tako bodo jasno določeni
-          pogoji udeležbe v njih), jasno bo predstavljen način odjave od
-          prejemanja oglasnih sporočil. Željo uporabnika, da ne želi prejemati
-          oglasnih sporočil, bo ponudnik izrecno spoštoval.
-          <br />
-          <br />
-          Uporabnik se strinja, da ga ob prijavi na e-novice občasno obveščamo o
-          novostih na strani, novostih v ponudbi in promocijskih akcijah.
-          Ponudnik se obvezuje, da e-naslova uporabnika ne bo na noben način
-          zlorabil ali posredoval tretji osebi. Uporabnik se lahko od prejemanja
-          novic kadarkoli odjavi.
+          Ponuditelj zadržava pravo djelomično ili u cijelosti odustati od
+          izvršenja narudžbe u slučajevima kada su naručeni proizvodi rasprodani
+          tijekom obrade narudžbe, ukoliko postoji povećani rizik plaćanja
+          kupca, ako narudžbenica nije ispunjena u skladu sa Općim uvjetima ili
+          je došlo do greške u cjeniku. U svim ovim slučajevima korisnici će
+          biti odmah obaviješteni putem e-pošte.
         </p>
+
         <p className="grid">
-          <span className="font-semibold">Ocene, mnenja in priporočila</span>
-          Mnenja, ocene in priporočila, ki jih kupci napišejo, so del
-          funkcionalnosti spletnega mesta in namenjeni skupnosti vseh
-          uporabnikov.
+          <span className="font-semibold">Povrat robe</span>
+          <br />
+          Potrošač ima pravo 14 dana od primitka robe obavijestiti ponuditelja o
+          odustanku od ugovora putem elektroničke pošte na adresu
+          anja@tajaclean.si, bez navođenja razloga.
           <br />
           <br />
-          Spletno mesto www.tajaclean.com omogoča, da mnenje napiše katerikoli
-          uporabnik spletnega mesta, pred dokončno objavo pa jih
-          www.tajaclean.com pregleda. Spletno mesto www.tajaclean.com ne bo
-          objavila mnenj oziroma prispevkov, ki so kakorkoli žaljivi,
-          neprimerni, ali ki po oceni www.tajaclean.com ne nudijo koristi drugim
-          uporabnikom in obiskovalcem.
+          Rok počinje teći jedan dan nakon preuzimanja proizvoda.
           <br />
-          <br />Z oddajo mnenja ali komentarja se uporabnik izrecno strinja s
-          pogoji uporabe njegovega mnenja ali komentarja in spletnemu mestu
-          www.tajaclean.com dovoljuje objavo dela ali celotnega teksta v vseh
-          elektronskih in drugih medijih. Spletno mesto www.tajaclean.com ima
-          pravico vsebino mnenja ali komentarja uporabljati časovno neomejeno in
-          za katerikoli namen, ki je v poslovnem interesu www.tajaclean.com
-          vključno z objavo v oglasih ali drugih marketinških komunikacijah.
-          Avtor mnenja hkrati izjavlja in zagotavlja, da je lastnik materialnih
-          in moralnih avtorskih pravic za napisana mnenja in komentarje ter da
-          te pravice neizključno in časovno neomejeno prenaša na Klenometal
-          d.o.o.
+          <br />
+          Potrošač nema pravo na odustanak kod proizvoda napravljenih po točnim
+          uputama potrošača ili prilagođenih njegovim osobnim potrebama. Povrat
+          robe treba biti u originalnoj, neoštećenoj i neotvorenoj ambalaži, te
+          se preporučuje da kupac navede razloge povrata radi poboljšanja
+          usluge.
+          <br />
+          <br />
+          Neoštećeni i nekorišteni proizvod u originalnoj ambalaži s kopijom
+          računa kupac može poslati (preporučeno s povratnicom) najkasnije 14
+          dana od obavijesti o odustanku na adresu ANINEO d.o.o, Trg 24, 3252
+          Rogatec. Trošak povrata snosi kupac.
+          <br />
+          <br />
+          Ponuditelj će kupcu vratiti novac u roku 7 dana od primitka vraćene
+          robe ili zamijeniti proizvod. Kod odustanka gdje je korišten bonus ili
+          promotivni kod, ti se iznosi smatraju popustom i neće biti vraćeni
+          korisniku, već se vraća samo uplaćeni iznos.
+          <br />
+          <br />
+          Pošiljke poslane pouzećem neće biti prihvaćene.
         </p>
+
         <p className="grid">
-          <span className="font-semibold">Pritožbe in spori</span>Pritožba se
-          odda preko elektronske pošte na anja@tajaclean.si. Vse reklamacije in
-          pritožbe se obravnavajo zaupno. Ponudnik se bo potrudil, da bo vse
-          spore reševal razumsko in v prid kupcu. Ponudnik in kupec se
-          strinjata, da bosta morebitne spore reševala med seboj z razumevanjem,
-          spoštovanjem in veliko mero potrpežljivosti. Po prejemu pritožbe bo
-          ponudnik v najkrajšem možnem času kupca obvestil o prejemu reklamacije
-          ali pritožbe ter trajanju postopka reševanja.
+          <span className="font-semibold">Vraćanje oštećenih pošiljki</span>
           <br />
+          Svi proizvodi su prije dostave pregledani i poslani neoštećeni,
+          zapakirani u kutiju za dostavu. Kupac je dužan kod preuzimanja
+          pregledati pošiljku.
           <br />
-          Zavedamo se, da je bistvena značilnost potrošniških sporov
-          nesorazmernost med ekonomsko vrednostjo zahtevka in potrebnim časom
-          ter stroški, ki nastanejo zaradi reševanja spora, kar je tudi glavna
-          ovira, da potrošnik ne sproži spora pred sodiščem. Zato si
-          www.tajaclean.com prizadeva po svojih najboljših močeh, da se
-          morebitni spori rešijo sporazumno. V primeru da to ne bi bilo možno,
-          pa pri pristojnem sodišču. Ponudnik in uporabnik (kupec) kot
-          udeleženca v elektronskem poslovanju medsebojno priznavata veljavnost
-          elektronskih sporočil na sodišču.
-          <br />
-          <br />
-          Za te Splošne pogoje poslovanja in za vse spore med ponudnikom in
-          uporabnikom (kupcem) velja in se uporablja slovensko materialno in
-          procesualno pravo, pri čemer se ne uporabljajo pravila mednarodnega
-          zasebnega prava, ki bi dokazovala na uporabo kateregakoli drugega
-          prava.
-          <br />
-          <br />
-          Za vsa razmerja ter za pravice in obveznosti, ki niso urejene s temi
-          Splošnimi pogoji poslovanja, se smiselno uporabljajo določila
-          Obligacijskega zakonika, Zakona o elektronskem poslovanju na trgu,
-          Zakona o varstvu osebnih podatkov in Zakona o varstvu potrošnikov.
+          <br />U slučaju da je paket fizički oštećen ili pokazuje znakove
+          otvaranja, kupac mora reklamirati pošiljku kod Pošte Slovenije.
         </p>
+
         <p className="grid">
-          <span className="font-semibold">PRAVNO OBVESTILO</span>Blagovna znamka
-          TajaClean je zaščitena pri Uradu RS za intelektualno lastnino!
+          <span className="font-semibold">Zaštita osobnih podataka</span>
+          <br />
+          Ponuditelj se obvezuje čuvati sve osobne podatke korisnika. Ne
+          pohranjujemo nikakve podatke povezane s plaćanjem preko interneta.
           <br />
           <br />
-          Spletno mesto www.tajaclean.com vsi podatki na njem (slike izdelkov,
-          grafika, besedila in vse ostalo) so zaščiteni z Zakonom o avtorskih
-          pravicah in jih ni dovoljeno reproducirati ali uporabljati brez
-          predhodnega pisnega dovoljenja ponudnika.
+          Podatke koje unesete prilikom registracije i naručivanja (ime i
+          prezime, adresa, mjesto, telefonski broj, e-mail) čuvat ćemo pažljivo
+          radi kontrole narudžbe i dostave. Podaci će se koristiti isključivo u
+          svrhu vaše narudžbe te slanja newslettera, na što pristajete.
+          <br />
+          <br />
+          Uvijek se možete odjaviti od newslettera klikom na
+          &quot;Unsubscribe&quot; na dnu primljenih poruka. Vaši podaci nikada
+          neće biti predani neovlaštenim osobama.
+          <br />
+          <br />
+          Za zaštitu osobnih podataka odgovoran je također sam korisnik tako što
+          će čuvati sigurnost svog e-maila, korisničkog imena i lozinke.
         </p>
+
         <p className="grid">
-          <span className="font-semibold">Pravica intelektualne lastnine</span>
-          Ta stran in vso gradivo na tem spletnem mestu, vključno vendar ne
-          omejeno na slike, besedila, fotografije, slike, ikone in ilustracije,
-          razen tistih, ki so že pokrita z obstoječimi avtorskimi pravicami in
-          zaščito o intelektualni lastnini, so v lasti podjetja Klenometal
-          d.o.o. Za reproduciranje, objavljanje, spreminjanje, nalaganje,
-          prenašanje in distribuiranje ali javno prikazovanje gradiva s te
-          strani, potrebujete pisno dovoljenje od podjetja Anieno d.o.o.
-          Blagovna znamka in logotip, ki se uporablja in je prikazana na tej
-          strani, so v lasti podjetja Anineo d.o.o. Nič na tem spletnem mestu se
-          ne sme razumeti kot podelitev – implicitno ali kako drugače – licence
-          ali pravice za uporabo katerekoli blagovne znamke prikazane na strani,
-          brez pisnega dovoljenja lastnika blagovne znamke. Uporabniki lahko
-          pregledujejo in prenašajo gradivo s tega spletnega mesta samo za
-          osebno, nekomercialno, domačo rabo in taka uporaba se šteje za
-          spoštovanje teh Splošnih pogojev. Podjetje Klenometal d.o.o bo
-          agresivno uveljavljalo svoje pravice do intelektualne lastnine v
-          največji možni meri zakona. Vse pravice, ki niso izrecno zagotovljene,
-          so pridržane s strani Klenometal d.o.o odvisno od primera.
+          <span className="font-semibold">
+            Komunikacija, obavijesti i newsletter
+          </span>
+          <br />
+          Ponuditelj će kontaktirati korisnika putem e-maila ili SMS-a, ako
+          korisnik nije izričito odbio.
+          <br />
+          <br />
+          Promotivne poruke jasno će biti označene, s jedinstvenim podatkom o
+          pošiljatelju, uvjetima akcija i jasnim načinom odjave. Koristiti ćemo
+          promotivne kanale uz poštivanje želja korisnika da prestane primati
+          takve poruke. Prijavom na newsletter pristajete na povremene
+          informacije o novostima i promocijama. Podaci se neće zlostavljati ili
+          dijeliti trećima.
         </p>
+
         <p className="grid">
-          <span className="font-semibold">RAZNO</span> Strinjate se, da so ti
-          Splošni pogoji stopili v veljavo v Sloveniji in se ureja in razlaga v
-          skladu s slovensko zakonodajo. Vsaka pogodbena stranka tega sporazuma
-          priznava izključno pristojnost sodišča v Ljubljani v Sloveniji, in se
-          odpoveduje pristojnosti, kraju ali drugim ugovorom glede teh sodišč. V
-          vsakem ukrepanju za uveljavitev tega sporazuma, bo prevladujoča
-          stranka upravičena do stroškov in odvetniških stroškov. V primeru, da
-          vse določbe tega sporazuma, ki ga izda sodišče ali drugo razsodišče
-          ali pristojnega sodišče ni mogoče uveljavljati, se te določbe omejijo
-          ali odpravijo do najmanjše potrebne mere, da ti Splošni pogoji
-          ostanejo v polni veljavi in izvršljivi. Ti Splošni pogoji
-          predstavljajo celoten sporazum med obema strankama, ki se nanaša na
-          vsebino teh Splošnih pogojev, vsi prejšnji pisni ali ustni dogovori
-          med strankama so s temi Splošnimi pogoji preklicani. Opustitev ene ali
-          druge pogodbene stranke glede vsake kršitve se šteje za odpoved
-          katerekoli predhodne ali kasnejše kršitve ali neizpolnjevanje
-          obveznosti.
+          <span className="font-semibold">Ocjene, komentari i preporuke</span>
+          <br />
+          Komentari koje kupci ostave dio su funkcionalnosti web stranice i
+          namijenjeni su zajednici svih korisnika. Svaki komentar pregledava
+          ponuditelj prije objave. Neće se objavljivati komentar koji je
+          uvredljiv, neprimjeren ili ne pruža korisne informacije. Slanjem
+          komentara pristajete na uvjete uporabe i dozvoljavate objavu komentara
+          u elektronskim i ostalim medijima.
+          <br />
+          <br />
+          Ponuditelj zadržava pravo korištenja komentara u marketinške svrhe bez
+          vremenskog ograničenja. Autor komentara izjavljuje i jamči da je
+          vlasnik svih autorskih prava za napisani sadržaj i da ih prenosi
+          ponuditelju.
         </p>
-        <p className="grid">Datum zadnje spremembe: 20.08.2025</p>
+
+        <p className="grid">
+          <span className="font-semibold">Poveznice na druge web stranice</span>
+          <br />
+          Na stranici se mogu pojavljivati poveznice na druge stranice koje nisu
+          obuhvaćene ovom izjavom o zaštiti podataka.Prije nego napustite našu
+          stranicu, pročitajte izjavu o zaštiti podataka drugog web mjesta.
+        </p>
+
+        <p className="grid">
+          <span className="font-semibold">Žalbe i sporovi</span>
+          <br />
+          Žalbe se dostavljaju na e-mail anja@tajaclean.si i obrađuju
+          povjerljivo. Ponuditelj će se truditi riješiti sporove korisnički i
+          razumno. Ponuditelj i kupac pristaju da sporove rješavaju s međusobnim
+          poštovanjem i strpljenjem. Nakon primitka žalbe, ponuditelj će u
+          najkraćem roku obavijestiti korisnika o statusu i trajanju postupka.
+          <br />
+          <br />
+          Svjesni smo da su potrošački sporovi često nesrazmjerni u pogledu
+          vrijednosti i troškova, što otežava pokretanje pravnih postupaka.
+          Stoga se trudimo riješiti sve sporove mirnim putem, inače se rješavaju
+          sporazumno ili na nadležnom sudu. Elektronička komunikacija između
+          ponuđača i korisnika se priznaje kao valjani dokaz na sudu.
+        </p>
+
+        <p className="grid">
+          <span className="font-semibold">Pravni okvir</span>
+          <br />
+          Na ove Opće uvjete i sve sporove između ponuđača i korisnika
+          primjenjuje se slovensko materijalno i procesno pravo. Ne primjenjuju
+          se pravila međunarodnog privatnog prava koja bi odredila primjenu
+          drugog prava. Za sve odnose i prava koja nisu ovom odredbom uređena,
+          primjenjuju se odredbe Obligacijskog zakona, Zakona o elektroničkom
+          poslovanju na tržištu, Zakona o zaštiti osobnih podataka i Zakona o
+          zaštiti potrošača.
+        </p>
+
+        <p className="grid">
+          <span className="font-semibold">Pravna obavijest</span>
+          <br />
+          Svi podaci na web stranici www.tajaclean.si (slike proizvoda, grafike,
+          tekstovi i ostalo) zaštićeni su Zakonom o autorskim pravima i ne smiju
+          se reproducirati bez prethodnog pisanog dopuštenja ponuditelja.
+        </p>
+
+        <p className="grid">
+          <span className="font-semibold">Prava intelektualnog vlasništva</span>
+          <br />
+          Ova stranica i svi materijali na njoj (uključujući, ali ne
+          ograničavajući se na slike, tekstove, fotografije, ikone, ilustracije)
+          osim onih već zaštićenih autorskim pravima, vlasništvo su tvrtke
+          Anineo d.o.o. Za reprodukciju, objavljivanje, mijenjanje, prijenos ili
+          distribuciju bilo kakvog materijala potrebna je pisana dozvola tvrtke
+          Anineo d.o.o. Zaštićeni su i žigovi i logotipi koji se koriste na
+          stranici. Ništa na stranici se ne smatra implicitnim ili eksplicitnim
+          davanjem licence za uporabu bilo kojeg žiga bez pisanog dopuštenja
+          vlasnika. Korisnici mogu pregledavati i preuzimati materijale samo za
+          osobnu i nekomercijalnu upotrebu, što se smatra poštivanjem ovih Općih
+          uvjeta. Anineo d.o.o će strogo štititi svoja intelektualna prava u
+          maksimalnoj mogućoj mjeri.
+        </p>
+
+        <p className="grid">
+          <span className="font-semibold">Razno</span>
+          <br />
+          Slažete se da su ovi Opći uvjeti stupili na snagu u Sloveniji i da se
+          tumače i primjenjuju prema slovenskom zakonodavnom okviru. Svaka
+          stranica ugovora priznaje isključivu nadležnost suda u Ljubljani i
+          odriče se drugih nadležnosti. U slučaju pravnih postupaka, pobjednička
+          stranka ima pravo na nadoknadu troškova. Ako neka odredba ovog ugovora
+          nije provediva, prilagođava se do najnižeg mogućeg opsega da ostatak
+          ostane valjan i izvršiv. Ovi Opći uvjeti predstavljaju cjelokupni
+          ugovor između stranaka i zamjenjuju sve prethodne usmene i pisane
+          dogovore. Odustajanje od prava na kaznu za prethodne ili buduće
+          prekršaje ne znači odustajanje od prava u cijelosti.
+        </p>
+
+        <p className="grid">Datum zadnje izmjene: 9.10.2025.</p>
       </div>
     </div>
   );

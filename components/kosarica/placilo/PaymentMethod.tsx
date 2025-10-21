@@ -467,7 +467,7 @@ function PaymentMethod() {
                 </div>
                 <p>
                   Znesek naročila se poravna poštarju ob dostavi. Poštnina za
-                  plačilo po povzetju znaša 5,5 €.
+                  plačilo po povzetju znaša 5,50 €.
                   <br />
                   <br />
                   Hvala za zaupanje.

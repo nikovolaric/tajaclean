@@ -58,7 +58,7 @@ const defaultBuyer: BuyerType = {
   address: "",
   city: "",
   postal: "",
-  country: "Slovenija",
+  country: "",
 };
 
 const defaultDelivery: DeliveryType = {
@@ -101,10 +101,10 @@ function ContextProvider({ children }: { children: ReactNode }) {
     if (buyerString && deliveryString) {
       setBuyer(JSON.parse(buyerString));
       setDelivery(JSON.parse(deliveryString));
-      setPaymentMethod(JSON.parse(localStorage.getItem("paymentMethod")!))
-      setSubscribe(JSON.parse(localStorage.getItem("subscribe")!))
-      setNotes(JSON.parse(localStorage.getItem("notes")!))
-      setAgrees(JSON.parse(localStorage.getItem("agrees")!))
+      setPaymentMethod(JSON.parse(localStorage.getItem("paymentMethod")!));
+      setSubscribe(JSON.parse(localStorage.getItem("subscribe")!));
+      setNotes(JSON.parse(localStorage.getItem("notes")!));
+      setAgrees(JSON.parse(localStorage.getItem("agrees")!));
     }
   }, []);
 

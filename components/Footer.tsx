@@ -60,7 +60,7 @@ function Footer() {
             className="hover:text-secondary1 leading-6 uppercase transition-colors duration-200"
             href={`${cro ? "/hr" : ""}/o-nas`}
           >
-            {cro ? "O name" : "O nas"}
+            {cro ? "O nama" : "O nas"}
           </Link>
           <Link
             className="hover:text-secondary1 leading-6 uppercase transition-colors duration-200"

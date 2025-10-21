@@ -1,6 +1,6 @@
 import PageHeader from "@/components/PageHeader";
-import CookieText from "@/components/pogoji-poslovanja/CookieText";
-import Text from "@/components/pogoji-poslovanja/Text";
+import CookieText from "@/components/hr/pogoji-poslovanja/CookieText";
+import Text from "@/components/hr/pogoji-poslovanja/Text";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 

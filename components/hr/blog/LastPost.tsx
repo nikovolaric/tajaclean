@@ -6,7 +6,7 @@ import LinkBtn from "@/components/LinkBtn";
 async function LastPost({
   post,
 }: {
-  post: { coverImg: string; slug: string; html: string; title: string };
+  post: { coverImg: string; slug: string; html_hr: string; title_hr: string };
 }) {
   const supabase = await createClient();
 
@@ -23,13 +23,13 @@ async function LastPost({
           className="h-auto max-h-85 w-full object-cover"
         />
         <div className="flex flex-col gap-6 lg:gap-10">
-          <H3 className="text-xl">{post.title}</H3>
-          <p>
-            {post.html
-              .split("<p>")[1]
-              .replaceAll("<br>", "")
-              .replaceAll("</p>", "")}
-          </p>
+          <H3 className="text-xl">{post.title_hr}</H3>
+          <p
+            dangerouslySetInnerHTML={{
+              __html: post.html_hr.match(/<p>(.*?)<\/p>/)?.[1] || "",
+            }}
+          />
+
           <LinkBtn variant="secondary" href={`/hr/blog/${post.slug}`}>
             Pročitaj više
           </LinkBtn>

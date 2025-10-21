@@ -9,13 +9,13 @@ export const metadata: Metadata = {
 };
 
 async function Page() {
-  const data = await getAllBlogPosts();
+  const data = await getAllBlogPosts({ hr: true });
 
   type BlogPost = {
     coverImg: string;
     slug: string;
-    html: string;
-    title: string;
+    html_hr: string;
+    title_hr: string;
   };
 
   if (!data) {

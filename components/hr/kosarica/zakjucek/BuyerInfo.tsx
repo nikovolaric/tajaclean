@@ -3,9 +3,14 @@
 import { useCartContext } from "@/components/kosarica/CartContextProvider";
 import { Input } from "@/components/Input";
 import { H2 } from "@/components/Text";
+import { useEffect } from "react";
 
 function BuyerInfo() {
   const { buyer, setBuyer } = useCartContext();
+
+  useEffect(function () {
+    setBuyer({ ...buyer, country: "Slovenija" });
+  }, []);
 
   return (
     <div className="flex flex-col gap-10 xl:w-3/4">
@@ -62,24 +67,6 @@ function BuyerInfo() {
           />
         </div>
         <div>
-          <label>Naziv tvrtke (nije obavezno)</label>
-          <Input
-            placeholder="Unesite naziv tvrtke"
-            name="company"
-            onChange={(e) => setBuyer({ ...buyer, company: e.target.value })}
-            defaultValue={buyer.company}
-          />
-        </div>
-        <div>
-          <label>PDV ID broj (nije obavezno)</label>
-          <Input
-            placeholder="Unesite PDV identifikacijski broj"
-            name="taxNo"
-            onChange={(e) => setBuyer({ ...buyer, taxNo: e.target.value })}
-            defaultValue={buyer.taxNo}
-          />
-        </div>
-        <div>
           <label>
             Ulica i kućni broj
             <span className="text-alert font-medium">*</span>
@@ -125,7 +112,7 @@ function BuyerInfo() {
             placeholder="Hrvatska"
             value="Hrvatska"
             name="country"
-            onChange={(e) => setBuyer({ ...buyer, country: e.target.value })}
+            disabled
           />
         </div>
       </form>

@@ -73,8 +73,19 @@ export async function createOrder({
     );
 
     function generateTotalPrice() {
-      if (paymentMethod === "povzetje" && total < 40) {
+      if (
+        paymentMethod === "povzetje" &&
+        total < 40 &&
+        delivery.country === "Slovenija"
+      ) {
         return total + 5.5;
+      }
+      if (
+        paymentMethod === "povzetje" &&
+        total < 40 &&
+        delivery.country === "Hrvatska"
+      ) {
+        return total + 3.9;
       }
       if (paymentMethod !== "povzetje" && total < 40) {
         return total + 3.2;
@@ -83,8 +94,19 @@ export async function createOrder({
     }
 
     function generateDelivery() {
-      if (paymentMethod === "povzetje" && total < 40) {
+      if (
+        paymentMethod === "povzetje" &&
+        total < 40 &&
+        delivery.country === "Slovenija"
+      ) {
         return 5.5;
+      }
+      if (
+        paymentMethod === "povzetje" &&
+        total < 40 &&
+        delivery.country === "Hrvatska"
+      ) {
+        return 3.9;
       }
       if (paymentMethod !== "povzetje" && total < 40) {
         return 3.2;

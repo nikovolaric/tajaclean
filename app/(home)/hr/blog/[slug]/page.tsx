@@ -13,7 +13,7 @@ export async function generateMetadata({
 
   const data = await getOnePost({ slug });
 
-  return { title: data.title };
+  return { title: data.title_hr };
 }
 
 async function Page({ params }: { params: Promise<{ slug: string }> }) {
@@ -25,15 +25,15 @@ async function Page({ params }: { params: Promise<{ slug: string }> }) {
     <>
       <PageHeader />
       <div className="mt-25 flex flex-col gap-10 lg:mt-30 lg:gap-14">
-        <H2>{data.title}</H2>
+        <H2>{data.title_hr}</H2>
         <div
           dangerouslySetInnerHTML={{
-            __html: data.html.replaceAll("<p></p>", "<br/>"),
+            __html: data.html_hr.replaceAll("<p></p>", "<br/>"),
           }}
           className="editor"
         />
         <LinkBtn variant="primary" href="/hr/blog" className="self-center">
-          Nazaj na vse objave
+          Natrag na sve objave
         </LinkBtn>
       </div>
     </>
